@@ -1,0 +1,33 @@
+.search-single {
+    display: block;
+    &__form {
+        display: flex;
+        width: 100%;
+        padding: 80px 30px;
+        &--container {
+            display: block;
+            text-align-last: center;
+        }
+    }
+    &__wrapper-colums {
+        display: flex;
+    }
+    &__wrapper-button {
+        padding-top: 50px;
+    }
+    &__column {
+        height: 30px;
+        margin-right: 30px;
+    }
+    &__table {
+        padding: 50px 30px;
+    }
+    &__table-column {
+        padding-right: 50px;
+    }
+    &__table-header {
+        height: 40px;
+        background: grey;
+        font-weight: 700;
+    }
+}

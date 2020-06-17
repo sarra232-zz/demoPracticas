@@ -1,0 +1,10 @@
+.select {
+    display: grid;
+    align-items: baseline;
+    &__field {
+        border-radius: 4px;
+        margin-left: 4px;
+        height: 30px;
+        border: solid 1.5px;
+    }
+}

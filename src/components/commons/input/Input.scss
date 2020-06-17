@@ -1,0 +1,10 @@
+.input {
+    display: grid;
+    align-items: center;
+    &__field {
+        border-radius: 4px;
+        margin-left: 4px;
+        height: 25px;
+        border: solid 1.5px;
+    }
+}

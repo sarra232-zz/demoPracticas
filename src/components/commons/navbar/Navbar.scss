@@ -1,0 +1,22 @@
+.navbar {
+    background-color: whitesmoke;
+    color: black;
+    position: sticky;
+    top: 0;
+    height: 50px;
+    border-bottom: solid 1px black;
+    &__config-bar {
+        display: flex;
+        align-items: center;
+    }
+    &__config-section {
+        align-self: center;
+        padding-right: 50px;
+    }
+    &__confi-icon {
+        padding-left: 20px;
+        padding-right: 30px;
+        font-size: 30px;
+        font-weight: 600;
+    }
+}

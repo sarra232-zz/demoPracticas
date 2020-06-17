@@ -1,0 +1,12 @@
+.button {
+    &__href-style {
+        text-decoration: none;
+        color: black;
+    }
+    &__butons {
+        height: 30px;
+        width: 90px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+}
