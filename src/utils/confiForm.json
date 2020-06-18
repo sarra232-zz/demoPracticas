@@ -46,7 +46,7 @@
         "APPSFLYER": {
             "hasChild": true,
             "child": {
-                "APP PERSONAS": {
+                "BANCOLOMBIA APP PERSONAS": {
                     "hasChild": false
                 },
                 "PYME": {

@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import React from 'react';
 import {connect} from 'react-redux';
-import {compose} from 'recompose';
+import {compose, withPropsOnChange} from 'recompose';
 import {reduxForm, Field} from 'redux-form';
 import Input from '../../components/commons/input/Input';
 import Select from '../../components/commons/select/Select';
@@ -31,6 +31,21 @@ class SearchSingle extends React.Component {
           >
             <div className="search-single__form--container">
               <div className="search-single__wrapper-colums">
+                <div className="search-single__column">
+                  <Field
+                    id="time"
+                    name="time"
+                    label={'Select range of time'}
+                    component={Select}
+                  >
+                    <option value="">Select a date</option>
+                    {calendar.map((cal) => (
+                      <option key={cal.time} value={cal.value}>
+                        {cal.value}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
                 <div className="search-single__column">
                   <Field
                     id="typeIndentifiers"
@@ -63,6 +78,8 @@ class SearchSingle extends React.Component {
                     name="platform"
                     label={'Platform'}
                     placeholder={'Select plataforms'}
+                    multi
+                    props
                     component={DropDown}
                     options={[
                       {
@@ -78,12 +95,15 @@ class SearchSingle extends React.Component {
                 </div>
 
                 <div className="search-single__column">
-                  {console.log(channelsAppsFlyer(filtersSearch)[0])}
                   <Field
+                    isMulti={true}
                     id="appsflyer"
                     name="appsflyer"
                     label={'Appsflyer'}
-                    placeholder={'Select plataforms'}
+                    field
+                    placeholder={'Select channel'}
+                    multi
+                    props
                     component={DropDown}
                     options={[
                       {
@@ -95,8 +115,8 @@ class SearchSingle extends React.Component {
                         value: channelsAppsFlyer(filtersSearch)[1],
                       },
                       {
-                        label: channelsAppsFlyer(filtersSearch)[2],
-                        value: channelsAppsFlyer(filtersSearch)[2],
+                        key: channelsAppsFlyer(filtersSearch)[2],
+                        cat: channelsAppsFlyer(filtersSearch)[2],
                       },
                     ]}
                   />
@@ -108,6 +128,8 @@ class SearchSingle extends React.Component {
                     label={'Google Analytics'}
                     placeholder={'Select plataforms'}
                     component={DropDown}
+                    multi
+                    props
                     options={[
                       {
                         label: channelsGoogleAnalytics(filtersSearch)[0],
@@ -123,6 +145,8 @@ class SearchSingle extends React.Component {
                     label={'web'}
                     placeholder={'select a option'}
                     component={DropDown}
+                    multi
+                    props
                     options={[
                       {
                         label: googleAnalyticsWeb(filtersSearch)[0],
@@ -146,21 +170,6 @@ class SearchSingle extends React.Component {
                       },
                     ]}
                   />
-                </div>
-                <div className="search-single__column">
-                  <Field
-                    id="time"
-                    name="time"
-                    label={'Select range of time'}
-                    component={Select}
-                  >
-                    <option value="">Select a date</option>
-                    {calendar.map((cal) => (
-                      <option key={cal.time} value={cal.value}>
-                        {cal.value}
-                      </option>
-                    ))}
-                  </Field>
                 </div>
               </div>
               <div className="search-single__wrapper-button">
@@ -198,6 +207,7 @@ const EnhanceSingletForm = reduxForm({
   onSubmit: (values, props) => {
     const request = utilFormSingle(values, props);
     console.log(request);
+    console.log('Prueba valores: ', values);
   },
 });
 

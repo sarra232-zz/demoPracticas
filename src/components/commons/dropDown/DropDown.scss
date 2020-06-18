@@ -22,3 +22,59 @@
 .panel-content {
     min-height: 200px;
 }
+
+.css-yk16xz-control {
+    align-self: self-start;
+    display: grid;
+    align-items: baseline;
+}
+
+.css-g1d714-ValueContainer {
+    align-self: self-start;
+}
+
+.basic-single {
+    display: grid;
+    align-items: baseline;
+}
+
+.select {
+    display: grid;
+    align-items: baseline;
+    &__control {
+        display: grid;
+        align-items: baseline;
+        border-radius: 4px;
+        margin-left: 4px;
+        height: 30px;
+        border: solid 1.5px;
+    }
+    &__value-container {
+        display: grid;
+        align-items: baseline;
+        border-radius: 4px;
+        margin-left: 4px;
+        height: 30px;
+        border: solid 1.5px;
+    }
+    &__placeholder {
+        display: grid;
+        align-items: baseline;
+        border-radius: 4px;
+        margin-left: 4px;
+        height: 30px;
+        border: solid 1.5px;
+    }
+    &__menu {
+        margin: 0.125rem auto;
+    }
+    &__option {
+        background-color: white;
+        &--is-focused {
+            background-color: lightblue;
+        }
+    }
+    &__group {
+        padding: 0;
+    }
+}
