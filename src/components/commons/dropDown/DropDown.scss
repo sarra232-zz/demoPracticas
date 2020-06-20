@@ -1,80 +1,22 @@
 .drop-down {
     display: grid;
     align-items: center;
+    &__label {
+        padding-bottom: 5px;
+    }
+    &__error {
+        color: red;
+        font-size: 14px;
+    }
 }
 
-.go3433208811.dropdown-container {
-    width: 200px;
-    border-radius: 4px;
-    height: 30px;
-    border: solid 1.5px;
-    margin-left: 4px;
-}
-
-.go4079732705 .gray {
-    align-self: self-start;
-}
-
-.dropdown-heading-value {
-    margin-top: 10px;
-}
-
-.panel-content {
-    min-height: 200px;
-}
-
-.css-yk16xz-control {
-    align-self: self-start;
-    display: grid;
-    align-items: baseline;
-}
-
-.css-g1d714-ValueContainer {
-    align-self: self-start;
-}
-
-.basic-single {
-    display: grid;
-    align-items: baseline;
-}
-
-.select {
-    display: grid;
-    align-items: baseline;
-    &__control {
-        display: grid;
-        align-items: baseline;
-        border-radius: 4px;
-        margin-left: 4px;
+.css-2b097c-container {
+    width: 300px;
+    height: auto;
+    .css-yk16xz-control {
+        border: solid gray 0.5px;
+    }
+    .css-26l3qy-menu {
         height: 30px;
-        border: solid 1.5px;
-    }
-    &__value-container {
-        display: grid;
-        align-items: baseline;
-        border-radius: 4px;
-        margin-left: 4px;
-        height: 30px;
-        border: solid 1.5px;
-    }
-    &__placeholder {
-        display: grid;
-        align-items: baseline;
-        border-radius: 4px;
-        margin-left: 4px;
-        height: 30px;
-        border: solid 1.5px;
-    }
-    &__menu {
-        margin: 0.125rem auto;
-    }
-    &__option {
-        background-color: white;
-        &--is-focused {
-            background-color: lightblue;
-        }
-    }
-    &__group {
-        padding: 0;
     }
 }

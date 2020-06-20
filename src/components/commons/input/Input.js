@@ -12,15 +12,15 @@ const Input = ({
 }) => {
   return (
     <div className="input">
-      <label>{label}</label>
+      <label className="input__label">{label}</label>
       <input
         className="input__field"
         {...input}
         id={id}
         placeholder={placeholder}
         type={type}
-      ></input>
-      {touched && error && <span>{error}</span>}
+      />
+      {touched && error && <span className="input__error">{error}</span>}
     </div>
   );
 };

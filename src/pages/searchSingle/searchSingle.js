@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import React from 'react';
 import {connect} from 'react-redux';
-import {compose, withPropsOnChange} from 'recompose';
+import {compose} from 'recompose';
 import {reduxForm, Field} from 'redux-form';
 import Input from '../../components/commons/input/Input';
 import Select from '../../components/commons/select/Select';
@@ -19,7 +19,16 @@ import {
 import './searchSingle.scss';
 
 class SearchSingle extends React.Component {
-  render() {
+  constructor (props) {
+    super (props);
+    this.state = {advanceSearch: false};
+  }
+
+  advanceClick = () => {
+    this.setState ({advanceSearch: !this.state.advanceSearch});
+  };
+
+  render () {
     const {filtersSearch, handleSubmit} = this.props;
     return (
       <div className="search-single">
@@ -30,150 +39,206 @@ class SearchSingle extends React.Component {
             onSubmit={handleSubmit}
           >
             <div className="search-single__form--container">
-              <div className="search-single__wrapper-colums">
-                <div className="search-single__column">
-                  <Field
-                    id="time"
-                    name="time"
-                    label={'Select range of time'}
-                    component={Select}
-                  >
-                    <option value="">Select a date</option>
-                    {calendar.map((cal) => (
-                      <option key={cal.time} value={cal.value}>
-                        {cal.value}
-                      </option>
-                    ))}
-                  </Field>
+              <div>
+                <div className="search-single__wrapper-colums-standard">
+                  <div className="search-single__column">
+                    <Field
+                      id="time"
+                      name="time"
+                      label={'Select range of time'}
+                      component={Select}
+                    >
+                      <option value="">Select a date</option>
+                      {calendar.map (cal => (
+                        <option key={cal.time} value={cal.value}>
+                          {cal.value}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="search-single__column">
+                    <Field
+                      id="typeIndentifiers"
+                      name="typeIndentifiers"
+                      label={'Type Indentifiers'}
+                      placeholder={'select a option'}
+                      component={Select}
+                    >
+                      <option value="">Select a option</option>
+                      {filtersSearch.identifiers.primary.map (type => (
+                        <option key={type.type} value={type.type}>
+                          {type.type.toLocaleLowerCase ()}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="search-single__column">
+                    <Field
+                      id="identifier"
+                      name="identifier"
+                      label={'identifier'}
+                      type="text"
+                      placeholder={'Enter a identifier'}
+                      component={Input}
+                    />
+                  </div>
                 </div>
-                <div className="search-single__column">
-                  <Field
-                    id="typeIndentifiers"
-                    name="typeIndentifiers"
-                    label={'Type Indentifiers'}
-                    placeholder={'select a option'}
-                    component={Select}
-                  >
-                    <option value="">Select a option</option>
-                    {filtersSearch.identifiers.primary.map((type) => (
-                      <option key={type.type} value={type.type}>
-                        {type.type}
-                      </option>
-                    ))}
-                  </Field>
-                </div>
-                <div className="search-single__column">
-                  <Field
-                    id="identifier"
-                    name="identifier"
-                    label={'identifier'}
-                    type="text"
-                    placeholder={'Enter a identifier'}
-                    component={Input}
-                  />
-                </div>
-                <div className="search-single__column">
-                  <Field
-                    id="platform"
-                    name="platform"
-                    label={'Platform'}
-                    placeholder={'Select plataforms'}
-                    multi
-                    props
-                    component={DropDown}
-                    options={[
-                      {
-                        label: platform(filtersSearch)[0].toLocaleLowerCase(),
-                        value: platform(filtersSearch)[0],
-                      },
-                      {
-                        label: platform(filtersSearch)[1],
-                        value: platform(filtersSearch)[1],
-                      },
-                    ]}
-                  />
-                </div>
+                {this.state.advanceSearch &&
+                  <div className="search-single__wrapper-colums-standard">
+                    <div className="search-single__column">
+                      <Field
+                        id="platform"
+                        name="platform"
+                        label={'Platform'}
+                        placeholder={'Select plataforms'}
+                        isMulti={true}
+                        multi
+                        props
+                        field
+                        options={[
+                          {
+                            label: platform (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                            value: platform (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                          },
+                          {
+                            label: platform (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                            value: platform (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
 
-                <div className="search-single__column">
-                  <Field
-                    isMulti={true}
-                    id="appsflyer"
-                    name="appsflyer"
-                    label={'Appsflyer'}
-                    field
-                    placeholder={'Select channel'}
-                    multi
-                    props
-                    component={DropDown}
-                    options={[
-                      {
-                        label: channelsAppsFlyer(filtersSearch)[0],
-                        value: channelsAppsFlyer(filtersSearch)[0],
-                      },
-                      {
-                        label: channelsAppsFlyer(filtersSearch)[1],
-                        value: channelsAppsFlyer(filtersSearch)[1],
-                      },
-                      {
-                        key: channelsAppsFlyer(filtersSearch)[2],
-                        cat: channelsAppsFlyer(filtersSearch)[2],
-                      },
-                    ]}
-                  />
-                </div>
-                <div className="search-single__column">
-                  <Field
-                    id="googleanalytics"
-                    name="googleanalytics"
-                    label={'Google Analytics'}
-                    placeholder={'Select plataforms'}
-                    component={DropDown}
-                    multi
-                    props
-                    options={[
-                      {
-                        label: channelsGoogleAnalytics(filtersSearch)[0],
-                        value: channelsGoogleAnalytics(filtersSearch)[0],
-                      },
-                    ]}
-                  />
-                </div>
-                <div className="search-single__column">
-                  <Field
-                    id="web"
-                    name="web"
-                    label={'web'}
-                    placeholder={'select a option'}
-                    component={DropDown}
-                    multi
-                    props
-                    options={[
-                      {
-                        label: googleAnalyticsWeb(filtersSearch)[0],
-                        value: googleAnalyticsWeb(filtersSearch)[0],
-                      },
-                      {
-                        label: googleAnalyticsWeb(filtersSearch)[1],
-                        value: googleAnalyticsWeb(filtersSearch)[1],
-                      },
-                      {
-                        label: googleAnalyticsWeb(filtersSearch)[2],
-                        value: googleAnalyticsWeb(filtersSearch)[2],
-                      },
-                      {
-                        label: googleAnalyticsWeb(filtersSearch)[3],
-                        value: googleAnalyticsWeb(filtersSearch)[3],
-                      },
-                      {
-                        label: googleAnalyticsWeb(filtersSearch)[4],
-                        value: googleAnalyticsWeb(filtersSearch)[4],
-                      },
-                    ]}
-                  />
-                </div>
+                    <div className="search-single__column">
+                      <Field
+                        id="appsflyer"
+                        name="appsflyer"
+                        label={'Appsflyer'}
+                        placeholder={'Select channel'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: channelsAppsFlyer (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                            value: channelsAppsFlyer (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                          },
+                          {
+                            label: channelsAppsFlyer (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                            value: channelsAppsFlyer (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                          },
+                          {
+                            key: channelsAppsFlyer (
+                              filtersSearch
+                            )[2].toLocaleLowerCase (),
+                            value: channelsAppsFlyer (
+                              filtersSearch
+                            )[2].toLocaleLowerCase (),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                    <div className="search-single__column">
+                      <Field
+                        id="googleanalytics"
+                        name="googleanalytics"
+                        label={'Google Analytics'}
+                        placeholder={'Select plataforms'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: channelsGoogleAnalytics (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                            value: channelsGoogleAnalytics (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                    <div className="search-single__column">
+                      <Field
+                        id="web"
+                        name="web"
+                        label={'web'}
+                        placeholder={'select a option'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: googleAnalyticsWeb (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                            value: googleAnalyticsWeb (
+                              filtersSearch
+                            )[0].toLocaleLowerCase (),
+                          },
+                          {
+                            label: googleAnalyticsWeb (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                            value: googleAnalyticsWeb (
+                              filtersSearch
+                            )[1].toLocaleLowerCase (),
+                          },
+                          {
+                            label: googleAnalyticsWeb (
+                              filtersSearch
+                            )[2].toLocaleLowerCase (),
+                            value: googleAnalyticsWeb (
+                              filtersSearch
+                            )[2].toLocaleLowerCase (),
+                          },
+                          {
+                            label: googleAnalyticsWeb (
+                              filtersSearch
+                            )[3].toLocaleLowerCase (),
+                            value: googleAnalyticsWeb (
+                              filtersSearch
+                            )[3].toLocaleLowerCase (),
+                          },
+                          {
+                            label: googleAnalyticsWeb (
+                              filtersSearch
+                            )[4].toLocaleLowerCase (),
+                            value: googleAnalyticsWeb (
+                              filtersSearch
+                            )[4].toLocaleLowerCase (),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                  </div>}
               </div>
               <div className="search-single__wrapper-button">
-                <Button children={'Seach'}></Button>
+                <Button children={'Seach'} />
+                <Button
+                  children={`Advanced search ${this.state.advanceSearch ? '-' : '+'}`}
+                  onclick={this.advanceClick}
+                />
               </div>
             </div>
           </form>
@@ -201,22 +266,21 @@ class SearchSingle extends React.Component {
   }
 }
 
-const EnhanceSingletForm = reduxForm({
+const EnhanceSingletForm = reduxForm ({
   form: 'searchSingleForm',
   validate,
   onSubmit: (values, props) => {
-    const request = utilFormSingle(values, props);
-    console.log(request);
-    console.log('Prueba valores: ', values);
+    const request = utilFormSingle (values, props);
+    console.log (request);
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   filtersSearch: state.filterSearchs,
 });
 
 const mapDispatchToProps = {};
 
-const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
+const connectEnhace = connect (mapStateToProps, mapDispatchToProps);
 
-export default compose(connectEnhace, EnhanceSingletForm)(SearchSingle);
+export default compose (connectEnhace, EnhanceSingletForm) (SearchSingle);

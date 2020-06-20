@@ -9,11 +9,12 @@
             text-align-last: center;
         }
     }
-    &__wrapper-colums {
+    &__wrapper-colums-standard {
+        height: 100px;
         display: flex;
     }
     &__wrapper-button {
-        padding-top: 50px;
+        display: flex;
     }
     &__column {
         height: 30px;

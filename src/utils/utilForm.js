@@ -92,6 +92,17 @@ const utilFormGroup = (values, props) => {
   };
 };
 
+const answerSingerForm = ( typeIndentifiers,
+  identifier,
+  platform,
+  googleanalytics,
+  appsflyer,
+  web,
+  time) => {
+    global: typeIndentifiers,
+    
+}
+
 export {
   platform,
   channelsGoogleAnalytics,

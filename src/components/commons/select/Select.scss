@@ -4,7 +4,17 @@
     &__field {
         border-radius: 4px;
         margin-left: 4px;
-        height: 30px;
-        border: solid 1.5px;
+        height: 35px;
+        border: solid gray 0.5px;
+    }
+    &__label {
+        margin-bottom: 5px;
+    }
+    &__place-holder {
+        color: gray;
+    }
+    &__error {
+        color: red;
+        font-size: 14px;
     }
 }

@@ -12,11 +12,11 @@ const Select = ({
 }) => {
   return (
     <div className="selected">
-      <label htmlFor={id}>{label}</label>
+      <label className="selected__label" htmlFor={id}>{label}</label>
       <select className="selected__field" {...input} id={id}>
         {children}
       </select>
-      {touched && error && <span>{error}</span>}
+      {touched && error && <span className="selected__error">{error}</span>}
     </div>
   );
 };
