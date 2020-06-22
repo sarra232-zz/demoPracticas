@@ -15,20 +15,26 @@ import {
   channelsAppsFlyer,
   calendar,
   utilFormSingle,
+  apiKey,
 } from '../../utils/utilForm';
+import {getConfigurationInfoRequest} from '../../actions/configurationInfo';
 import './searchSingle.scss';
 
 class SearchSingle extends React.Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {advanceSearch: false};
   }
 
+  componentDidMount() {
+    this.props.configInfo(apiKey);
+  }
+
   advanceClick = () => {
-    this.setState ({advanceSearch: !this.state.advanceSearch});
+    this.setState({advanceSearch: !this.state.advanceSearch});
   };
 
-  render () {
+  render() {
     const {filtersSearch, handleSubmit} = this.props;
     return (
       <div className="search-single">
@@ -49,7 +55,7 @@ class SearchSingle extends React.Component {
                       component={Select}
                     >
                       <option value="">Select a date</option>
-                      {calendar.map (cal => (
+                      {calendar.map((cal) => (
                         <option key={cal.time} value={cal.value}>
                           {cal.value}
                         </option>
@@ -65,9 +71,9 @@ class SearchSingle extends React.Component {
                       component={Select}
                     >
                       <option value="">Select a option</option>
-                      {filtersSearch.identifiers.primary.map (type => (
+                      {filtersSearch.identifiers.primary.map((type) => (
                         <option key={type.type} value={type.type}>
-                          {type.type.toLocaleLowerCase ()}
+                          {type.type.toLocaleLowerCase()}
                         </option>
                       ))}
                     </Field>
@@ -83,7 +89,7 @@ class SearchSingle extends React.Component {
                     />
                   </div>
                 </div>
-                {this.state.advanceSearch &&
+                {this.state.advanceSearch && (
                   <div className="search-single__wrapper-colums-standard">
                     <div className="search-single__column">
                       <Field
@@ -97,20 +103,20 @@ class SearchSingle extends React.Component {
                         field
                         options={[
                           {
-                            label: platform (
+                            label: platform(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
-                            value: platform (
+                            )[0].toLocaleLowerCase(),
+                            value: platform(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
+                            )[0].toLocaleLowerCase(),
                           },
                           {
-                            label: platform (
+                            label: platform(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
-                            value: platform (
+                            )[1].toLocaleLowerCase(),
+                            value: platform(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
+                            )[1].toLocaleLowerCase(),
                           },
                         ]}
                         component={DropDown}
@@ -128,28 +134,28 @@ class SearchSingle extends React.Component {
                         props
                         options={[
                           {
-                            label: channelsAppsFlyer (
+                            label: channelsAppsFlyer(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
-                            value: channelsAppsFlyer (
+                            )[0].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
+                            )[0].toLocaleLowerCase(),
                           },
                           {
-                            label: channelsAppsFlyer (
+                            label: channelsAppsFlyer(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
-                            value: channelsAppsFlyer (
+                            )[1].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
+                            )[1].toLocaleLowerCase(),
                           },
                           {
-                            key: channelsAppsFlyer (
+                            key: channelsAppsFlyer(
                               filtersSearch
-                            )[2].toLocaleLowerCase (),
-                            value: channelsAppsFlyer (
+                            )[2].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
                               filtersSearch
-                            )[2].toLocaleLowerCase (),
+                            )[2].toLocaleLowerCase(),
                           },
                         ]}
                         component={DropDown}
@@ -166,12 +172,12 @@ class SearchSingle extends React.Component {
                         props
                         options={[
                           {
-                            label: channelsGoogleAnalytics (
+                            label: channelsGoogleAnalytics(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
-                            value: channelsGoogleAnalytics (
+                            )[0].toLocaleLowerCase(),
+                            value: channelsGoogleAnalytics(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
+                            )[0].toLocaleLowerCase(),
                           },
                         ]}
                         component={DropDown}
@@ -188,55 +194,58 @@ class SearchSingle extends React.Component {
                         props
                         options={[
                           {
-                            label: googleAnalyticsWeb (
+                            label: googleAnalyticsWeb(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
-                            value: googleAnalyticsWeb (
+                            )[0].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
                               filtersSearch
-                            )[0].toLocaleLowerCase (),
+                            )[0].toLocaleLowerCase(),
                           },
                           {
-                            label: googleAnalyticsWeb (
+                            label: googleAnalyticsWeb(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
-                            value: googleAnalyticsWeb (
+                            )[1].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
                               filtersSearch
-                            )[1].toLocaleLowerCase (),
+                            )[1].toLocaleLowerCase(),
                           },
                           {
-                            label: googleAnalyticsWeb (
+                            label: googleAnalyticsWeb(
                               filtersSearch
-                            )[2].toLocaleLowerCase (),
-                            value: googleAnalyticsWeb (
+                            )[2].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
                               filtersSearch
-                            )[2].toLocaleLowerCase (),
+                            )[2].toLocaleLowerCase(),
                           },
                           {
-                            label: googleAnalyticsWeb (
+                            label: googleAnalyticsWeb(
                               filtersSearch
-                            )[3].toLocaleLowerCase (),
-                            value: googleAnalyticsWeb (
+                            )[3].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
                               filtersSearch
-                            )[3].toLocaleLowerCase (),
+                            )[3].toLocaleLowerCase(),
                           },
                           {
-                            label: googleAnalyticsWeb (
+                            label: googleAnalyticsWeb(
                               filtersSearch
-                            )[4].toLocaleLowerCase (),
-                            value: googleAnalyticsWeb (
+                            )[4].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
                               filtersSearch
-                            )[4].toLocaleLowerCase (),
+                            )[4].toLocaleLowerCase(),
                           },
                         ]}
                         component={DropDown}
                       />
                     </div>
-                  </div>}
+                  </div>
+                )}
               </div>
               <div className="search-single__wrapper-button">
                 <Button children={'Seach'} />
                 <Button
-                  children={`Advanced search ${this.state.advanceSearch ? '-' : '+'}`}
+                  children={`Advanced search ${
+                    this.state.advanceSearch ? '-' : '+'
+                  }`}
                   onclick={this.advanceClick}
                 />
               </div>
@@ -266,21 +275,23 @@ class SearchSingle extends React.Component {
   }
 }
 
-const EnhanceSingletForm = reduxForm ({
+const EnhanceSingletForm = reduxForm({
   form: 'searchSingleForm',
   validate,
   onSubmit: (values, props) => {
-    const request = utilFormSingle (values, props);
-    console.log (request);
+    const request = utilFormSingle(values, props);
+    console.log(request);
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   filtersSearch: state.filterSearchs,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  configInfo: getConfigurationInfoRequest,
+};
 
-const connectEnhace = connect (mapStateToProps, mapDispatchToProps);
+const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose (connectEnhace, EnhanceSingletForm) (SearchSingle);
+export default compose(connectEnhace, EnhanceSingletForm)(SearchSingle);

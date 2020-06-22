@@ -92,16 +92,17 @@ const utilFormGroup = (values, props) => {
   };
 };
 
-const answerSingerForm = ( typeIndentifiers,
-  identifier,
-  platform,
-  googleanalytics,
-  appsflyer,
-  web,
-  time) => {
-    global: typeIndentifiers,
-    
-}
+export const apiKey = 'nYzZgG77QT98NPRcBu5VV9wQoQzC7Q9433qdxBBc';
+
+// const answerSingerForm = ( typeIndentifiers,
+//   identifier,
+//   platform,
+//   googleanalytics,
+//   appsflyer,
+//   web,
+//   time) => {
+//     global: typeIndentifiers,
+// }
 
 export {
   platform,
