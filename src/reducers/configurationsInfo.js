@@ -8,6 +8,7 @@ import {
 } from '../types/configuration';
 
 const defaultState = Immutable({
+  // info:{},
   identifiers: {
     primary: {
       'GLOBAL-LLAVECLIENTE': {
@@ -163,6 +164,7 @@ export default function configInfo(state = defaultState, action = {}) {
   switch (action.type) {
     case GET_CONFIGURATION_SUCCESS:
       return state.merge({
+        // info: action.payload,
         info: defaultState,
         error: '',
         fetching: false,

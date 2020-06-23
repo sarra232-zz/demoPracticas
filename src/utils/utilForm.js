@@ -1,4 +1,10 @@
 /*jshint esversion: 6 */
+
+const getIdentifiers = (identifiers) => {
+  const id = Object.values(identifiers).map((x) => x.type);
+  return id;
+};
+
 const platform = (filters) => {
   const platform = Object.keys(filters.filters).map((type) => type);
 
@@ -34,11 +40,11 @@ const channelsAppsFlyer = (filters) => {
 const calendar = [
   {
     time: 'time',
-    value: '1 day',
+    value: '1 days',
   },
   {
     time: 'time',
-    value: '7 day',
+    value: '7 days',
   },
   {
     time: 'time',
@@ -46,11 +52,7 @@ const calendar = [
   },
   {
     time: 'time',
-    value: '1 mount',
-  },
-  {
-    time: 'time',
-    value: '3 mounts',
+    value: '30 days',
   },
 ];
 
@@ -65,13 +67,20 @@ const utilFormSingle = (values, props) => {
     time,
   } = values;
   return {
-    typeIndentifiers: typeIndentifiers,
-    identifier: identifier,
-    platform: platform,
-    googleanalytics: googleanalytics,
-    appsflyer: appsflyer,
-    web: web,
-    time: time,
+    range: {
+      days: '7',
+    },
+    identifier: {
+      scope: 'GLOBAL',
+      type: 'LLAVECLIENTE',
+      value: '970417100543000',
+    },
+    filters: {
+      portal: [],
+      platform: [],
+      eventCategory: [],
+      eventType: [],
+    },
   };
 };
 
@@ -105,6 +114,7 @@ export const apiKey = 'nYzZgG77QT98NPRcBu5VV9wQoQzC7Q9433qdxBBc';
 // }
 
 export {
+  getIdentifiers,
   platform,
   channelsGoogleAnalytics,
   googleAnalyticsWeb,

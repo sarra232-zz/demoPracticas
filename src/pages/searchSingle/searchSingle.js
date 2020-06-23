@@ -9,6 +9,7 @@ import DropDown from '../../components/commons/dropDown/DropDown';
 import Button from '../../components/commons/button/Button';
 import validate from '../../components/commons/formValidations/formValidations';
 import {
+  getIdentifiers,
   platform,
   channelsGoogleAnalytics,
   googleAnalyticsWeb,
@@ -18,6 +19,7 @@ import {
   apiKey,
 } from '../../utils/utilForm';
 import {getConfigurationInfoRequest} from '../../actions/configurationInfo';
+import {getFingerSearchRequest} from '../../actions/fingerSearch';
 import './searchSingle.scss';
 
 class SearchSingle extends React.Component {
@@ -28,6 +30,23 @@ class SearchSingle extends React.Component {
 
   componentDidMount() {
     this.props.configInfo(apiKey);
+    getIdentifiers(this.props.configurationInfo.identifiers.primary);
+    this.props.getFingerSearchRequest({
+      range: {
+        days: '7',
+      },
+      identifier: {
+        scope: 'GLOBAL',
+        type: 'LLAVECLIENTE',
+        value: '970417100543000',
+      },
+      filters: {
+        portal: [],
+        platform: [],
+        eventCategory: [],
+        eventType: [],
+      },
+    });
   }
 
   advanceClick = () => {
@@ -35,7 +54,7 @@ class SearchSingle extends React.Component {
   };
 
   render() {
-    const {filtersSearch, handleSubmit} = this.props;
+    const {configurationInfo, handleSubmit} = this.props;
     return (
       <div className="search-single">
         <article>
@@ -71,9 +90,11 @@ class SearchSingle extends React.Component {
                       component={Select}
                     >
                       <option value="">Select a option</option>
-                      {filtersSearch.identifiers.primary.map((type) => (
-                        <option key={type.type} value={type.type}>
-                          {type.type.toLocaleLowerCase()}
+                      {Object.values(
+                        getIdentifiers(configurationInfo.identifiers.primary)
+                      ).map((i) => (
+                        <option key={i} value={i}>
+                          {i.toLocaleLowerCase()}
                         </option>
                       ))}
                     </Field>
@@ -104,18 +125,18 @@ class SearchSingle extends React.Component {
                         options={[
                           {
                             label: platform(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                             value: platform(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                           },
                           {
                             label: platform(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                             value: platform(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                           },
                         ]}
@@ -135,26 +156,26 @@ class SearchSingle extends React.Component {
                         options={[
                           {
                             label: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                             value: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                           },
                           {
                             label: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                             value: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                           },
                           {
                             key: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[2].toLocaleLowerCase(),
                             value: channelsAppsFlyer(
-                              filtersSearch
+                              configurationInfo
                             )[2].toLocaleLowerCase(),
                           },
                         ]}
@@ -173,10 +194,10 @@ class SearchSingle extends React.Component {
                         options={[
                           {
                             label: channelsGoogleAnalytics(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                             value: channelsGoogleAnalytics(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                           },
                         ]}
@@ -195,42 +216,42 @@ class SearchSingle extends React.Component {
                         options={[
                           {
                             label: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                             value: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[0].toLocaleLowerCase(),
                           },
                           {
                             label: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                             value: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[1].toLocaleLowerCase(),
                           },
                           {
                             label: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[2].toLocaleLowerCase(),
                             value: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[2].toLocaleLowerCase(),
                           },
                           {
                             label: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[3].toLocaleLowerCase(),
                             value: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[3].toLocaleLowerCase(),
                           },
                           {
                             label: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[4].toLocaleLowerCase(),
                             value: googleAnalyticsWeb(
-                              filtersSearch
+                              configurationInfo
                             )[4].toLocaleLowerCase(),
                           },
                         ]}
@@ -280,16 +301,17 @@ const EnhanceSingletForm = reduxForm({
   validate,
   onSubmit: (values, props) => {
     const request = utilFormSingle(values, props);
-    console.log(request);
+    getFingerSearchRequest(request);
   },
 });
 
 const mapStateToProps = (state) => ({
-  filtersSearch: state.filterSearchs,
+  configurationInfo: state.configInfo,
 });
 
 const mapDispatchToProps = {
   configInfo: getConfigurationInfoRequest,
+  getFingerSearchRequest,
 };
 
 const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
