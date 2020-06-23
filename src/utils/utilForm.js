@@ -4,6 +4,7 @@ const getIdentifiers = (identifiers) => {
   const id = Object.values(identifiers).map((x) => ({
     scope: x.scope,
     type: x.type,
+    date: x.lastDate,
   }));
   return id;
 };
@@ -67,6 +68,29 @@ const formatDate = (value) => {
   return 1;
 };
 
+const validateDataForTypeIdentifier = (values) => {
+  const {typeIndentifiers, time} = values;
+  console.log('Prueba desde el cielo:', values);
+  const typeIdentifier = typeIndentifiers.split(',');
+
+  var d = new Date();
+  d.setDate(d.getDate() - formatDate(time));
+  var lastDate =
+    d.getFullYear() +
+    '-' +
+    ('0' + (d.getMonth() + 1)).slice(-2) +
+    '-' +
+    ('0' + d.getDate()).slice(-2);
+  console.log('Desde el cielo 2:', lastDate);
+  if (
+    typeIdentifier[1] === typeIdentifier[1] &&
+    typeIdentifier[2] >= lastDate
+  ) {
+    return true;
+  }
+  return false;
+};
+
 const utilFormSingle = (values, props) => {
   const {
     typeIndentifiers,
@@ -77,11 +101,9 @@ const utilFormSingle = (values, props) => {
     web,
     time,
   } = values;
+  const validatetime = validateDataForTypeIdentifier(values);
   const typeIdentifier = typeIndentifiers.split(',');
-  console.log(
-    'Google',
-    platform.map((i) => i.value)
-  );
+  console.log('Prueba desde la tierra', validatetime);
   return {
     range: {
       days: formatDate(time),
@@ -95,7 +117,7 @@ const utilFormSingle = (values, props) => {
       portal: [appsflyer.map((i) => i.value)],
       platform: [platform.map((i) => i.value)],
       eventCategory: [web.map((i) => i.value)],
-      eventType: [],
+      eventType: [googleanalytics.map((i) => i.value)],
     },
   };
 };

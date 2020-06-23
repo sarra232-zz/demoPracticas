@@ -93,7 +93,7 @@ class SearchSingle extends React.Component {
                       {Object.values(
                         getIdentifiers(configurationInfo.identifiers.primary)
                       ).map((i) => (
-                        <option key={i.type} value={[i.scope, i.type]}>
+                        <option key={i.type} value={[i.scope, i.type, i.date]}>
                           {i.type.toLocaleLowerCase()}
                         </option>
                       ))}
