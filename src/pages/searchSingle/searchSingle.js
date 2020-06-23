@@ -75,7 +75,7 @@ class SearchSingle extends React.Component {
                     >
                       <option value="">Select a date</option>
                       {calendar.map((cal) => (
-                        <option key={cal.time} value={cal.value}>
+                        <option key={cal.value} value={cal.value}>
                           {cal.value}
                         </option>
                       ))}
@@ -93,8 +93,8 @@ class SearchSingle extends React.Component {
                       {Object.values(
                         getIdentifiers(configurationInfo.identifiers.primary)
                       ).map((i) => (
-                        <option key={i} value={i}>
-                          {i.toLocaleLowerCase()}
+                        <option key={i.type} value={[i.scope, i.type]}>
+                          {i.type.toLocaleLowerCase()}
                         </option>
                       ))}
                     </Field>
@@ -301,6 +301,7 @@ const EnhanceSingletForm = reduxForm({
   validate,
   onSubmit: (values, props) => {
     const request = utilFormSingle(values, props);
+    console.log(request);
     getFingerSearchRequest(request);
   },
 });

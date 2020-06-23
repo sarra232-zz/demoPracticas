@@ -1,7 +1,10 @@
 /*jshint esversion: 6 */
 
 const getIdentifiers = (identifiers) => {
-  const id = Object.values(identifiers).map((x) => x.type);
+  const id = Object.values(identifiers).map((x) => ({
+    scope: x.scope,
+    type: x.type,
+  }));
   return id;
 };
 
@@ -40,7 +43,7 @@ const channelsAppsFlyer = (filters) => {
 const calendar = [
   {
     time: 'time',
-    value: '1 days',
+    value: '1 day',
   },
   {
     time: 'time',
@@ -56,6 +59,14 @@ const calendar = [
   },
 ];
 
+const formatDate = (value) => {
+  if (value === '1 day') return 1;
+  if (value === '7 days') return 7;
+  if (value === '15 days') return 15;
+  if (value === '30 days') return 30;
+  return 1;
+};
+
 const utilFormSingle = (values, props) => {
   const {
     typeIndentifiers,
@@ -66,19 +77,24 @@ const utilFormSingle = (values, props) => {
     web,
     time,
   } = values;
+  const typeIdentifier = typeIndentifiers.split(',');
+  console.log(
+    'Google',
+    platform.map((i) => i.value)
+  );
   return {
     range: {
-      days: '7',
+      days: formatDate(time),
     },
     identifier: {
-      scope: 'GLOBAL',
-      type: 'LLAVECLIENTE',
-      value: '970417100543000',
+      scope: typeIdentifier[0],
+      type: typeIdentifier[1],
+      value: identifier,
     },
     filters: {
-      portal: [],
-      platform: [],
-      eventCategory: [],
+      portal: [appsflyer.map((i) => i.value)],
+      platform: [platform.map((i) => i.value)],
+      eventCategory: [web.map((i) => i.value)],
       eventType: [],
     },
   };
@@ -102,16 +118,6 @@ const utilFormGroup = (values, props) => {
 };
 
 export const apiKey = 'nYzZgG77QT98NPRcBu5VV9wQoQzC7Q9433qdxBBc';
-
-// const answerSingerForm = ( typeIndentifiers,
-//   identifier,
-//   platform,
-//   googleanalytics,
-//   appsflyer,
-//   web,
-//   time) => {
-//     global: typeIndentifiers,
-// }
 
 export {
   getIdentifiers,
