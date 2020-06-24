@@ -162,7 +162,6 @@ const EnhanceSingletForm = reduxForm({
   validate,
   onSubmit: (values, props) => {
     const request = utilFormGroup(values, props);
-    console.log(request);
   },
 });
 

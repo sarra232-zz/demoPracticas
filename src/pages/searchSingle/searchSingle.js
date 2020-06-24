@@ -31,22 +31,6 @@ class SearchSingle extends React.Component {
   componentDidMount() {
     this.props.configInfo(apiKey);
     getIdentifiers(this.props.configurationInfo.identifiers.primary);
-    this.props.getFingerSearchRequest({
-      range: {
-        days: '7',
-      },
-      identifier: {
-        scope: 'GLOBAL',
-        type: 'LLAVECLIENTE',
-        value: '970417100543000',
-      },
-      filters: {
-        portal: [],
-        platform: [],
-        eventCategory: [],
-        eventType: [],
-      },
-    });
   }
 
   advanceClick = () => {
@@ -299,10 +283,9 @@ class SearchSingle extends React.Component {
 const EnhanceSingletForm = reduxForm({
   form: 'searchSingleForm',
   validate,
-  onSubmit: (values, props) => {
-    const request = utilFormSingle(values, props);
-    console.log(request);
-    getFingerSearchRequest(request);
+  onSubmit: (values, dispatch) => {
+    const request = utilFormSingle(values);
+    return dispatch(getFingerSearchRequest(request));
   },
 });
 

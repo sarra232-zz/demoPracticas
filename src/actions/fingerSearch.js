@@ -6,7 +6,6 @@ import {
 } from '../types/fingerSearchs';
 
 export const getFingerSearchSuccess = (payload) => {
-  console.log('prueba action', payload);
   return {
     type: GET_FINGER_SEARCH_SUCCESS,
     payload,

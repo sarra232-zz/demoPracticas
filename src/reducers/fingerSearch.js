@@ -15,7 +15,6 @@ const fingerSearcModel = Immutable({
 export default function fingerSearch(state = fingerSearcModel, action = {}) {
   switch (action.type) {
     case GET_FINGER_SEARCH_SUCCESS:
-      console.log('reducer', action.payload);
       return state.merge({
         fingerSearch: action.payload,
         error: false,

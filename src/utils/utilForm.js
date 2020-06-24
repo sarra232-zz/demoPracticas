@@ -86,7 +86,7 @@ const validateDateForTypeIdentifier = (values) => {
   return false;
 };
 
-const utilFormSingle = (values, props) => {
+const utilFormSingle = (values) => {
   const {
     typeIndentifiers,
     identifier,
@@ -107,6 +107,10 @@ const utilFormSingle = (values, props) => {
       value: identifier,
     },
     filters: {
+      portal: [],
+      platform: [],
+      eventCategory: [],
+      eventType: [],
       // portal: [appsflyer.map((i) => i.value)],
       // platform: [platform.map((i) => i.value)],
       // eventCategory: [web.map((i) => i.value)],

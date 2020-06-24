@@ -13,7 +13,6 @@ export function* getFingerSaga({payload}) {
       key: apiKey,
       payload,
     });
-    console.log('response', response);
     yield put(getFingerSearchSuccess(response));
   } catch (error) {
     yield put(getFingerSearchFailed(error));
