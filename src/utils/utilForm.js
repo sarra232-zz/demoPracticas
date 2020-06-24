@@ -68,24 +68,19 @@ const formatDate = (value) => {
   return 1;
 };
 
-const validateDataForTypeIdentifier = (values) => {
+const validateDateForTypeIdentifier = (values) => {
   const {typeIndentifiers, time} = values;
-  console.log('Prueba desde el cielo:', values);
   const typeIdentifier = typeIndentifiers.split(',');
 
-  var d = new Date();
-  d.setDate(d.getDate() - formatDate(time));
+  var today = new Date();
+  today.setDate(today.getDate() - formatDate(time));
   var lastDate =
-    d.getFullYear() +
+    today.getFullYear() +
     '-' +
-    ('0' + (d.getMonth() + 1)).slice(-2) +
+    ('0' + (today.getMonth() + 1)).slice(-2) +
     '-' +
-    ('0' + d.getDate()).slice(-2);
-  console.log('Desde el cielo 2:', lastDate);
-  if (
-    typeIdentifier[1] === typeIdentifier[1] &&
-    typeIdentifier[2] >= lastDate
-  ) {
+    ('0' + today.getDate()).slice(-2);
+  if (typeIdentifier[2] >= lastDate) {
     return true;
   }
   return false;
@@ -101,9 +96,7 @@ const utilFormSingle = (values, props) => {
     web,
     time,
   } = values;
-  const validatetime = validateDataForTypeIdentifier(values);
   const typeIdentifier = typeIndentifiers.split(',');
-  console.log('Prueba desde la tierra', validatetime);
   return {
     range: {
       days: formatDate(time),
@@ -114,10 +107,10 @@ const utilFormSingle = (values, props) => {
       value: identifier,
     },
     filters: {
-      portal: [appsflyer.map((i) => i.value)],
-      platform: [platform.map((i) => i.value)],
-      eventCategory: [web.map((i) => i.value)],
-      eventType: [googleanalytics.map((i) => i.value)],
+      // portal: [appsflyer.map((i) => i.value)],
+      // platform: [platform.map((i) => i.value)],
+      // eventCategory: [web.map((i) => i.value)],
+      // eventType: [googleanalytics.map((i) => i.value)],
     },
   };
 };
@@ -148,6 +141,7 @@ export {
   googleAnalyticsWeb,
   channelsAppsFlyer,
   calendar,
+  validateDateForTypeIdentifier,
   utilFormSingle,
   utilFormGroup,
 };

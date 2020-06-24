@@ -1,13 +1,17 @@
 /*jshint esversion: 6 */
 import validator from 'validator';
+import {validateDateForTypeIdentifier} from '../../../utils/utilForm';
 
-const validate = values => {
+const validate = (values) => {
   let errors = {};
   if (!values || !values.time) {
     errors.time = 'select a range of time';
   }
   if (!values || !values.typeIndentifiers) {
     errors.typeIndentifiers = 'Select an option';
+  } else if (!validateDateForTypeIdentifier(values)) {
+    errors.typeIndentifiers =
+      'The option select is no aviable for date selected';
   }
   if (!values || !values.identifier) {
     errors.identifier = 'Field required';
