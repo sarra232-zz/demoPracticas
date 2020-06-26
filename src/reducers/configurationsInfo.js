@@ -1,11 +1,7 @@
 /*jshint esversion: 6 */
 import Immutable from 'seamless-immutable';
 
-import {
-  GET_CONFIGURATION_SUCCESS,
-  GET_CONFIGURATION_FAILED,
-  GET_CONFIGURATION_REQUEST,
-} from '../types/configuration';
+import {GET_CONFIGURATION_SUCCESS} from '../types/configuration';
 
 const defaultState = Immutable({
   // info:{},
@@ -156,31 +152,12 @@ const defaultState = Immutable({
       },
     },
   },
-  error: '',
-  fetching: false,
 });
 
 export default function configInfo(state = defaultState, action = {}) {
   switch (action.type) {
     case GET_CONFIGURATION_SUCCESS:
-      return state.merge({
-        // info: action.payload,
-        info: defaultState,
-        error: '',
-        fetching: false,
-      });
-    case GET_CONFIGURATION_FAILED:
-      return state.merge({
-        info: {},
-        error: action.payload,
-        fetching: false,
-      });
-    case GET_CONFIGURATION_REQUEST:
-      return state.merge({
-        info: {},
-        error: '',
-        fetching: true,
-      });
+      return state.merge([defaultState.identifiers]);
     default:
       return state;
   }

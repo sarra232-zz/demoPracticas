@@ -85,7 +85,15 @@ const validateDateForTypeIdentifier = (values) => {
   }
   return false;
 };
+const dataTable = (data) => {
+  const respData = Object.values(data).map((x) => x);
+  const DataFinal = respData.filter((x, index) => index !== 4);
+  return [DataFinal];
+};
 
+const dataTableFinal = (array) => {
+  return array.map((x) => x)[0];
+};
 const utilFormSingle = (values) => {
   const {
     typeIndentifiers,
@@ -146,6 +154,8 @@ export {
   channelsAppsFlyer,
   calendar,
   validateDateForTypeIdentifier,
+  dataTable,
+  dataTableFinal,
   utilFormSingle,
   utilFormGroup,
 };

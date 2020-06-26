@@ -16,9 +16,8 @@ import {
   channelsAppsFlyer,
   calendar,
   utilFormSingle,
-  apiKey,
 } from '../../utils/utilForm';
-import {getConfigurationInfoRequest} from '../../actions/configurationInfo';
+import Table from '../../components/commons/table/table';
 import {getFingerSearchRequest} from '../../actions/fingerSearch';
 import './searchSingle.scss';
 
@@ -29,7 +28,6 @@ class SearchSingle extends React.Component {
   }
 
   componentDidMount() {
-    this.props.configInfo(apiKey);
     getIdentifiers(this.props.configurationInfo.identifiers.primary);
   }
 
@@ -38,7 +36,7 @@ class SearchSingle extends React.Component {
   };
 
   render() {
-    const {configurationInfo, handleSubmit} = this.props;
+    const {configurationInfo, fingerSearch, handleSubmit} = this.props;
     return (
       <div className="search-single">
         <article>
@@ -258,22 +256,12 @@ class SearchSingle extends React.Component {
           </form>
         </article>
         <article>
-          <table className="search-single__table">
-            <tr className="search-single__table-header">
-              <th className="search-single__table-column">Session</th>
-              <th className="search-single__table-column">Devise</th>
-              <th className="search-single__table-column">System</th>
-              <th className="search-single__table-column">Portal</th>
-              <th className="search-single__table-column">Channel</th>
-              <th className="search-single__table-column">Colum6</th>
-              <th className="search-single__table-column">Colum7</th>
-              <th className="search-single__table-column">Colum8</th>
-              <th className="search-single__table-column">Colum9</th>
-              <th className="search-single__table-column">Colum10</th>
-              <th className="search-single__table-column">Colum11</th>
-              <th className="search-single__table-column">ColumN</th>
-            </tr>
-          </table>
+          {fingerSearch && fingerSearch.finger && (
+            <Table
+              headers={Object.keys(Object.values(fingerSearch.finger)[0])}
+              data={Object.values(Object.values(fingerSearch.finger))}
+            />
+          )}
         </article>
       </div>
     );
@@ -291,10 +279,10 @@ const EnhanceSingletForm = reduxForm({
 
 const mapStateToProps = (state) => ({
   configurationInfo: state.configInfo,
+  fingerSearch: state.fingerSearchs.fingerSearch,
 });
 
 const mapDispatchToProps = {
-  configInfo: getConfigurationInfoRequest,
   getFingerSearchRequest,
 };
 
