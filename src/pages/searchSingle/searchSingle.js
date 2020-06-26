@@ -278,7 +278,7 @@ const EnhanceSingletForm = reduxForm({
 });
 
 const mapStateToProps = (state) => ({
-  configurationInfo: state.configInfo,
+  configurationInfo: state.configInfo.data,
   fingerSearch: state.fingerSearchs.fingerSearch,
 });
 

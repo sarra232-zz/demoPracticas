@@ -1,125 +1,173 @@
 {
     "identifiers": {
-        "primary": [{
+        "primary": {
+            "GLOBAL-CC": {
+                "lastDate": "2020-06-17",
                 "scope": "GLOBAL",
-                "type": "CC"
+                "type": "CC",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
+            "GLOBAL-CEDULAHASH": {
+                "lastDate": "2020-06-17",
                 "scope": "GLOBAL",
-                "type": "CEDULAHASH"
+                "type": "CEDULAHASH",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
+            "GLOBAL-CII": {
+                "lastDate": "2020-06-17",
                 "scope": "GLOBAL",
-                "type": "CII"
+                "type": "CII",
+                "filters": ["APPSFLYER", "GOOGLEANALYTICS"]
             },
-            {
+            "GLOBAL-PASAPORTE": {
+                "lastDate": "2020-06-17",
                 "scope": "GLOBAL",
-                "type": "PASAPORTE"
+                "type": "PASAPORTE",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
+            "GLOBAL-LLAVECLIENTE": {
+                "lastDate": "2020-06-17",
                 "scope": "GLOBAL",
-                "type": "LLAVECLIENTE"
+                "type": "LLAVECLIENTE",
+                "filters": ["APPSFLYER"]
             }
-        ],
-        "secondar": [{
-                "type": "BLUEKAIID"
+        },
+        "secondary": {
+            "BLUEKAIID": {
+                "lastDate": "2020-06-17",
+                "type": "BLUEKAIID",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
-                "type": "HOTJARID"
+            "HOTJARID": {
+                "lastDate": "2020-06-17",
+                "type": "HOTJARID",
+                "filters": ["GOOGLEANALYTICS"]
             }
-        ],
-        "device": [{
-                "type": "COOKIEGA"
+        },
+        "device": {
+            "COOKIEGA": {
+                "lastDate": "2020-06-17",
+                "type": "COOKIEGA",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
-                "type": "APPSFLYERID"
+            "APPSFLYERID": {
+                "lastDate": "2020-06-17",
+                "type": "APPSFLYERID",
+                "filters": ["APPSFLYER"]
             },
-            {
-                "type": "HOTJARID"
+            "HOTJARID": {
+                "lastDate": "2020-06-17",
+                "type": "HOTJARID",
+                "filters": ["GOOGLEANALYTICS"]
             },
-            {
-                "type": "BLUEKAIID"
+            "BLUEKAIID": {
+                "lastDate": "2020-06-17",
+                "type": "BLUEKAIID",
+                "filters": ["GOOGLEANALYTICS"]
             }
-        ]
+        }
     },
     "filters": {
         "APPSFLYER": {
+            "lastDate": "2020-06-17",
             "hasChild": true,
             "child": {
                 "BANCOLOMBIA APP PERSONAS": {
+                    "lastDate": "2020-06-17",
                     "hasChild": false
                 },
                 "PYME": {
+                    "lastDate": "2020-06-17",
                     "hasChild": false
                 },
                 "PYMES": {
+                    "lastDate": "2020-05-17",
                     "hasChild": false
                 }
             }
         },
         "GOOGLEANALYTICS": {
+            "lastDate": "2020-06-17",
             "hasChild": true,
             "child": {
                 "WEB": {
+                    "lastDate": "2020-06-17",
                     "hasChild": true,
                     "child": {
                         "Conslultas": {
+                            "lastDate": "2020-06-17",
                             "hasChild": true,
                             "child": {
                                 "Productos": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 }
                             }
                         },
                         "Informacion": {
+                            "lastDate": "2020-06-17",
                             "hasChild": true,
                             "child": {
                                 "pagina vista": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Simulación": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 }
                             }
                         },
                         "PAGE": {
+                            "lastDate": "2020-06-17",
                             "hasChild": true,
                             "child": {
                                 "VIEW": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 }
                             }
                         },
                         "Solicitud": {
+                            "lastDate": "2020-06-17",
                             "hasChild": true,
                             "child": {
                                 "Configuración": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Configuraciones de seguridad": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Documentos": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Inscribir Cuentas": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 }
                             }
                         },
                         "Transacciones": {
+                            "lastDate": "2020-06-17",
                             "hasChild": true,
                             "child": {
                                 "Avance": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Desembolsos": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Pagos (Productos)": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 },
                                 "Transferencias": {
+                                    "lastDate": "2020-06-17",
                                     "hasChild": false
                                 }
                             }
