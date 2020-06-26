@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
-const getIdentifiers = (identifiers) => {
-  const id = Object.values(identifiers).map((x) => ({
+const getIdentifiers = identifiers => {
+  const id = Object.values (identifiers).map (x => ({
     scope: x.scope,
     type: x.type,
     date: x.lastDate,
@@ -9,38 +9,64 @@ const getIdentifiers = (identifiers) => {
   return id;
 };
 
-const platform = (filters) => {
-  const platform = Object.keys(filters.filters).map((type) => type);
+const platform = filters => {
+  const platform = Object.keys (filters.filters).map (type => type);
 
   return platform;
 };
 
-const channelsGoogleAnalytics = (filters) => {
+const channelsGoogleAnalytics = filters => {
   if (filters.filters.GOOGLEANALYTICS.hasChild === true) {
-    const channelsGoogleAnalytics = Object.keys(
+    const channelsGoogleAnalytics = Object.keys (
       filters.filters.GOOGLEANALYTICS.child
-    ).map((type) => type);
+    ).map (type => type);
     return channelsGoogleAnalytics;
   }
 };
-const googleAnalyticsWeb = (filters) => {
+const googleAnalyticsWeb = filters => {
   if (filters.filters.GOOGLEANALYTICS.child.WEB.hasChild === true) {
-    const googleAnalyticsWeb = Object.keys(
+    const googleAnalyticsWeb = Object.keys (
       filters.filters.GOOGLEANALYTICS.child.WEB.child
-    ).map((type) => type);
+    ).map (type => type);
     return googleAnalyticsWeb;
   }
 };
-const channelsAppsFlyer = (filters) => {
+const googleAnalyticsTypes = filters => {
+  if (
+    filters.filters.GOOGLEANALYTICS.child.WEB.child.Transacciones.hasChild ===
+    true
+  ) {
+    const googleAnalyticsTypes = Object.keys (
+      filters.filters.GOOGLEANALYTICS.child.WEB.child.Transacciones.child
+    ).map (type => type);
+    return googleAnalyticsTypes;
+  }
+};
+const channelsAppsFlyer = filters => {
   if (filters.filters.APPSFLYER.hasChild === true) {
-    const channelsAppsFlyer = Object.keys(filters.filters.APPSFLYER.child).map(
-      (type) => type
-    );
+    const channelsAppsFlyer = Object.keys (
+      filters.filters.APPSFLYER.child
+    ).map (type => type);
     return channelsAppsFlyer;
   }
   return channelsAppsFlyer;
 };
-
+const validateSelect = selected => {
+  console.log ('from table in validateSelect', selected[0].value);
+  if (selected[0].value === 'googleanalytics') {
+    return 'googleanalytics';
+  }
+  if (selected[0].value === 'appsflyer') {
+    return 'appsflyer';
+  }
+  if (selected[0].value === 'web') {
+    return 'web';
+  }
+  if (selected[0].value === 'transacciones') {
+    return 'transacciones';
+  }
+  return false;
+};
 const calendar = [
   {
     time: 'time',
@@ -60,7 +86,7 @@ const calendar = [
   },
 ];
 
-const formatDate = (value) => {
+const formatDate = value => {
   if (value === '1 day') return 1;
   if (value === '7 days') return 7;
   if (value === '15 days') return 15;
@@ -68,33 +94,33 @@ const formatDate = (value) => {
   return 1;
 };
 
-const validateDateForTypeIdentifier = (values) => {
+const validateDateForTypeIdentifier = values => {
   const {typeIndentifiers, time} = values;
-  const typeIdentifier = typeIndentifiers.split(',');
+  const typeIdentifier = typeIndentifiers.split (',');
 
-  var today = new Date();
-  today.setDate(today.getDate() - formatDate(time));
+  var today = new Date ();
+  today.setDate (today.getDate () - formatDate (time));
   var lastDate =
-    today.getFullYear() +
+    today.getFullYear () +
     '-' +
-    ('0' + (today.getMonth() + 1)).slice(-2) +
+    ('0' + (today.getMonth () + 1)).slice (-2) +
     '-' +
-    ('0' + today.getDate()).slice(-2);
+    ('0' + today.getDate ()).slice (-2);
   if (typeIdentifier[2] >= lastDate) {
     return true;
   }
   return false;
 };
-const dataTable = (data) => {
-  const respData = Object.values(data).map((x) => x);
-  const DataFinal = respData.filter((x, index) => index !== 4);
+const dataTable = data => {
+  const respData = Object.values (data).map (x => x);
+  const DataFinal = respData.filter ((x, index) => index !== 4);
   return [DataFinal];
 };
 
-const dataTableFinal = (array) => {
-  return array.map((x) => x)[0];
+const dataTableFinal = array => {
+  return array.map (x => x)[0];
 };
-const utilFormSingle = (values) => {
+const utilFormSingle = values => {
   const {
     typeIndentifiers,
     identifier,
@@ -104,10 +130,10 @@ const utilFormSingle = (values) => {
     web,
     time,
   } = values;
-  const typeIdentifier = typeIndentifiers.split(',');
+  const typeIdentifier = typeIndentifiers.split (',');
   return {
     range: {
-      days: formatDate(time),
+      days: formatDate (time),
     },
     identifier: {
       scope: typeIdentifier[0],
@@ -127,20 +153,22 @@ const utilFormSingle = (values) => {
   };
 };
 
-const utilFormGroup = (values, props) => {
-  const {
-    platformGroup,
-    appsflyerGroup,
-    googleanalyticsGroup,
-    webGroup,
-    timeGroup,
-  } = values;
+const utilFormGroup = values => {
+  const {platform, appsflyer, googleanalytics, web, time} = values;
   return {
-    platform: platformGroup,
-    googleanalytics: googleanalyticsGroup,
-    appsflyer: appsflyerGroup,
-    web: webGroup,
-    time: timeGroup,
+    range: {
+      days: formatDate (time),
+    },
+    filters: {
+      portal: [],
+      platform: [],
+      eventCategory: [],
+      eventType: [],
+      // portal: [appsflyer.map((i) => i.value)],
+      // platform: [platform.map((i) => i.value)],
+      // eventCategory: [web.map((i) => i.value)],
+      // eventType: [googleanalytics.map((i) => i.value)],
+    },
   };
 };
 
@@ -151,7 +179,9 @@ export {
   platform,
   channelsGoogleAnalytics,
   googleAnalyticsWeb,
+  googleAnalyticsTypes,
   channelsAppsFlyer,
+  validateSelect,
   calendar,
   validateDateForTypeIdentifier,
   dataTable,
