@@ -1,0 +1,15 @@
+.box {
+    &__wrapper-box {
+        display: flex;
+    }
+    &__box {
+        border: solid black 1px;
+        width: 600px;
+        height: 150px;
+        margin: 30px;
+        &--customer {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

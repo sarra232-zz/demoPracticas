@@ -22,6 +22,7 @@ import {
 import Table from '../../components/commons/table/table';
 import {getFingerSearchRequest} from '../../actions/fingerSearch';
 import './searchSingle.scss';
+import Box from '../../components/commons/box/Box';
 
 class SearchSingle extends React.Component {
   constructor (props) {
@@ -319,6 +320,9 @@ class SearchSingle extends React.Component {
               </div>
             </div>
           </form>
+          {fingerSearch &&
+            fingerSearch.customer &&
+            <Box data={fingerSearch.customer} />}
         </article>
         <article>
           {fingerSearch &&

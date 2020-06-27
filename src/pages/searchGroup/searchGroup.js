@@ -71,6 +71,18 @@ class SearchGroup extends React.Component {
                 </div>
                 <div className="search-group__column">
                   <Field
+                    id="time"
+                    name="time"
+                    label={'Select type consult'}
+                    component={Select}
+                  >
+                    <option value="">Select option</option>
+                    <option>{'Identifier'}</option>
+                    <option>{'Platform'}</option>
+                  </Field>
+                </div>
+                <div className="search-group__column">
+                  <Field
                     id="platform"
                     name="platform"
                     label={'Platform'}

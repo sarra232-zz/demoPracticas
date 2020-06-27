@@ -52,7 +52,6 @@ const channelsAppsFlyer = filters => {
   return channelsAppsFlyer;
 };
 const validateSelect = selected => {
-  console.log ('from table in validateSelect', selected[0].value);
   if (selected[0].value === 'googleanalytics') {
     return 'googleanalytics';
   }
@@ -95,9 +94,15 @@ const formatDate = value => {
 };
 
 const validateDateForTypeIdentifier = values => {
-  const {typeIndentifiers, time} = values;
+  const {
+    typeIndentifiers,
+    platform,
+    appsflyer,
+    googleanalytics,
+    web,
+    time,
+  } = values;
   const typeIdentifier = typeIndentifiers.split (',');
-
   var today = new Date ();
   today.setDate (today.getDate () - formatDate (time));
   var lastDate =
