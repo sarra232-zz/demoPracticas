@@ -15,7 +15,7 @@ export default function DropDown({
   const {onChange, onBlur} = input;
 
   const handleBlur = ({value}) => {
-    onBlur (value);
+    onBlur(value);
   };
   return (
     <div className="drop-down">
@@ -26,7 +26,7 @@ export default function DropDown({
         isMulti={isMulti}
         id={id}
         classNamePrefix="select"
-        defaultValue={'Select all'}
+        defaultValue={{label: 'all', value: 'all'}}
         options={options}
         onChange={onChange}
         onBlur={handleBlur}

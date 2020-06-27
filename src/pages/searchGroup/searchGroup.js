@@ -6,6 +6,7 @@ import {reduxForm, Field, formValueSelector} from 'redux-form';
 import DropDown from '../../components/commons/dropDown/DropDown';
 import Button from '../../components/commons/button/Button';
 import Select from '../../components/commons/select/Select';
+import Spinner from '../../components/commons/spinner/spinner';
 import validate from '../../components/commons/formValidations/formValidations';
 import {
   getIdentifiers,
@@ -22,20 +23,20 @@ import Table from '../../components/commons/table/table';
 import './searchGroup.scss';
 
 class SearchGroup extends React.Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {advanceSearch: false};
   }
 
-  componentDidMount () {
-    getIdentifiers (this.props.configurationInfo.identifiers.primary);
+  componentDidMount() {
+    getIdentifiers(this.props.configurationInfo.identifiers.primary);
   }
 
   advanceClick = () => {
-    this.setState ();
+    this.setState();
   };
 
-  render () {
+  render() {
     const {
       configurationInfo,
       handleSubmit,
@@ -43,9 +44,11 @@ class SearchGroup extends React.Component {
       portalGoogleAnalytucsField,
       portalAppsFlyerField,
       categoryField,
+      fetching,
     } = this.props;
     return (
       <div className="search-group">
+        {fetching && <Spinner></Spinner>}
         <article>
           <form
             className="search-group__form"
@@ -62,7 +65,7 @@ class SearchGroup extends React.Component {
                     component={Select}
                   >
                     <option value="">Select a date</option>
-                    {calendar.map (cal => (
+                    {calendar.map((cal) => (
                       <option key={cal.value} value={cal.value}>
                         {cal.value}
                       </option>
@@ -93,20 +96,20 @@ class SearchGroup extends React.Component {
                     field
                     options={[
                       {
-                        label: platform (
+                        label: platform(
                           configurationInfo
-                        )[0].toLocaleLowerCase (),
-                        value: platform (
+                        )[0].toLocaleLowerCase(),
+                        value: platform(
                           configurationInfo
-                        )[0].toLocaleLowerCase (),
+                        )[0].toLocaleLowerCase(),
                       },
                       {
-                        label: platform (
+                        label: platform(
                           configurationInfo
-                        )[1].toLocaleLowerCase (),
-                        value: platform (
+                        )[1].toLocaleLowerCase(),
+                        value: platform(
                           configurationInfo
-                        )[1].toLocaleLowerCase (),
+                        )[1].toLocaleLowerCase(),
                       },
                     ]}
                     component={DropDown}
@@ -114,176 +117,180 @@ class SearchGroup extends React.Component {
                 </div>
                 {platformField &&
                   platformField.length === 1 &&
-                  validateSelect (platformField) === 'appsflyer' &&
-                  <div className="search-group__column">
-                    <Field
-                      id="appsflyer"
-                      name="appsflyer"
-                      label={'Select portal'}
-                      placeholder={'Select channel'}
-                      isMulti={true}
-                      multi
-                      props
-                      options={[
-                        {
-                          label: channelsAppsFlyer (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                          value: channelsAppsFlyer (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                        },
-                        {
-                          label: channelsAppsFlyer (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                          value: channelsAppsFlyer (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                        },
-                        {
-                          key: channelsAppsFlyer (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                          value: channelsAppsFlyer (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                        },
-                      ]}
-                      component={DropDown}
-                    />
-                  </div>}
+                  validateSelect(platformField) === 'appsflyer' && (
+                    <div className="search-group__column">
+                      <Field
+                        id="appsflyer"
+                        name="appsflyer"
+                        label={'Select portal'}
+                        placeholder={'Select channel'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: channelsAppsFlyer(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                          },
+                          {
+                            label: channelsAppsFlyer(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                          },
+                          {
+                            key: channelsAppsFlyer(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                            value: channelsAppsFlyer(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                  )}
                 {platformField &&
                   platformField.length === 1 &&
-                  validateSelect (platformField) === 'googleanalytics' &&
-                  <div className="search-group__column">
-                    <Field
-                      id="googleanalytics"
-                      name="googleanalytics"
-                      label={'Select portal'}
-                      placeholder={'Select plataforms'}
-                      isMulti={true}
-                      multi
-                      props
-                      options={[
-                        {
-                          label: channelsGoogleAnalytics (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                          value: channelsGoogleAnalytics (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                        },
-                      ]}
-                      component={DropDown}
-                    />
-                  </div>}
+                  validateSelect(platformField) === 'googleanalytics' && (
+                    <div className="search-group__column">
+                      <Field
+                        id="googleanalytics"
+                        name="googleanalytics"
+                        label={'Select portal'}
+                        placeholder={'Select plataforms'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: channelsGoogleAnalytics(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                            value: channelsGoogleAnalytics(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                  )}
                 {portalGoogleAnalytucsField &&
                   portalGoogleAnalytucsField.length === 1 &&
-                  validateSelect (portalGoogleAnalytucsField) === 'web' &&
-                  <div className="ssearch-group__column">
-                    <Field
-                      id="web"
-                      name="web"
-                      label={'Select category'}
-                      placeholder={'select a option'}
-                      isMulti={true}
-                      multi
-                      props
-                      options={[
-                        {
-                          label: googleAnalyticsWeb (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                          value: googleAnalyticsWeb (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsWeb (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                          value: googleAnalyticsWeb (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsWeb (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                          value: googleAnalyticsWeb (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsWeb (
-                            configurationInfo
-                          )[3].toLocaleLowerCase (),
-                          value: googleAnalyticsWeb (
-                            configurationInfo
-                          )[3].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsWeb (
-                            configurationInfo
-                          )[4].toLocaleLowerCase (),
-                          value: googleAnalyticsWeb (
-                            configurationInfo
-                          )[4].toLocaleLowerCase (),
-                        },
-                      ]}
-                      component={DropDown}
-                    />
-                  </div>}
+                  validateSelect(portalGoogleAnalytucsField) === 'web' && (
+                    <div className="ssearch-group__column">
+                      <Field
+                        id="web"
+                        name="web"
+                        label={'Select category'}
+                        placeholder={'select a option'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: googleAnalyticsWeb(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsWeb(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsWeb(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsWeb(
+                              configurationInfo
+                            )[3].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
+                              configurationInfo
+                            )[3].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsWeb(
+                              configurationInfo
+                            )[4].toLocaleLowerCase(),
+                            value: googleAnalyticsWeb(
+                              configurationInfo
+                            )[4].toLocaleLowerCase(),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                  )}
                 {categoryField &&
                   categoryField.length === 1 &&
-                  validateSelect (categoryField) === 'transacciones' &&
-                  <div className="search-group__column">
-                    <Field
-                      id="transacciones"
-                      name="transacciones"
-                      label={'Select type of category'}
-                      placeholder={'select a option'}
-                      isMulti={true}
-                      multi
-                      props
-                      options={[
-                        {
-                          label: googleAnalyticsTypes (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                          value: googleAnalyticsTypes (
-                            configurationInfo
-                          )[0].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsTypes (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                          value: googleAnalyticsTypes (
-                            configurationInfo
-                          )[1].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsTypes (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                          value: googleAnalyticsTypes (
-                            configurationInfo
-                          )[2].toLocaleLowerCase (),
-                        },
-                        {
-                          label: googleAnalyticsTypes (
-                            configurationInfo
-                          )[3].toLocaleLowerCase (),
-                          value: googleAnalyticsTypes (
-                            configurationInfo
-                          )[3].toLocaleLowerCase (),
-                        },
-                      ]}
-                      component={DropDown}
-                    />
-                  </div>}
+                  validateSelect(categoryField) === 'transacciones' && (
+                    <div className="search-group__column">
+                      <Field
+                        id="transacciones"
+                        name="transacciones"
+                        label={'Select type of category'}
+                        placeholder={'select a option'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={[
+                          {
+                            label: googleAnalyticsTypes(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                            value: googleAnalyticsTypes(
+                              configurationInfo
+                            )[0].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsTypes(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                            value: googleAnalyticsTypes(
+                              configurationInfo
+                            )[1].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsTypes(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                            value: googleAnalyticsTypes(
+                              configurationInfo
+                            )[2].toLocaleLowerCase(),
+                          },
+                          {
+                            label: googleAnalyticsTypes(
+                              configurationInfo
+                            )[3].toLocaleLowerCase(),
+                            value: googleAnalyticsTypes(
+                              configurationInfo
+                            )[3].toLocaleLowerCase(),
+                          },
+                        ]}
+                        component={DropDown}
+                      />
+                    </div>
+                  )}
               </div>
               <div className="search-group__wrapper-button">
                 <Button children={'Seach'} />
@@ -302,20 +309,20 @@ class SearchGroup extends React.Component {
   }
 }
 
-const EnhanceGrouptForm = reduxForm ({
+const EnhanceGrouptForm = reduxForm({
   form: 'searchGroupForm',
   validate,
   onSubmit: (values, props) => {
-    const request = utilFormGroup (values, props);
+    const request = utilFormGroup(values, props);
   },
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const selector = formValueSelector ('searchGroupForm');
-  const platformField = selector (state, 'platform');
-  const portalGoogleAnalytucsField = selector (state, 'googleanalytics');
-  const portalAppsFlyerField = selector (state, 'appsflyer');
-  const categoryField = selector (state, 'web');
+  const selector = formValueSelector('searchGroupForm');
+  const platformField = selector(state, 'platform');
+  const portalGoogleAnalytucsField = selector(state, 'googleanalytics');
+  const portalAppsFlyerField = selector(state, 'appsflyer');
+  const categoryField = selector(state, 'web');
   // const typeField = selector (state, '');
   return {
     platformField,
@@ -323,11 +330,13 @@ const mapStateToProps = (state, ownProps) => {
     portalAppsFlyerField,
     categoryField,
     configurationInfo: state.configInfo.data,
+    //Recordar cambiar el configInfo por  segmentSearchs
+    fetching: state.configInfo.fetching,
     // fingerSearch: state.fingerSearchs.fingerSearch,
   };
 };
 const mapDispatchToProps = {};
 
-const connectEnhace = connect (mapStateToProps, mapDispatchToProps);
+const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose (connectEnhace, EnhanceGrouptForm) (SearchGroup);
+export default compose(connectEnhace, EnhanceGrouptForm)(SearchGroup);
