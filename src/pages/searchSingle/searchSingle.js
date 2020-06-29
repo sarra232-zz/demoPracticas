@@ -216,8 +216,8 @@ class SearchSingle extends React.Component {
                       Object.values(category[0].value)[1].hasChild && (
                         <div className="search-single__column">
                           <Field
-                            id="web"
-                            name="web"
+                            id="typeCategory"
+                            name="typeCategory"
                             label={'Type Category'}
                             placeholder={'select a option'}
                             isMulti={true}
@@ -256,12 +256,14 @@ class SearchSingle extends React.Component {
           )}
         </article>
         <article>
-          {fingerSearch && fingerSearch.finger && (
-            <Table
-              headers={Object.keys(Object.values(fingerSearch.finger)[0])}
-              data={Object.values(Object.values(fingerSearch.finger))}
-            />
-          )}
+          {fingerSearch &&
+            fingerSearch.finger &&
+            Object.values(fingerSearch.finger)[0] && (
+              <Table
+                headers={Object.keys(Object.values(fingerSearch.finger)[0])}
+                data={Object.values(Object.values(fingerSearch.finger))}
+              />
+            )}
         </article>
       </div>
     );

@@ -60,13 +60,18 @@ const formatDate = (value) => {
   return 1;
 };
 
+const getDropDownOptionSelected = (infoSelected) => {
+  if (infoSelected) return infoSelected.map((i) => Object.values(i)[1].key);
+  return [];
+};
+
 const validateDateForTypeIdentifier = (values) => {
   const {
     typeIndentifiers,
     platform,
-    appsflyer,
-    googleanalytics,
-    web,
+    portal,
+    category,
+    typeCategory,
     time,
   } = values;
   const typeIdentifier = typeIndentifiers.split(',');
@@ -97,9 +102,9 @@ const utilFormSingle = (values) => {
     typeIndentifiers,
     identifier,
     platform,
-    appsflyer,
-    googleanalytics,
-    web,
+    portal,
+    category,
+    typeCategory,
     time,
   } = values;
   const typeIdentifier = typeIndentifiers.split(',');
@@ -113,20 +118,16 @@ const utilFormSingle = (values) => {
       value: identifier,
     },
     filters: {
-      portal: [],
-      platform: [],
-      eventCategory: [],
-      eventType: [],
-      // portal: [appsflyer.map((i) => i.value)],
-      // platform: [platform.map((i) => i.value)],
-      // eventCategory: [web.map((i) => i.value)],
-      // eventType: [googleanalytics.map((i) => i.value)],
+      portal: getDropDownOptionSelected(portal),
+      platform: getDropDownOptionSelected(platform),
+      eventCategory: getDropDownOptionSelected(platform),
+      eventType: getDropDownOptionSelected(typeCategory),
     },
   };
 };
 
 const utilFormGroup = (values) => {
-  const {platform, appsflyer, googleanalytics, web, time} = values;
+  const {time} = values;
   return {
     range: {
       days: formatDate(time),
@@ -136,10 +137,6 @@ const utilFormGroup = (values) => {
       platform: [],
       eventCategory: [],
       eventType: [],
-      // portal: [appsflyer.map((i) => i.value)],
-      // platform: [platform.map((i) => i.value)],
-      // eventCategory: [web.map((i) => i.value)],
-      // eventType: [googleanalytics.map((i) => i.value)],
     },
   };
 };
