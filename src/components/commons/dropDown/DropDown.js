@@ -26,7 +26,7 @@ export default function DropDown({
         isMulti={isMulti}
         id={id}
         classNamePrefix="select"
-        defaultValue={{label: 'all', value: 'all'}}
+        // defaultValue={{label: 'all', value: 'all'}}
         options={options}
         onChange={onChange}
         onBlur={handleBlur}
