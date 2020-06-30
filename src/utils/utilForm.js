@@ -65,16 +65,39 @@ const getDropDownOptionSelected = (infoSelected) => {
   return [];
 };
 
-const validateDateForTypeIdentifier = (values) => {
-  const {
-    typeIndentifiers,
-    platform,
-    portal,
-    category,
-    typeCategory,
-    time,
-  } = values;
+const validateDateTypeId = (lastDate, values) => {
+  const {typeIndentifiers} = values;
   const typeIdentifier = typeIndentifiers.split(',');
+  if (typeIdentifier[2] >= lastDate) {
+    return true;
+  }
+  return false;
+};
+
+const validateDropDownsDate = (lastDate, values) => {
+  const {platform, portal, category, typeCategory} = values;
+  if (platform && typeof platform === 'object') {
+    return (
+      platform.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+    );
+  }
+  if (portal && typeof portal === 'object') {
+    return portal.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate;
+  }
+  if (category && typeof category === 'object') {
+    return (
+      category.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+    );
+  }
+  if (typeCategory && typeof typeCategory === 'object') {
+    return (
+      typeCategory.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+    );
+  }
+  return false;
+};
+
+const getLastDate = (time) => {
   var today = new Date();
   today.setDate(today.getDate() - formatDate(time));
   var lastDate =
@@ -83,10 +106,7 @@ const validateDateForTypeIdentifier = (values) => {
     ('0' + (today.getMonth() + 1)).slice(-2) +
     '-' +
     ('0' + today.getDate()).slice(-2);
-  if (typeIdentifier[2] >= lastDate) {
-    return true;
-  }
-  return false;
+  return lastDate;
 };
 const dataTable = (data) => {
   const respData = Object.values(data).map((x) => x);
@@ -97,6 +117,7 @@ const dataTable = (data) => {
 const dataTableFinal = (array) => {
   return array.map((x) => x)[0];
 };
+
 const utilFormSingle = (values) => {
   const {
     typeIndentifiers,
@@ -120,7 +141,7 @@ const utilFormSingle = (values) => {
     filters: {
       portal: getDropDownOptionSelected(portal),
       platform: getDropDownOptionSelected(platform),
-      eventCategory: getDropDownOptionSelected(platform),
+      eventCategory: getDropDownOptionSelected(category),
       eventType: getDropDownOptionSelected(typeCategory),
     },
   };
@@ -146,11 +167,13 @@ export const apiKey = 'nYzZgG77QT98NPRcBu5VV9wQoQzC7Q9433qdxBBc';
 export {
   getIdentifiers,
   calendar,
-  validateDateForTypeIdentifier,
   dataTable,
   dataTableFinal,
   utilFormSingle,
   utilFormGroup,
   getDropDownValue,
   getChilds,
+  getLastDate,
+  validateDateTypeId,
+  validateDropDownsDate,
 };

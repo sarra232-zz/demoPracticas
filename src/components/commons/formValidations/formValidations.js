@@ -1,6 +1,9 @@
 /*jshint esversion: 6 */
-import validator from 'validator';
-import {validateDateForTypeIdentifier} from '../../../utils/utilForm';
+import {
+  validateDateTypeId,
+  validateDropDownsDate,
+  getLastDate,
+} from '../../../utils/utilForm';
 
 const validate = (values) => {
   let errors = {};
@@ -9,7 +12,7 @@ const validate = (values) => {
   }
   if (!values || !values.typeIndentifiers) {
     errors.typeIndentifiers = 'Select an option';
-  } else if (!validateDateForTypeIdentifier(values)) {
+  } else if (!validateDateTypeId(getLastDate(values.time), values)) {
     errors.typeIndentifiers = 'The option is no aviable for date selected';
   }
   if (!values || !values.identifier) {
@@ -17,17 +20,23 @@ const validate = (values) => {
   }
   if (!values || !values.platform) {
     errors.platform = 'Select a value';
+  } else if (validateDropDownsDate(getLastDate(values.time), values)) {
+    errors.platform = 'The option is no aviable for platform selected';
   }
-  if (!values || !values.appsflyer) {
-    errors.appsflyer = 'Select a value';
+  if (!values || !values.portal) {
+    errors.portal = 'Select a value';
+  } else if (validateDropDownsDate(getLastDate(values.time), values)) {
+    errors.portal = 'The option is no aviable for portal selected';
   }
-
-  if (!values || !values.googleanalytics) {
-    errors.googleanalytics = 'Select a value';
+  if (!values || !values.category) {
+    errors.category = 'Select a value';
+  } else if (validateDropDownsDate(getLastDate(values.time), values)) {
+    errors.category = 'The option is no aviable for category selected';
   }
-
-  if (!values || !values.web) {
-    errors.web = 'Select a value';
+  if (!values || !values.typeCategory) {
+    errors.typeCategory = 'Select a value';
+  } else if (validateDropDownsDate(getLastDate(values.time), values)) {
+    errors.typeCategory = 'The option is no aviable for typeCategory selected';
   }
 
   return errors;
