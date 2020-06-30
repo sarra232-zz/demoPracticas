@@ -7,6 +7,8 @@ import Input from '../../components/commons/input/Input';
 import Select from '../../components/commons/select/Select';
 import DropDown from '../../components/commons/dropDown/DropDown';
 import Button from '../../components/commons/button/Button';
+import Error from '../../components/commons/error/error';
+import Query from '../../components/commons/query/query';
 import validate from '../../components/commons/formValidations/formValidations';
 import {
   getIdentifiers,
@@ -46,6 +48,7 @@ class SearchSingle extends React.Component {
       portal,
       category,
       fetching,
+      error,
     } = this.props;
     const showPlatforms = () => {
       return getDropDownValue(configurationInfo.filters);
@@ -255,6 +258,17 @@ class SearchSingle extends React.Component {
             <Box data={fingerSearch.customer} />
           )}
         </article>
+        {error ||
+          (fingerSearch.customer && error && (
+            <Error
+              error={
+                fingerSearch.customer && error
+                  ? 'The search by these parameters does not output results'
+                  : 'Customer no found'
+              }
+            ></Error>
+          ))}
+
         <article>
           {fingerSearch &&
             fingerSearch.finger &&
@@ -293,6 +307,7 @@ const mapStateToProps = (state, ownProps) => {
     configurationInfo: state.configInfo.data,
     fingerSearch: state.fingerSearchs.fingerSearch,
     fetching: state.fingerSearchs.fetching,
+    error: state.fingerSearchs.error,
   };
 };
 const mapDispatchToProps = {
