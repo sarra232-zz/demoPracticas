@@ -15,24 +15,44 @@ import {
   utilFormGroup,
   getDropDownValue,
   getChilds,
-} from '../../utils/utilForm';
+} from '../../utils/utilFormGroup';
 import Table from '../../components/commons/table/table';
 import './searchGroup.scss';
 
 class SearchGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {advanceSearch: false};
+    this.state = {showSeccionId: false, showSeccionPlatform: false};
   }
+
+  changeSeccion = (typeConsult) => {
+    const {showSeccionId, showSeccionPlatform} = this.state;
+    if (typeConsult === 'Identifier') {
+      this.setState({showSeccionId: !showSeccionPlatform});
+    }
+    if (typeConsult === 'Platform') {
+      this.setState({showSeccionPlatform: !showSeccionId});
+    }
+  };
 
   componentDidMount() {
     getIdentifiers(this.props.configurationInfo.identifiers.primary);
+  }
+
+  componentDidUpdate() {
+    const {typeConsult} = this.props;
+    this.changeSeccion(typeConsult);
   }
 
   render() {
     const {
       configurationInfo,
       handleSubmit,
+      typeConsult,
+      typeIdentifier,
+      primaryIndentifier,
+      secondaryIdentifier,
+      deviceIdentifier,
       platformField,
       portalGroup,
       categoryGroup,
@@ -62,6 +82,7 @@ class SearchGroup extends React.Component {
         );
       }
     };
+
     return (
       <div className="search-group">
         {fetching && <Spinner></Spinner>}
@@ -100,44 +121,122 @@ class SearchGroup extends React.Component {
                     <option>{'Platform'}</option>
                   </Field>
                 </div>
-                <div className="search-group__column">
-                  <Field
-                    id="typeConsult"
-                    name="typeConsult"
-                    label={'Type Consult'}
-                    component={Select}
-                  >
-                    <option value="">Select option</option>
-                    <option>{'Primary'}</option>
-                    <option>{'Secundary'}</option>
-                    <option>{'Devise'}</option>
-                  </Field>
-                </div>
-                <div className="search-group__column">
-                  <Field
-                    id="typeConsult"
-                    name="typeConsult"
-                    label={'Select type'}
-                    component={Select}
-                  >
-                    <option value="">Select option</option>
-                    <option>{'Primary'}</option>
-                    <option>{'Secundary'}</option>
-                    <option>{'Devise'}</option>
-                  </Field>
-                </div>
-
-                <div className="search-single__column">
-                  <Field
-                    id="identifier"
-                    name="identifier"
-                    label={'identifier'}
-                    type="text"
-                    placeholder={'Enter a identifier'}
-                    component={Input}
-                  />
-                </div>
-
+                {typeConsult && typeConsult === 'Identifier' && (
+                  <div className="search-group__column">
+                    <Field
+                      id="typeIdentifier"
+                      name="typeIdentifier"
+                      label={'Select type identifier'}
+                      component={Select}
+                    >
+                      <option value="">Select option</option>
+                      {console.log(
+                        'From SearGroup',
+                        Object.keys(configurationInfo.identifiers).map((i) => i)
+                      )}
+                      {Object.keys(configurationInfo.identifiers).map((i) => (
+                        <option>{i}</option>
+                      ))}
+                    </Field>
+                  </div>
+                )}
+                {typeConsult &&
+                  typeConsult === 'Identifier' &&
+                  typeIdentifier &&
+                  typeIdentifier === 'primary' && (
+                    <div className="search-single__column">
+                      <Field
+                        id="primaryIndentifiers"
+                        name="primaryIndentifiers"
+                        label={'Primary Indentifiers'}
+                        placeholder={'select a option'}
+                        component={Select}
+                      >
+                        <option value="">Select a option</option>
+                        {Object.values(
+                          getIdentifiers(configurationInfo.identifiers.primary)
+                        ).map((i) => (
+                          <option
+                            key={i.type}
+                            value={[i.scope, i.type, i.date]}
+                          >
+                            {i.type.toLocaleLowerCase()}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  )}
+                {typeConsult &&
+                  typeConsult === 'Identifier' &&
+                  typeIdentifier &&
+                  typeIdentifier === 'secondary' && (
+                    <div className="search-single__column">
+                      <Field
+                        id="secondaryIdentifier"
+                        name="secondaryIdentifier"
+                        label={'Secondary Indentifiers'}
+                        placeholder={'select a option'}
+                        component={Select}
+                      >
+                        <option value="">Select a option</option>
+                        {Object.values(
+                          getIdentifiers(
+                            configurationInfo.identifiers.secondary
+                          )
+                        ).map((i) => (
+                          <option
+                            key={i.type}
+                            value={[i.scope, i.type, i.date]}
+                          >
+                            {i.type.toLocaleLowerCase()}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  )}
+                {typeConsult &&
+                  typeConsult === 'Identifier' &&
+                  typeIdentifier &&
+                  typeIdentifier === 'device' && (
+                    <div className="search-single__column">
+                      <Field
+                        id="deviceIdentifier"
+                        name="deviceIdentifier"
+                        label={'Device Indentifiers'}
+                        placeholder={'select a option'}
+                        component={Select}
+                      >
+                        <option value="">Select a option</option>
+                        {Object.values(
+                          getIdentifiers(configurationInfo.identifiers.device)
+                        ).map((i) => (
+                          <option
+                            key={i.type}
+                            value={[i.scope, i.type, i.date]}
+                          >
+                            {i.type.toLocaleLowerCase()}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  )}
+                {typeConsult &&
+                  typeConsult === 'Identifier' &&
+                  (typeIdentifier ||
+                    typeIdentifier === 'primary' ||
+                    typeIdentifier === 'secondary' ||
+                    typeIdentifier === 'device') && (
+                    <div className="search-single__column">
+                      <Field
+                        id="identifier"
+                        name="identifier"
+                        label={'identifier'}
+                        type="text"
+                        placeholder={'Enter a identifier'}
+                        component={Input}
+                      />
+                    </div>
+                  )}
                 <div className="search-group__column">
                   <Field
                     id="platform"
@@ -266,12 +365,22 @@ const EnhanceGrouptForm = reduxForm({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const selector = formValueSelector('searchGroupForm');
+  const selector = formValueSelector('utilFormGroup');
+  const typeConsult = selector(state, 'typeConsult');
+  const typeIdentifier = selector(state, 'typeIdentifier');
+  const primaryIndentifier = selector(state, 'primaryIndentifier');
+  const secondaryIdentifier = selector(state, 'secondaryIdentifier');
+  const deviceIdentifier = selector(state, 'deviceIdentifier');
   const platformField = selector(state, 'platform');
   const portalGroup = selector(state, 'portalGroup');
   const categoryGroup = selector(state, 'categoryGroup');
   const typeCategory = selector(state, 'typeCategory');
   return {
+    typeConsult,
+    typeIdentifier,
+    primaryIndentifier,
+    secondaryIdentifier,
+    deviceIdentifier,
     platformField,
     portalGroup,
     categoryGroup,

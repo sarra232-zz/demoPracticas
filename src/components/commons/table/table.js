@@ -6,6 +6,7 @@ class Table extends Component {
   render() {
     const {headers, data} = this.props;
     const dataColumns = data.map((d) => dataTable(d));
+    var i = 1;
 
     console.log('FinalDate', dataColumns);
     return (
@@ -22,7 +23,7 @@ class Table extends Component {
           <tbody>
             {dataColumns.map((d, index) => (
               <tr key={d}>
-                <td className="table__session-id">{d[0]}</td>
+                <td className="table__session-id">{i++}</td>
                 <td className="table__portal">{d[1]}</td>
                 <td className="table__platform">{d[2]}</td>
                 <td className="table__session-date">{d[3]}</td>

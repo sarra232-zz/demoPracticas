@@ -64,13 +64,26 @@ class SearchSingle extends Component {
     };
     const showCategories = () => {
       if (portal && portal.length) {
-        return getDropDownValue(getChilds(showPortals(), portal[0].value));
+        if (platformField && platformField.length && portal && portal.length) {
+          return getDropDownValue(getChilds(showPortals(), portal[0].value));
+        }
       }
     };
 
     const showTypeCategories = () => {
       if (category && category.length) {
-        return getDropDownValue(getChilds(showCategories(), category[0].value));
+        if (
+          platformField &&
+          platformField.length &&
+          portal &&
+          portal.length &&
+          category &&
+          category.length
+        ) {
+          return getDropDownValue(
+            getChilds(showCategories(), category[0].value)
+          );
+        }
       }
     };
     return (
