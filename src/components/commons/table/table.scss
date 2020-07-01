@@ -1,0 +1,24 @@
+.table {
+    width: 100%;
+    padding: 30px;
+    &__session-id {
+        width: 300px;
+    }
+    &__session-date {
+        width: 200px;
+    }
+    &__platform {
+        width: 200px;
+    }
+    &__portal {
+        width: 270px;
+    }
+    &__title {
+        margin: 30px;
+        font-family: bold;
+        font-size: 20px;
+    }
+    &__table-wrapper {
+        margin-top: 50px;
+    }
+}

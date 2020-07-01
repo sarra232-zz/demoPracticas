@@ -3,13 +3,15 @@
         display: flex;
     }
     &__box {
+        overflow-y: scroll;
         border: solid black 1px;
         width: 600px;
         height: 150px;
         margin: 30px;
-        &--customer {
-            display: flex;
-            justify-content: space-between;
-        }
+        padding: 10px;
+        border-radius: 6px;
+    }
+    &__p {
+        padding: 10px;
     }
 }

@@ -110,8 +110,8 @@ const getLastDate = (time) => {
 };
 const dataTable = (data) => {
   const respData = Object.values(data).map((x) => x);
-  const DataFinal = respData.filter((x, index) => index !== 4);
-  return [DataFinal];
+  // const DataFinal = respData.filter((x, index) => index !== 4);
+  return respData;
 };
 
 const dataTableFinal = (array) => {
