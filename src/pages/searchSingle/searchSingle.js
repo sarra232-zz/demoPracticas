@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import {reduxForm, Field, formValueSelector} from 'redux-form';
@@ -14,6 +14,7 @@ import {
   getIdentifiers,
   calendar,
   utilFormSingle,
+  getValuesToQuery,
   getDropDownValue,
   getChilds,
 } from '../../utils/utilForm';
@@ -25,7 +26,7 @@ import {getFingerSearchRequest} from '../../actions/fingerSearch';
 
 import './searchSingle.scss';
 
-class SearchSingle extends React.Component {
+class SearchSingle extends Component {
   constructor(props) {
     super(props);
     this.state = {advanceSearch: false};
@@ -289,6 +290,8 @@ const EnhanceSingletForm = reduxForm({
   validate,
   onSubmit: (values, dispatch) => {
     const request = utilFormSingle(values);
+    const querys = getValuesToQuery(request);
+
     return dispatch(getFingerSearchRequest(request));
   },
 });

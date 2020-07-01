@@ -147,6 +147,28 @@ const utilFormSingle = (values) => {
   };
 };
 
+const getValuesToQuery = (request) => {
+  console.log('request', request);
+  const day = Object.values(request.range)[0];
+  const identifier = request.identifier.value;
+  const typeIdentifier = request.identifier.type;
+  const filterPlatform = Object.values(request.filters.platform);
+  const filterPortal = Object.values(request.filters.portal);
+  const filterCategory = Object.values(request.filters.eventCategory);
+  const filterTypeCategory = Object.values(request.filters.eventType);
+
+  const responsive = [
+    day,
+    identifier,
+    typeIdentifier,
+    filterPlatform,
+    filterPortal,
+    filterCategory,
+    filterTypeCategory,
+  ];
+  console.log('Responsive', responsive);
+};
+
 const utilFormGroup = (values) => {
   const {time} = values;
   return {
@@ -171,6 +193,7 @@ export {
   dataTableFinal,
   utilFormSingle,
   utilFormGroup,
+  getValuesToQuery,
   getDropDownValue,
   getChilds,
   getLastDate,
