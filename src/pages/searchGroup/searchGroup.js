@@ -26,7 +26,6 @@ class SearchGroup extends React.Component {
   }
 
   changeSeccion = (typeConsult) => {
-    console.log('line 29 searchGroup', typeConsult);
     if (typeConsult === 'Identifier' && !this.state.showSeccionId) {
       this.setState({showSeccionId: true});
       this.setState({showSeccionPlatform: false});
@@ -72,6 +71,7 @@ class SearchGroup extends React.Component {
       return null;
     };
     const showCategories = () => {
+      console.log('search-group 74', portalGroup);
       if (portalGroup && portalGroup.length) {
         return getDropDownValue(getChilds(showPortals(), portalGroup[0].value));
       }
@@ -137,106 +137,88 @@ class SearchGroup extends React.Component {
                         component={Select}
                       >
                         <option value="">Seleccione una opción</option>
-                        {console.log(
-                          'From SearGroup',
-                          Object.keys(configurationInfo.identifiers).map(
-                            (i) => i
-                          )
-                        )}
                         {Object.keys(configurationInfo.identifiers).map((i) => (
                           <option>{i}</option>
                         ))}
                       </Field>
                     </div>
-                    {typeIdentifier && typeIdentifier === 'primary' && (
-                      <div className="search-group__column">
-                        <Field
-                          id="primaryIndentifiers"
-                          name="primaryIndentifiers"
-                          label={'Primary Indentifiers'}
-                          placeholder={'seleccione un identicador'}
-                          component={Select}
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {Object.values(
-                            getIdentifiers(
-                              configurationInfo.identifiers.primary
-                            )
-                          ).map((i) => (
-                            <option
-                              key={i.type}
-                              value={[i.scope, i.type, i.date]}
-                            >
-                              {i.type.toLocaleLowerCase()}
-                            </option>
-                          ))}
-                        </Field>
-                      </div>
-                    )}
-                    {typeIdentifier === 'secondary' && (
-                      <div className="search-group__column">
-                        <Field
-                          id="secondaryIdentifier"
-                          name="secondaryIdentifier"
-                          label={'Identificador secundario'}
-                          placeholder={'seleccione una opción'}
-                          component={Select}
-                        >
-                          <option value="">Seleccine una opción</option>
-                          {Object.values(
-                            getIdentifiers(
-                              configurationInfo.identifiers.secondary
-                            )
-                          ).map((i) => (
-                            <option
-                              key={i.type}
-                              value={[i.scope, i.type, i.date]}
-                            >
-                              {i.type.toLocaleLowerCase()}
-                            </option>
-                          ))}
-                        </Field>
-                      </div>
-                    )}
-                    {typeIdentifier && typeIdentifier === 'device' && (
-                      <div className="search-group__column">
-                        <Field
-                          id="deviceIdentifier"
-                          name="deviceIdentifier"
-                          label={'Identificador de dispositivo'}
-                          placeholder={'seleccione una opción'}
-                          component={Select}
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {Object.values(
-                            getIdentifiers(configurationInfo.identifiers.device)
-                          ).map((i) => (
-                            <option
-                              key={i.type}
-                              value={[i.scope, i.type, i.date]}
-                            >
-                              {i.type.toLocaleLowerCase()}
-                            </option>
-                          ))}
-                        </Field>
-                      </div>
-                    )}
-                    {primaryIndentifier ||
-                      secondaryIdentifier ||
-                      (deviceIdentifier && (
-                        <div className="search-group__column">
-                          <Field
-                            id="identifier"
-                            name="identifier"
-                            label={'Identificador'}
-                            type="text"
-                            placeholder={'Ingrese identificador'}
-                            component={Input}
-                          />
-                        </div>
-                      ))}
                   </div>
                 )}
+                {typeIdentifier && typeIdentifier === 'primary' && (
+                  <div className="search-group__column">
+                    <Field
+                      id="primaryIndentifiers"
+                      name="primaryIndentifiers"
+                      label={'Primary Indentifiers'}
+                      placeholder={'seleccione un identicador'}
+                      component={Select}
+                    >
+                      <option value="">Seleccione una opción</option>
+                      {Object.values(
+                        getIdentifiers(configurationInfo.identifiers.primary)
+                      ).map((i) => (
+                        <option key={i.type} value={[i.scope, i.type, i.date]}>
+                          {i.type.toLocaleLowerCase()}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                )}
+                {typeIdentifier === 'secondary' && (
+                  <div className="search-group__column">
+                    <Field
+                      id="secondaryIdentifiers"
+                      name="secondaryIdentifiers"
+                      label={'Identificador secundario'}
+                      placeholder={'seleccione una opción'}
+                      component={Select}
+                    >
+                      <option value="">Seleccine una opción</option>
+                      {Object.values(
+                        getIdentifiers(configurationInfo.identifiers.secondary)
+                      ).map((i) => (
+                        <option key={i.type} value={[i.scope, i.type, i.date]}>
+                          {i.type.toLocaleLowerCase()}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                )}
+                {typeIdentifier && typeIdentifier === 'device' && (
+                  <div className="search-group__column">
+                    <Field
+                      id="deviceIdentifiers"
+                      name="deviceIdentifiers"
+                      label={'Identificador de dispositivo'}
+                      placeholder={'seleccione una opción'}
+                      component={Select}
+                    >
+                      <option value="">Seleccione una opción</option>
+                      {Object.values(
+                        getIdentifiers(configurationInfo.identifiers.device)
+                      ).map((i) => (
+                        <option key={i.type} value={[i.scope, i.type, i.date]}>
+                          {i.type.toLocaleLowerCase()}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                )}
+                {(primaryIndentifier ||
+                  secondaryIdentifier ||
+                  deviceIdentifier) && (
+                  <div className="search-group__column">
+                    <Field
+                      id="identifier"
+                      name="identifier"
+                      label={'Identificador'}
+                      type="text"
+                      placeholder={'Ingrese identificador'}
+                      component={Input}
+                    />
+                  </div>
+                )}
+
                 {this.state.showSeccionPlatform && (
                   <div>
                     <div className="search-group__column">
@@ -262,30 +244,40 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-                    {platformField && platformField.length === 1 && (
-                      <div className="search-group__column">
-                        <Field
-                          id="portalGroup"
-                          name="portalGroup"
-                          label={'Portal'}
-                          placeholder={'Seleccione una opción'}
-                          isMulti={true}
-                          multi
-                          props
-                          options={showPortals().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
+                  </div>
+                )}
+                {platformField &&
+                  platformField.length === 1 &&
+                  Object.values(platformField[0].value)[1].hasChild && (
+                    <div className="search-group__column">
+                      <Field
+                        id="portalGroup"
+                        name="portalGroup"
+                        label={'Portal'}
+                        placeholder={'Seleccione una opción'}
+                        isMulti={true}
+                        multi
+                        props
+                        options={showPortals().map((p) => ({
+                          label: p.key.toLocaleLowerCase(),
+                          value: {
+                            key: p.key,
                             value: {
-                              key: p.key,
-                              value: {
-                                lastDate: p.values.lastDate,
-                                hasChild: p.values.hasChild,
-                              },
+                              lastDate: p.values.lastDate,
+                              hasChild: p.values.hasChild,
                             },
-                          }))}
-                          component={DropDown}
-                        />
-                      </div>
-                    )}
+                          },
+                        }))}
+                        component={DropDown}
+                      />
+                    </div>
+                  )}
+                {platformField &&
+                  platformField.length === 1 &&
+                  Object.values(platformField[0].value)[1].hasChild &&
+                  portalGroup &&
+                  portalGroup.length === 1 &&
+                  Object.values(portalGroup[0].value)[1].hasChild && (
                     <div className="search-group__column">
                       <Field
                         id="categoryGroup"
@@ -308,7 +300,16 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-
+                  )}
+                {platformField &&
+                  platformField.length === 1 &&
+                  Object.values(platformField[0].value)[1].hasChild &&
+                  portalGroup &&
+                  portalGroup.length === 1 &&
+                  Object.values(portalGroup[0].value)[1].hasChild &&
+                  categoryGroup &&
+                  categoryGroup.length === 1 &&
+                  Object.values(categoryGroup[0].value)[1].hasChild && (
                     <div className="ssearch-group__column">
                       <Field
                         id="typeCategory"
@@ -331,8 +332,7 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
               <div className="search-group__wrapper-button">
                 <Button children={'Buscar'} />
@@ -363,9 +363,9 @@ const mapStateToProps = (state, ownProps) => {
   const selector = formValueSelector('utilFormGroup');
   const typeConsult = selector(state, 'typeConsult');
   const typeIdentifier = selector(state, 'typeIdentifier');
-  const primaryIndentifier = selector(state, 'primaryIndentifier');
-  const secondaryIdentifier = selector(state, 'secondaryIdentifier');
-  const deviceIdentifier = selector(state, 'deviceIdentifier');
+  const primaryIndentifier = selector(state, 'primaryIndentifiers');
+  const secondaryIdentifier = selector(state, 'secondaryIdentifiers');
+  const deviceIdentifier = selector(state, 'deviceIdentifiers');
   const platformField = selector(state, 'platform');
   const portalGroup = selector(state, 'portalGroup');
   const categoryGroup = selector(state, 'categoryGroup');

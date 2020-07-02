@@ -13,9 +13,11 @@ class Table extends Component {
         <table className="table">
           <thead>
             <tr>
-              {headers.map((h) => (
-                <th key={h}>{h.toUpperCase()}</th>
-              ))}
+              <th>Sesión</th>
+              <th>Portal</th>
+              <th>Plataforma</th>
+              <th>Fecha</th>
+              <th>Evento</th>
             </tr>
           </thead>
           <tbody>

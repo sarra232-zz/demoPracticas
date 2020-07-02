@@ -20,7 +20,7 @@ class Box extends React.Component {
         </div>
         <div className="box__box">
           <div>
-            <h1>{Object.keys(data)[1]}</h1>
+            <h1>Identificadores primarios</h1>
             {Object.values(data.primaryIdentifier).map((value) => (
               <p
                 className="box__p"
@@ -30,7 +30,7 @@ class Box extends React.Component {
           </div>
           {data && Object.keys(data)[2].length > 0 && (
             <div>
-              <h1>{Object.keys(data)[2]}</h1>
+              <h1>Identificadores secundarios</h1>
               {Object.values(data.secondaryIdentifier).map((value) => (
                 <p
                   className="box__p"
