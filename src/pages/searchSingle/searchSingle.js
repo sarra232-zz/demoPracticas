@@ -102,10 +102,10 @@ class SearchSingle extends Component {
                     <Field
                       id="time"
                       name="time"
-                      label={'Select range of time'}
+                      label={'Seleccione rango de tiempo'}
                       component={Select}
                     >
-                      <option value="">Select a date</option>
+                      <option value="">Selecione tiempo</option>
                       {calendar.map((cal) => (
                         <option key={cal.value} value={cal.value}>
                           {cal.value}
@@ -117,11 +117,11 @@ class SearchSingle extends Component {
                     <Field
                       id="typeIndentifiers"
                       name="typeIndentifiers"
-                      label={'Type Indentifiers'}
-                      placeholder={'select a option'}
+                      label={'Tipo de identificador'}
+                      placeholder={'seleccione una opción'}
                       component={Select}
                     >
-                      <option value="">Select a option</option>
+                      <option value="">Seleccione una opción</option>
                       {Object.values(
                         getIdentifiers(configurationInfo.identifiers.primary)
                       ).map((i) => (
@@ -135,9 +135,9 @@ class SearchSingle extends Component {
                     <Field
                       id="identifier"
                       name="identifier"
-                      label={'Identifier'}
+                      label={'Ingrese identificador'}
                       type="text"
-                      placeholder={'Enter a identifier'}
+                      placeholder={'Ingrese un identicador'}
                       component={Input}
                     />
                   </div>
@@ -148,8 +148,8 @@ class SearchSingle extends Component {
                       <Field
                         id="platform"
                         name="platform"
-                        label={'Platform'}
-                        placeholder={'Select plataforms'}
+                        label={'Plataforma'}
+                        placeholder={'Seleccione una plataforma'}
                         isMulti={true}
                         multi
                         props
@@ -175,7 +175,7 @@ class SearchSingle extends Component {
                             id="portal"
                             name="portal"
                             label={'Portal'}
-                            placeholder={'Select option'}
+                            placeholder={'Seleccione una opción'}
                             isMulti={true}
                             multi
                             props
@@ -203,8 +203,8 @@ class SearchSingle extends Component {
                           <Field
                             id="category"
                             name="category"
-                            label={'Category'}
-                            placeholder={'Selectoption'}
+                            label={'Categoria'}
+                            placeholder={'Seleccione una opción'}
                             isMulti={true}
                             multi
                             props
@@ -235,8 +235,8 @@ class SearchSingle extends Component {
                           <Field
                             id="typeCategory"
                             name="typeCategory"
-                            label={'Type Category'}
-                            placeholder={'select a option'}
+                            label={'Seleccione tipo de categoria'}
+                            placeholder={'Seleccione una opción'}
                             isMulti={true}
                             multi
                             props
@@ -258,9 +258,9 @@ class SearchSingle extends Component {
                 )}
               </div>
               <div className="search-single__wrapper-button">
-                <Button children={'Seach'} />
+                <Button children={'Buscar'} />
                 <Button
-                  children={`Advanced search ${
+                  children={`Busqueda avanzada ${
                     this.state.advanceSearch ? '-' : '+'
                   }`}
                   onclick={this.advanceClick}
@@ -277,8 +277,8 @@ class SearchSingle extends Component {
             <Error
               error={
                 fingerSearch.customer && error
-                  ? 'The search by these parameters does not output results'
-                  : 'Customer no found'
+                  ? 'La busqueda por estos parametros no arroja resultados'
+                  : 'Usuario no encontrado'
               }
             ></Error>
           ))}

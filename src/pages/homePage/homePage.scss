@@ -2,4 +2,7 @@
     display: block;
     padding: center;
     display: flex;
+    &__div {
+        padding: 30px;
+    }
 }

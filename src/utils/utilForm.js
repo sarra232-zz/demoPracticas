@@ -36,27 +36,27 @@ const getChilds = (data, value) => {
 const calendar = [
   {
     time: 'time',
-    value: '1 day',
+    value: '1 día',
   },
   {
     time: 'time',
-    value: '7 days',
+    value: '7 días',
   },
   {
     time: 'time',
-    value: '15 days',
+    value: '15 días',
   },
   {
     time: 'time',
-    value: '30 days',
+    value: '30 días',
   },
 ];
 
 const formatDate = (value) => {
-  if (value === '1 day') return 1;
-  if (value === '7 days') return 7;
-  if (value === '15 days') return 15;
-  if (value === '30 days') return 30;
+  if (value === '1 día') return 1;
+  if (value === '7 días') return 7;
+  if (value === '15 días') return 15;
+  if (value === '30 días') return 30;
   return 1;
 };
 

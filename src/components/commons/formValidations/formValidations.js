@@ -8,35 +8,37 @@ import {
 const validate = (values) => {
   let errors = {};
   if (!values || !values.time) {
-    errors.time = 'select a range of time';
+    errors.time = 'Seleccione un rango de tiempo';
   }
   if (!values || !values.typeIndentifiers) {
-    errors.typeIndentifiers = 'Select an option';
+    errors.typeIndentifiers = 'Seleccione una opción';
   } else if (!validateDateTypeId(getLastDate(values.time), values)) {
-    errors.typeIndentifiers = 'The option is no aviable for date selected';
+    errors.typeIndentifiers =
+      'La opción no esta disponible para fecha seleccionada';
   }
   if (!values || !values.identifier) {
-    errors.identifier = 'Field required';
+    errors.identifier = 'Campo requerido';
   }
   if (!values || !values.platform) {
-    errors.platform = 'Select a value';
+    errors.platform = 'Seleccione un valor';
   } else if (validateDropDownsDate(getLastDate(values.time), values)) {
-    errors.platform = 'The option is no aviable for platform selected';
+    errors.platform = 'La opción no esta disponible para fecha seleccionada';
   }
   if (!values || !values.portal) {
-    errors.portal = 'Select a value';
+    errors.portal = 'Seleccione un valor';
   } else if (validateDropDownsDate(getLastDate(values.time), values)) {
-    errors.portal = 'The option is no aviable for portal selected';
+    errors.portal = 'La opción no esta disponible para fecha seleccionada';
   }
   if (!values || !values.category) {
-    errors.category = 'Select a value';
+    errors.category = 'Seleccione un valor';
   } else if (validateDropDownsDate(getLastDate(values.time), values)) {
-    errors.category = 'The option is no aviable for category selected';
+    errors.category = 'La opción no esta disponible para fecha seleccionada';
   }
   if (!values || !values.typeCategory) {
-    errors.typeCategory = 'Select a value';
+    errors.typeCategory = 'Seleccione un valor';
   } else if (validateDropDownsDate(getLastDate(values.time), values)) {
-    errors.typeCategory = 'The option is no aviable for typeCategory selected';
+    errors.typeCategory =
+      'La opción no esta disponible para fecha seleccionada';
   }
 
   return errors;

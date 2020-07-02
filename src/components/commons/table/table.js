@@ -7,8 +7,6 @@ class Table extends Component {
     const {headers, data} = this.props;
     const dataColumns = data.map((d) => dataTable(d));
     var i = 1;
-
-    console.log('FinalDate', dataColumns);
     return (
       <div className="table__table-wrapper">
         <strong className="table__title">TITULO DE LA TABLA</strong>

@@ -26,6 +26,7 @@ class SearchGroup extends React.Component {
   }
 
   changeSeccion = (typeConsult) => {
+    console.log('line 29 searchGroup', typeConsult);
     if (typeConsult === 'Identifier' && !this.state.showSeccionId) {
       this.setState({showSeccionId: true});
       this.setState({showSeccionPlatform: false});
@@ -99,10 +100,10 @@ class SearchGroup extends React.Component {
                   <Field
                     id="time"
                     name="time"
-                    label={'Select range of time'}
+                    label={'Seleccione un rango de tiempo'}
                     component={Select}
                   >
-                    <option value="">Select a date</option>
+                    <option value="">Seleccione tiempo</option>
                     {calendar.map((cal) => (
                       <option key={cal.value} value={cal.value}>
                         {cal.value}
@@ -114,15 +115,15 @@ class SearchGroup extends React.Component {
                   <Field
                     id="typeConsult"
                     name="typeConsult"
-                    label={'Type Consult'}
+                    label={'Seleccione tipo de consulta'}
                     component={Select}
                   >
-                    <option value="">Select option</option>
+                    <option value="">Seleccione una opción</option>
                     <option key={'Identifier'} value={'Identifier'}>
-                      Identifier
+                      Identificador
                     </option>
                     <option key={'Platform'} value={'Platform'}>
-                      Platform
+                      Plataforma
                     </option>
                   </Field>
                 </div>
@@ -132,10 +133,10 @@ class SearchGroup extends React.Component {
                       <Field
                         id="typeIdentifier"
                         name="typeIdentifier"
-                        label={'Select type identifier'}
+                        label={'Seleccione tipo de identificador'}
                         component={Select}
                       >
-                        <option value="">Select option</option>
+                        <option value="">Seleccione una opción</option>
                         {console.log(
                           'From SearGroup',
                           Object.keys(configurationInfo.identifiers).map(
@@ -148,15 +149,15 @@ class SearchGroup extends React.Component {
                       </Field>
                     </div>
                     {typeIdentifier && typeIdentifier === 'primary' && (
-                      <div className="search-single__column">
+                      <div className="search-group__column">
                         <Field
                           id="primaryIndentifiers"
                           name="primaryIndentifiers"
                           label={'Primary Indentifiers'}
-                          placeholder={'select a option'}
+                          placeholder={'seleccione un identicador'}
                           component={Select}
                         >
-                          <option value="">Select a option</option>
+                          <option value="">Seleccione una opción</option>
                           {Object.values(
                             getIdentifiers(
                               configurationInfo.identifiers.primary
@@ -173,15 +174,15 @@ class SearchGroup extends React.Component {
                       </div>
                     )}
                     {typeIdentifier === 'secondary' && (
-                      <div className="search-single__column">
+                      <div className="search-group__column">
                         <Field
                           id="secondaryIdentifier"
                           name="secondaryIdentifier"
-                          label={'Secondary Indentifiers'}
-                          placeholder={'select a option'}
+                          label={'Identificador secundario'}
+                          placeholder={'seleccione una opción'}
                           component={Select}
                         >
-                          <option value="">Select a option</option>
+                          <option value="">Seleccine una opción</option>
                           {Object.values(
                             getIdentifiers(
                               configurationInfo.identifiers.secondary
@@ -198,15 +199,15 @@ class SearchGroup extends React.Component {
                       </div>
                     )}
                     {typeIdentifier && typeIdentifier === 'device' && (
-                      <div className="search-single__column">
+                      <div className="search-group__column">
                         <Field
                           id="deviceIdentifier"
                           name="deviceIdentifier"
-                          label={'Device Indentifiers'}
-                          placeholder={'select a option'}
+                          label={'Identificador de dispositivo'}
+                          placeholder={'seleccione una opción'}
                           component={Select}
                         >
-                          <option value="">Select a option</option>
+                          <option value="">Seleccione una opción</option>
                           {Object.values(
                             getIdentifiers(configurationInfo.identifiers.device)
                           ).map((i) => (
@@ -220,59 +221,35 @@ class SearchGroup extends React.Component {
                         </Field>
                       </div>
                     )}
-                    {(typeIdentifier ||
-                      typeIdentifier === 'primary' ||
-                      typeIdentifier === 'secondary' ||
-                      typeIdentifier === 'device') && (
-                      <div className="search-single__column">
-                        <Field
-                          id="identifier"
-                          name="identifier"
-                          label={'identifier'}
-                          type="text"
-                          placeholder={'Enter a identifier'}
-                          component={Input}
-                        />
-                      </div>
-                    )}
+                    {primaryIndentifier ||
+                      secondaryIdentifier ||
+                      (deviceIdentifier && (
+                        <div className="search-group__column">
+                          <Field
+                            id="identifier"
+                            name="identifier"
+                            label={'Identificador'}
+                            type="text"
+                            placeholder={'Ingrese identificador'}
+                            component={Input}
+                          />
+                        </div>
+                      ))}
                   </div>
                 )}
-                <div className="search-group__column">
-                  <Field
-                    id="platform"
-                    name="platform"
-                    label={'Platform'}
-                    placeholder={'Select plataforms'}
-                    isMulti={true}
-                    multi
-                    props
-                    field
-                    options={showPlatforms().map((p) => ({
-                      label: p.key.toLocaleLowerCase(),
-                      value: {
-                        key: p.key,
-                        value: {
-                          lastDate: p.values.lastDate,
-                          hasChild: p.values.hasChild,
-                        },
-                      },
-                    }))}
-                    component={DropDown}
-                  />
-                </div>
-                {platformField &&
-                  platformField.length === 1 &&
-                  Object.values(platformField[0].value)[1].hasChild && (
+                {this.state.showSeccionPlatform && (
+                  <div>
                     <div className="search-group__column">
                       <Field
-                        id="portalGroup"
-                        name="portalGroup"
-                        label={'Portal'}
-                        placeholder={'Select option'}
+                        id="platform"
+                        name="platform"
+                        label={'Plataforma'}
+                        placeholder={'Seleccione plataforma'}
                         isMulti={true}
                         multi
                         props
-                        options={showPortals().map((p) => ({
+                        field
+                        options={showPlatforms().map((p) => ({
                           label: p.key.toLocaleLowerCase(),
                           value: {
                             key: p.key,
@@ -285,16 +262,36 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-                  )}
-                {portalGroup &&
-                  portalGroup.length === 1 &&
-                  Object.values(portalGroup[0].value)[1].hasChild && (
+                    {platformField && platformField.length === 1 && (
+                      <div className="search-group__column">
+                        <Field
+                          id="portalGroup"
+                          name="portalGroup"
+                          label={'Portal'}
+                          placeholder={'Seleccione una opción'}
+                          isMulti={true}
+                          multi
+                          props
+                          options={showPortals().map((p) => ({
+                            label: p.key.toLocaleLowerCase(),
+                            value: {
+                              key: p.key,
+                              value: {
+                                lastDate: p.values.lastDate,
+                                hasChild: p.values.hasChild,
+                              },
+                            },
+                          }))}
+                          component={DropDown}
+                        />
+                      </div>
+                    )}
                     <div className="search-group__column">
                       <Field
                         id="categoryGroup"
                         name="categoryGroup"
-                        label={'Category'}
-                        placeholder={'Select option'}
+                        label={'Categoria'}
+                        placeholder={'Seleccione una opción'}
                         isMulti={true}
                         multi
                         props
@@ -311,16 +308,13 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-                  )}
-                {categoryGroup &&
-                  categoryGroup.length === 1 &&
-                  Object.values(categoryGroup[0].value)[1].hasChild && (
+
                     <div className="ssearch-group__column">
                       <Field
                         id="typeCategory"
                         name="typeCategory"
-                        label={'Type Category'}
-                        placeholder={'Select option'}
+                        label={'Tipo de categoria'}
+                        placeholder={'Seleccione una opción'}
                         isMulti={true}
                         multi
                         props
@@ -337,10 +331,11 @@ class SearchGroup extends React.Component {
                         component={DropDown}
                       />
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
               <div className="search-group__wrapper-button">
-                <Button children={'Seach'} />
+                <Button children={'Buscar'} />
               </div>
             </div>
           </form>
