@@ -145,7 +145,7 @@ const utilFormGroup = (values) => {
     typeConsult,
     typeIdentifier,
     primaryIndentifiers,
-    secondayIdentifier,
+    secondaryIdentifier,
     deviceIdentifier,
     identifier,
     platform,
@@ -153,24 +153,47 @@ const utilFormGroup = (values) => {
     category,
     typeCategory,
     time,
-    s,
   } = values;
   const primaryIndentifier = primaryIndentifiers.split(',');
   return {
-    range: {
-      days: formatDate(time),
-    },
-    identifier: {
-      scope: primaryIndentifier[0],
-      type: primaryIndentifier[1],
-      value: identifier,
-    },
-    filters: {
-      portal: getDropDownOptionSelected(portal),
-      platform: getDropDownOptionSelected(platform),
-      eventCategory: getDropDownOptionSelected(category),
-      eventType: getDropDownOptionSelected(typeCategory),
-    },
+    and: [
+      {
+        identifiers: {
+          secundario: {
+            secondaryIdentifier: identifier,
+          },
+          dispositivo: {
+            deviceIdentifier: identifier,
+          },
+        },
+        filters: {
+          portal: getDropDownOptionSelected(portal),
+          platform: getDropDownOptionSelected(platform),
+        },
+        range: {
+          days: formatDate(time),
+        },
+        and: [
+          {
+            identifiers: {
+              secundario: {
+                secondaryIdentifier: identifier,
+              },
+              dispositivo: {
+                deviceIdentifier: identifier,
+              },
+            },
+            filters: {
+              portal: getDropDownOptionSelected(portal),
+              platform: getDropDownOptionSelected(platform),
+            },
+            range: {
+              days: formatDate(time),
+            },
+          },
+        ],
+      },
+    ],
   };
 };
 

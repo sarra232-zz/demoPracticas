@@ -11,9 +11,13 @@
     }
     &__wrapper-colums {
         display: flex;
+        &--new {
+            margin-top: 80px;
+        }
     }
     &__wrapper-button {
-        padding-top: 50px;
+        display: flex;
+        padding-top: 80px;
     }
     &__column {
         height: 30px;
