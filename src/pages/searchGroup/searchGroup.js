@@ -199,9 +199,9 @@ class SearchGroup extends React.Component {
                         component={Select}
                       >
                         <option value="">Seleccione una opción</option>
-                        {Object.keys(configurationInfo.identifiers).map((i) => (
-                          <option>{i}</option>
-                        ))}
+                        {Object.keys(configurationInfo.identifiers).map(
+                          (i) => i !== 'primary' && <option>{i}</option>
+                        )}
                       </Field>
                     </div>
                   </div>

@@ -17,6 +17,15 @@ class Box extends React.Component {
           ) : (
             "There aren't Metadata"
           )}
+          <h1>Datos Bluekai</h1>
+          {data.bluekaiData &&
+            data.bluekaiData.length &&
+            Object.values(data.bluekaiData).map((value) => (
+              <p
+                className="box__p"
+                key={value.type}
+              >{`${value.type.toUpperCase()}:  ${value.value}`}</p>
+            ))}
         </div>
         <div className="box__box">
           <div>
