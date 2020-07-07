@@ -155,7 +155,10 @@ class SearchSingle extends Component {
                         props
                         field
                         options={showPlatforms().map((p) => ({
-                          label: p.key.toLocaleLowerCase(),
+                          label:
+                            p.key === 'GOOGLEANALYTICS'
+                              ? 'GOOGLE ANALYTICS'
+                              : p.key,
                           value: {
                             key: p.key,
                             value: {
@@ -180,7 +183,10 @@ class SearchSingle extends Component {
                             multi
                             props
                             options={showPortals().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                              label:
+                                p.key === 'BANCOLOMBIA APP PERSONAS'
+                                  ? 'APP PERSONAS'
+                                  : p.key,
                               value: {
                                 key: p.key,
                                 value: {

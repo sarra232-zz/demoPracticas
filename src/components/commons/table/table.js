@@ -9,7 +9,9 @@ class Table extends Component {
     var i = 1;
     return (
       <div className="table__table-wrapper">
-        <strong className="table__title">TITULO DE LA TABLA</strong>
+        <strong className="table__title">
+          <h1>Sesiones:</h1>
+        </strong>
         <table className="table">
           <thead>
             <tr>

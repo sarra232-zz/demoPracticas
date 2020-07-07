@@ -9,11 +9,11 @@ class HomePage extends React.Component {
           <div className="home-page__div">
             <h1 className="home-page">Huella dígital</h1>
             <r />
-            <h3>
+            {/* <h3>
               Huella digital son todas las interacciones (Eventos y Paginas
               Vistas) realizadas por un usuario en un periodo de tiempo
               determinado.
-            </h3>
+            </h3> */}
             <a>
               Utilice este buscador para obtener la huella digital de un usuario
               por medio de algún identificador conocido

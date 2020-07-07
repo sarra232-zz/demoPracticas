@@ -169,7 +169,7 @@ const utilFormGroup = (values) => {
     deviceIdentifiers2,
     identifier2,
     platform2,
-    portal2,
+    portalGroup2,
     time2,
   } = values;
   // const primaryIndentifier = primaryIndentifiers.split(',');
@@ -222,17 +222,17 @@ const utilFormGroup = (values) => {
               value: secondaryIndentifier1 ? identifier1 : '',
             },
             dispositivo: {
-              type: deviceIdentifiers ? deviceIndentifier[1] : '',
-              value: deviceIdentifiers ? identifier : '',
+              type: deviceIdentifiers1 ? deviceIndentifier[1] : '',
+              value: deviceIdentifiers1 ? identifier1 : '',
             },
           },
-          filters: {
-            portal: getDropDownOptionSelected(portalGroup1),
-            platform: getDropDownOptionSelected(platform1),
-          },
-          range: {
-            days: formatDate(time1),
-          },
+        },
+        filters: {
+          portal: getDropDownOptionSelected(portalGroup1),
+          platform: getDropDownOptionSelected(platform1),
+        },
+        range: {
+          days: formatDate(time1),
         },
       },
     ],

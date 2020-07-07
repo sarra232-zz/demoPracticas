@@ -17,7 +17,7 @@ import {
   getDropDownValue,
   getChilds,
 } from '../../utils/utilFormGroup';
-import Table from '../../components/commons/table/table';
+import TableG from '../../components/commons/table/tableG';
 import './searchGroup.scss';
 
 class SearchGroup extends React.Component {
@@ -130,10 +130,19 @@ class SearchGroup extends React.Component {
     const showPortals = () => {
       if (platformField && platformField.length) {
         return getDropDownValue(
-          getChilds(showPlatforms(), platformField[0].value)
+          getChilds(
+            showPlatforms(),
+            platformField[0].value === 'GOOGLE ANALYTICS'
+              ? 'GOOGLEANALYTICS'
+              : platformField[0].value
+          )
         );
       }
-      if (platformField1 && platformField1.length) {
+      if (
+        platformField1 && platformField1[0].value === 'GOOGLE ANALYTICS'
+          ? 'GOOGLEANALYTICS'
+          : platformField1[0].value
+      ) {
         return getDropDownValue(
           getChilds(showPlatforms(), platformField1[0].value)
         );
@@ -201,26 +210,37 @@ class SearchGroup extends React.Component {
                       >
                         <option value="">Seleccione una opción</option>
                         {Object.keys(configurationInfo.identifiers).map(
-                          (i) => i !== 'primary' && <option>{i}</option>
+                          (i) =>
+                            i !== 'primary' && (
+                              <option>
+                                {i === 'secondary'
+                                  ? 'secundario'
+                                  : i || i === 'device'
+                                  ? 'dispositivo'
+                                  : i}
+                              </option>
+                            )
                         )}
                       </Field>
                     </div>
                   </div>
                 )}
                 {this.state.showSeccionId &&
-                  typeIdentifier &&
-                  typeIdentifier === 'primary' && (
+                  (typeIdentifier === 'secondary' ||
+                    typeIdentifier === 'secundario') && (
                     <div className="search-group__column">
                       <Field
-                        id="primaryIndentifiers"
-                        name="primaryIndentifiers"
-                        label={'Primary Indentifiers'}
-                        placeholder={'seleccione un identicador'}
+                        id="secondaryIdentifiers"
+                        name="secondaryIdentifiers"
+                        label={'Identificador secundario'}
+                        placeholder={'seleccione una opción'}
                         component={Select}
                       >
-                        <option value="">Seleccione una opción</option>
+                        <option value="">Seleccine una opción</option>
                         {Object.values(
-                          getIdentifiers(configurationInfo.identifiers.primary)
+                          getIdentifiers(
+                            configurationInfo.identifiers.secondary
+                          )
                         ).map((i) => (
                           <option
                             key={i.type}
@@ -232,29 +252,10 @@ class SearchGroup extends React.Component {
                       </Field>
                     </div>
                   )}
-                {this.state.showSeccionId && typeIdentifier === 'secondary' && (
-                  <div className="search-group__column">
-                    <Field
-                      id="secondaryIdentifiers"
-                      name="secondaryIdentifiers"
-                      label={'Identificador secundario'}
-                      placeholder={'seleccione una opción'}
-                      component={Select}
-                    >
-                      <option value="">Seleccine una opción</option>
-                      {Object.values(
-                        getIdentifiers(configurationInfo.identifiers.secondary)
-                      ).map((i) => (
-                        <option key={i.type} value={[i.scope, i.type, i.date]}>
-                          {i.type.toLocaleLowerCase()}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
-                )}
                 {this.state.showSeccionId &&
                   typeIdentifier &&
-                  typeIdentifier === 'device' && (
+                  (typeIdentifier === 'device' ||
+                    typeIdentifier === 'dispositivo') && (
                     <div className="search-group__column">
                       <Field
                         id="deviceIdentifiers"
@@ -277,7 +278,6 @@ class SearchGroup extends React.Component {
                       </Field>
                     </div>
                   )}
-                {console.log('276', typeConsult)}
                 {this.state.showSeccionId &&
                   typeConsult === 'Identifier' &&
                   (primaryIndentifier ||
@@ -309,7 +309,10 @@ class SearchGroup extends React.Component {
                           props
                           field
                           options={showPlatforms().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
+                            label:
+                              p.key === 'GOOGLEANALYTICS'
+                                ? 'GOOGLE ANALYTICS'
+                                : p.key,
                             value: {
                               key: p.key,
                               value: {
@@ -337,7 +340,10 @@ class SearchGroup extends React.Component {
                         multi
                         props
                         options={showPortals().map((p) => ({
-                          label: p.key.toLocaleLowerCase(),
+                          label:
+                            p.key === 'BANCOLOMBIA APP PERSONAS'
+                              ? 'APP PERSONAS'
+                              : p.key,
                           value: {
                             key: p.key,
                             value: {
@@ -352,7 +358,7 @@ class SearchGroup extends React.Component {
                   )}
               </div>
               {this.state.addGroup >= 2 && this.state.addGroup <= 3 && (
-                <div className="search-group_wrapper-colums search-group_wrapper-colums--new">
+                <div className="search-group__wrapper-colums search-group__wrapper-colums--new">
                   <div className="search-group__column">
                     <Field
                       id="time1"
@@ -395,43 +401,24 @@ class SearchGroup extends React.Component {
                         >
                           <option value="">Seleccione una opción</option>
                           {Object.keys(configurationInfo.identifiers).map(
-                            (i) => (
-                              <option>{i}</option>
-                            )
+                            (i) =>
+                              i !== 'primary' && (
+                                <option>
+                                  {i === 'secondary'
+                                    ? 'secundario'
+                                    : i || i === 'device'
+                                    ? 'dispositivo'
+                                    : i}
+                                </option>
+                              )
                           )}
                         </Field>
                       </div>
                     </div>
                   )}
                   {this.state.showSeccionId1 &&
-                    typeIdentifier1 &&
-                    typeIdentifier1 === 'primary' && (
-                      <div className="search-group__column">
-                        <Field
-                          id="primaryIndentifiers1"
-                          name="primaryIndentifiers1"
-                          label={'Primary Indentifiers'}
-                          placeholder={'seleccione un identicador'}
-                          component={Select}
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {Object.values(
-                            getIdentifiers(
-                              configurationInfo.identifiers.primary
-                            )
-                          ).map((i) => (
-                            <option
-                              key={i.type}
-                              value={[i.scope, i.type, i.date]}
-                            >
-                              {i.type.toLocaleLowerCase()}
-                            </option>
-                          ))}
-                        </Field>
-                      </div>
-                    )}
-                  {this.state.showSeccionId1 &&
-                    typeIdentifier1 === 'secondary' && (
+                    (typeIdentifier1 === 'secondary' ||
+                      typeIdentifier1 === 'secundario') && (
                       <div className="search-group__column">
                         <Field
                           id="secondaryIdentifiers1"
@@ -458,7 +445,8 @@ class SearchGroup extends React.Component {
                     )}
                   {this.state.showSeccionId1 &&
                     typeIdentifier1 &&
-                    typeIdentifier1 === 'device' && (
+                    (typeIdentifier1 === 'device' ||
+                      typeIdentifier1 === 'dispositivo') && (
                       <div className="search-group__column">
                         <Field
                           id="deviceIdentifiers1"
@@ -511,7 +499,10 @@ class SearchGroup extends React.Component {
                             props
                             field
                             options={showPlatforms().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                              label:
+                                p.key === 'GOOGLEANALYTICS'
+                                  ? 'GOOGLE ANALYTICS'
+                                  : p.key,
                               value: {
                                 key: p.key,
                                 value: {
@@ -539,7 +530,10 @@ class SearchGroup extends React.Component {
                           multi
                           props
                           options={showPortals().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
+                            label:
+                              p.key === 'BANCOLOMBIA APP PERSONAS'
+                                ? 'APP PERSONAS'
+                                : p.key,
                             value: {
                               key: p.key,
                               value: {
@@ -555,7 +549,7 @@ class SearchGroup extends React.Component {
                 </div>
               )}
               {this.state.addGroup === 3 && (
-                <div className="search-group_wrapper-colums search-group_wrapper-colums--new">
+                <div className="search-group__wrapper-colums search-group__wrapper-colums--new">
                   <div className="search-group__column">
                     <Field
                       id="time2"
@@ -598,9 +592,16 @@ class SearchGroup extends React.Component {
                         >
                           <option value="">Seleccione una opción</option>
                           {Object.keys(configurationInfo.identifiers).map(
-                            (i) => (
-                              <option>{i}</option>
-                            )
+                            (i) =>
+                              i !== 'primary' && (
+                                <option>
+                                  {i === 'secondary'
+                                    ? 'secundario'
+                                    : i || i === 'device'
+                                    ? 'dispositivo'
+                                    : i}
+                                </option>
+                              )
                           )}
                         </Field>
                       </div>
@@ -608,33 +609,8 @@ class SearchGroup extends React.Component {
                   )}
                   {this.state.showSeccionId2 &&
                     typeIdentifier2 &&
-                    typeIdentifier2 === 'primary' && (
-                      <div className="search-group__column">
-                        <Field
-                          id="primaryIndentifiers2"
-                          name="primaryIndentifiers2"
-                          label={'Primary Indentifiers'}
-                          placeholder={'seleccione un identicador'}
-                          component={Select}
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {Object.values(
-                            getIdentifiers(
-                              configurationInfo.identifiers.primary
-                            )
-                          ).map((i) => (
-                            <option
-                              key={i.type}
-                              value={[i.scope, i.type, i.date]}
-                            >
-                              {i.type.toLocaleLowerCase()}
-                            </option>
-                          ))}
-                        </Field>
-                      </div>
-                    )}
-                  {this.state.showSeccionId2 &&
-                    typeIdentifier2 === 'secondary' && (
+                    (typeIdentifier2 === 'secondary' ||
+                      typeIdentifier2 === 'secundario') && (
                       <div className="search-group__column">
                         <Field
                           id="secondaryIdentifiers2"
@@ -661,7 +637,8 @@ class SearchGroup extends React.Component {
                     )}
                   {this.state.showSeccionId2 &&
                     typeIdentifier2 &&
-                    typeIdentifier2 === 'device' && (
+                    (typeIdentifier2 === 'device' ||
+                      typeIdentifier2 === 'dispositivo') && (
                       <div className="search-group__column">
                         <Field
                           id="deviceIdentifiers2"
@@ -714,7 +691,10 @@ class SearchGroup extends React.Component {
                             props
                             field
                             options={showPlatforms().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                              label:
+                                p.key === 'GOOGLEANALYTICS'
+                                  ? 'GOOGLE ANALYTICS'
+                                  : p.key,
                               value: {
                                 key: p.key,
                                 value: {
@@ -742,7 +722,10 @@ class SearchGroup extends React.Component {
                           multi
                           props
                           options={showPortals().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
+                            label:
+                              p.key === 'BANCOLOMBIA APP PERSONAS'
+                                ? 'APP PERSONAS'
+                                : p.key,
                             value: {
                               key: p.key,
                               value: {
@@ -762,7 +745,7 @@ class SearchGroup extends React.Component {
                 {this.state.addGroup < 3 && (
                   <Button
                     className="inc"
-                    children={'Adiccionar filtro'}
+                    children={'Adicionar filtro'}
                     onclick={this.increment}
                   />
                 )}
@@ -778,9 +761,8 @@ class SearchGroup extends React.Component {
           </form>
         </article>
         <article>
-          {/* <Table
-            headers={Object.keys (Object.values (fingerSearch.finger)[0])}
-            data={Object.values (Object.values (fingerSearch.finger))}
+          {/* <TableG
+          // data={Object.values(Object.values(searchGroup.customers))}
           /> */}
         </article>
       </div>
@@ -790,9 +772,9 @@ class SearchGroup extends React.Component {
 
 const EnhanceGrouptForm = reduxForm({
   form: 'utilFormGroup',
-  validate,
   onSubmit: (values, dispatch) => {
     const request = utilFormGroup(values);
+    console.log('Request searchGroup', request);
     return dispatch(getSearchGroupRequest(request));
   },
 });
@@ -866,9 +848,8 @@ const mapStateToProps = (state, ownProps) => {
     typeCategory2,
 
     configurationInfo: state.configInfo.data,
-    //Recordar cambiar el configInfo por  segmentSearchs
-    fetching: state.configInfo.fetching,
-    // fingerSearch: state.fingerSearchs.fingerSearch,
+    fetching: state.searchGroup.fetching,
+    error: state.searchGroup.error,
   };
 };
 const mapDispatchToProps = {
