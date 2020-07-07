@@ -16,4 +16,18 @@ export default {
         )
         .then((res) => res.data),
   },
+  getgroup: {
+    getGroup: ({key, payload}) =>
+      axios
+        .post(
+          'https://qxfbha764l.execute-api.us-east-1.amazonaws.com/v01/getcustomers',
+          payload,
+          {
+            headers: {
+              'x-api-key': key,
+            },
+          }
+        )
+        .then((res) => res.data),
+  },
 };

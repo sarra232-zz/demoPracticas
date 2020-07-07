@@ -8,6 +8,7 @@ import Button from '../../components/commons/button/Button';
 import Select from '../../components/commons/select/Select';
 import Spinner from '../../components/commons/spinner/spinner';
 import Input from '../../components/commons/input/Input';
+import {getSearchGroupRequest} from '../../actions/searchGroup';
 import validate from '../../components/commons/formValidations/formValidations';
 import {
   getIdentifiers,
@@ -351,7 +352,7 @@ class SearchGroup extends React.Component {
                   )}
               </div>
               {this.state.addGroup >= 2 && this.state.addGroup <= 3 && (
-                <div className="search-group__wrapper-colums search-group__wrapper-colums--new">
+                <div className="search-group_wrapper-colums search-group_wrapper-colums--new">
                   <div className="search-group__column">
                     <Field
                       id="time1"
@@ -554,7 +555,7 @@ class SearchGroup extends React.Component {
                 </div>
               )}
               {this.state.addGroup === 3 && (
-                <div className="search-group__wrapper-colums search-group__wrapper-colums--new">
+                <div className="search-group_wrapper-colums search-group_wrapper-colums--new">
                   <div className="search-group__column">
                     <Field
                       id="time2"
@@ -790,9 +791,9 @@ class SearchGroup extends React.Component {
 const EnhanceGrouptForm = reduxForm({
   form: 'utilFormGroup',
   validate,
-  onSubmit: (values, props) => {
-    const request = utilFormGroup(values, props);
-    console.log('791 requesSearchGroup', request);
+  onSubmit: (values, dispatch) => {
+    const request = utilFormGroup(values);
+    return dispatch(getSearchGroupRequest(request));
   },
 });
 
@@ -870,7 +871,9 @@ const mapStateToProps = (state, ownProps) => {
     // fingerSearch: state.fingerSearchs.fingerSearch,
   };
 };
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getSearchGroupRequest,
+};
 
 const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
 

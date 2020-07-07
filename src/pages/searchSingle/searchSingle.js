@@ -303,7 +303,6 @@ const EnhanceSingletForm = reduxForm({
   validate,
   onSubmit: (values, dispatch) => {
     const request = utilFormSingle(values);
-    console.log(request);
     const querys = getValuesToQuery(request);
 
     return dispatch(getFingerSearchRequest(request));
