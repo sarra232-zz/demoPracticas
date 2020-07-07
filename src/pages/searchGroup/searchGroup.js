@@ -23,11 +23,15 @@ class SearchGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      advanceSearch: false,
       showSeccionId: false,
       showSeccionPlatform: false,
       addGroup: 1,
     };
   }
+  advanceClick = () => {
+    this.setState({advanceSearch: !this.state.advanceSearch});
+  };
 
   increment = () => {
     this.setState({addGroup: this.state.addGroup + 1});
@@ -128,21 +132,17 @@ class SearchGroup extends React.Component {
           getChilds(showPlatforms(), platformField[0].value)
         );
       }
-      return null;
-    };
-    const showCategories = () => {
-      console.log('search-group 74', portalGroup);
-      if (portalGroup && portalGroup.length) {
-        return getDropDownValue(getChilds(showPortals(), portalGroup[0].value));
-      }
-    };
-
-    const showTypeCategories = () => {
-      if (categoryGroup && categoryGroup.length) {
+      if (platformField1 && platformField1.length) {
         return getDropDownValue(
-          getChilds(showCategories(), categoryGroup[0].value)
+          getChilds(showPlatforms(), platformField1[0].value)
         );
       }
+      if (platformField2 && platformField2.length) {
+        return getDropDownValue(
+          getChilds(showPlatforms(), platformField2[0].value)
+        );
+      }
+      return null;
     };
 
     const activeAll = false;
@@ -295,37 +295,37 @@ class SearchGroup extends React.Component {
                   )}
 
                 {this.state.showSeccionPlatform &&
-                  typeConsult !==
-                    'Identifier'(
-                      <div>
-                        <div className="search-group__column">
-                          <Field
-                            id="platform"
-                            name="platform"
-                            label={'Plataforma'}
-                            placeholder={'Seleccione plataforma'}
-                            isMulti={true}
-                            multi
-                            props
-                            field
-                            options={showPlatforms().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                  typeConsult !== 'Identifier' && (
+                    <div>
+                      <div className="search-group__column">
+                        <Field
+                          id="platform"
+                          name="platform"
+                          label={'Plataforma'}
+                          placeholder={'Seleccione plataforma'}
+                          isMulti={true}
+                          multi
+                          props
+                          field
+                          options={showPlatforms().map((p) => ({
+                            label: p.key.toLocaleLowerCase(),
+                            value: {
+                              key: p.key,
                               value: {
-                                key: p.key,
-                                value: {
-                                  lastDate: p.values.lastDate,
-                                  hasChild: p.values.hasChild,
-                                },
+                                lastDate: p.values.lastDate,
+                                hasChild: p.values.hasChild,
                               },
-                            }))}
-                            component={DropDown}
-                          />
-                        </div>
+                            },
+                          }))}
+                          component={DropDown}
+                        />
                       </div>
-                    )}
+                    </div>
+                  )}
                 {platformField &&
                   platformField.length === 1 &&
-                  Object.values(platformField[0].value)[1].hasChild && (
+                  Object.values(platformField[0].value)[1].hasChild &&
+                  typeConsult !== 'Identifier' && (
                     <div className="search-group__column">
                       <Field
                         id="portalGroup"
@@ -336,67 +336,6 @@ class SearchGroup extends React.Component {
                         multi
                         props
                         options={showPortals().map((p) => ({
-                          label: p.key.toLocaleLowerCase(),
-                          value: {
-                            key: p.key,
-                            value: {
-                              lastDate: p.values.lastDate,
-                              hasChild: p.values.hasChild,
-                            },
-                          },
-                        }))}
-                        component={DropDown}
-                      />
-                    </div>
-                  )}
-                {platformField &&
-                  platformField.length === 1 &&
-                  Object.values(platformField[0].value)[1].hasChild &&
-                  portalGroup &&
-                  portalGroup.length === 1 &&
-                  Object.values(portalGroup[0].value)[1].hasChild && (
-                    <div className="search-group__column">
-                      <Field
-                        id="categoryGroup"
-                        name="categoryGroup"
-                        label={'Categoria'}
-                        placeholder={'Seleccione una opción'}
-                        isMulti={true}
-                        multi
-                        props
-                        options={showCategories().map((p) => ({
-                          label: p.key.toLocaleLowerCase(),
-                          value: {
-                            key: p.key,
-                            value: {
-                              lastDate: p.values.lastDate,
-                              hasChild: p.values.hasChild,
-                            },
-                          },
-                        }))}
-                        component={DropDown}
-                      />
-                    </div>
-                  )}
-                {platformField &&
-                  platformField.length === 1 &&
-                  Object.values(platformField[0].value)[1].hasChild &&
-                  portalGroup &&
-                  portalGroup.length === 1 &&
-                  Object.values(portalGroup[0].value)[1].hasChild &&
-                  categoryGroup &&
-                  categoryGroup.length === 1 &&
-                  Object.values(categoryGroup[0].value)[1].hasChild && (
-                    <div className="ssearch-group__column">
-                      <Field
-                        id="typeCategory"
-                        name="typeCategory"
-                        label={'Tipo de categoria'}
-                        placeholder={'Seleccione una opción'}
-                        isMulti={true}
-                        multi
-                        props
-                        options={showTypeCategories().map((p) => ({
                           label: p.key.toLocaleLowerCase(),
                           value: {
                             key: p.key,
@@ -587,6 +526,7 @@ class SearchGroup extends React.Component {
                     )}
                   {platformField1 &&
                     platformField1.length === 1 &&
+                    typeConsult1 !== 'Identifier' &&
                     Object.values(platformField1[0].value)[1].hasChild && (
                       <div className="search-group__column">
                         <Field
@@ -598,67 +538,6 @@ class SearchGroup extends React.Component {
                           multi
                           props
                           options={showPortals().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
-                            value: {
-                              key: p.key,
-                              value: {
-                                lastDate: p.values.lastDate,
-                                hasChild: p.values.hasChild,
-                              },
-                            },
-                          }))}
-                          component={DropDown}
-                        />
-                      </div>
-                    )}
-                  {platformField1 &&
-                    platformField1.length === 1 &&
-                    Object.values(platformField1[0].value)[1].hasChild &&
-                    portalGroup1 &&
-                    portalGroup1.length === 1 &&
-                    Object.values(portalGroup1[0].value)[1].hasChild && (
-                      <div className="search-group__column">
-                        <Field
-                          id="categoryGroup1"
-                          name="categoryGroup1"
-                          label={'Categoria'}
-                          placeholder={'Seleccione una opción'}
-                          isMulti={true}
-                          multi
-                          props
-                          options={showCategories().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
-                            value: {
-                              key: p.key,
-                              value: {
-                                lastDate: p.values.lastDate,
-                                hasChild: p.values.hasChild,
-                              },
-                            },
-                          }))}
-                          component={DropDown}
-                        />
-                      </div>
-                    )}
-                  {platformField1 &&
-                    platformField1.length === 1 &&
-                    Object.values(platformField1[0].value)[1].hasChild &&
-                    portalGroup1 &&
-                    portalGroup1.length === 1 &&
-                    Object.values(portalGroup1[0].value)[1].hasChild &&
-                    categoryGroup1 &&
-                    categoryGroup1.length === 1 &&
-                    Object.values(categoryGroup1[0].value)[1].hasChild && (
-                      <div className="ssearch-group__column">
-                        <Field
-                          id="typeCategory1"
-                          name="typeCategory1"
-                          label={'Tipo de categoria'}
-                          placeholder={'Seleccione una opción'}
-                          isMulti={true}
-                          multi
-                          props
-                          options={showTypeCategories().map((p) => ({
                             label: p.key.toLocaleLowerCase(),
                             value: {
                               key: p.key,
@@ -850,6 +729,7 @@ class SearchGroup extends React.Component {
                     )}
                   {platformField2 &&
                     platformField2.length === 1 &&
+                    typeConsult2 !== 'Identifier' &&
                     Object.values(platformField2[0].value)[1].hasChild && (
                       <div className="search-group__column">
                         <Field
@@ -874,71 +754,10 @@ class SearchGroup extends React.Component {
                         />
                       </div>
                     )}
-                  {platformField2 &&
-                    platformField2.length === 1 &&
-                    Object.values(platformField2[0].value)[1].hasChild &&
-                    portalGroup2 &&
-                    portalGroup2.length === 1 &&
-                    Object.values(portalGroup[0].value)[1].hasChild && (
-                      <div className="search-group__column">
-                        <Field
-                          id="categoryGroup2"
-                          name="categoryGroup2"
-                          label={'Categoria'}
-                          placeholder={'Seleccione una opción'}
-                          isMulti={true}
-                          multi
-                          props
-                          options={showCategories().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
-                            value: {
-                              key: p.key,
-                              value: {
-                                lastDate: p.values.lastDate,
-                                hasChild: p.values.hasChild,
-                              },
-                            },
-                          }))}
-                          component={DropDown}
-                        />
-                      </div>
-                    )}
-                  {platformField2 &&
-                    platformField2.length === 1 &&
-                    Object.values(platformField2[0].value)[1].hasChild &&
-                    portalGroup2 &&
-                    portalGroup2.length === 1 &&
-                    Object.values(portalGroup2[0].value)[1].hasChild &&
-                    categoryGroup2 &&
-                    categoryGroup2.length === 1 &&
-                    Object.values(categoryGroup2[0].value)[1].hasChild && (
-                      <div className="ssearch-group__column">
-                        <Field
-                          id="typeCategory2"
-                          name="typeCategory2"
-                          label={'Tipo de categoria'}
-                          placeholder={'Seleccione una opción'}
-                          isMulti={true}
-                          multi
-                          props
-                          options={showTypeCategories().map((p) => ({
-                            label: p.key.toLocaleLowerCase(),
-                            value: {
-                              key: p.key,
-                              value: {
-                                lastDate: p.values.lastDate,
-                                hasChild: p.values.hasChild,
-                              },
-                            },
-                          }))}
-                          component={DropDown}
-                        />
-                      </div>
-                    )}
                 </div>
               )}
               <div className="search-group__wrapper-button">
-                <Button children={'Buscar'} />
+                <Button children={'Buscar'} onclick={this.advanceClick} />
                 {this.state.addGroup < 3 && (
                   <Button
                     className="inc"
@@ -973,6 +792,7 @@ const EnhanceGrouptForm = reduxForm({
   validate,
   onSubmit: (values, props) => {
     const request = utilFormGroup(values, props);
+    console.log('791 requesSearchGroup', request);
   },
 });
 

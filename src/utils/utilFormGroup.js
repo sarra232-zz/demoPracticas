@@ -36,27 +36,27 @@ const getChilds = (data, value) => {
 const calendar = [
   {
     time: 'time',
-    value: '1 day',
+    value: '1 día',
   },
   {
     time: 'time',
-    value: '7 days',
+    value: '7 días',
   },
   {
     time: 'time',
-    value: '15 days',
+    value: '15 días',
   },
   {
     time: 'time',
-    value: '30 days',
+    value: '30 días',
   },
 ];
 
 const formatDate = (value) => {
-  if (value === '1 day') return 1;
-  if (value === '7 days') return 7;
-  if (value === '15 days') return 15;
-  if (value === '30 days') return 30;
+  if (value === '1 día') return 1;
+  if (value === '7 días') return 7;
+  if (value === '15 días') return 15;
+  if (value === '30 días') return 30;
   return 1;
 };
 
@@ -145,53 +145,95 @@ const utilFormGroup = (values) => {
     typeConsult,
     typeIdentifier,
     primaryIndentifiers,
-    secondaryIdentifier,
-    deviceIdentifier,
+    secondaryIdentifiers,
+    deviceIdentifiers,
     identifier,
     platform,
-    portal,
-    category,
-    typeCategory,
+    portalGroup,
     time,
+
+    typeConsult1,
+    typeIdentifier1,
+    primaryIndentifiers1,
+    secondaryIdentifiers1,
+    deviceIdentifiers1,
+    identifier1,
+    platform1,
+    portalGroup1,
+    time1,
+
+    typeConsult2,
+    typeIdentifier2,
+    primaryIndentifiers2,
+    secondaryIdentifiers2,
+    deviceIdentifiers2,
+    identifier2,
+    platform2,
+    portal2,
+    time2,
   } = values;
-  const primaryIndentifier = primaryIndentifiers.split(',');
+  // const primaryIndentifier = primaryIndentifiers.split(',');
+
+  const secondaryIndentifier =
+    secondaryIdentifiers && secondaryIdentifiers.split(',');
+  const deviceIndentifier = deviceIdentifiers && deviceIdentifiers.split(',');
+
+  // const primaryIndentifier1 = primaryIndentifiers1.split(',');
+  const secondaryIndentifier1 =
+    secondaryIdentifiers1 && secondaryIdentifiers1.split(',');
+  const deviceIndentifier1 =
+    deviceIdentifiers1 && deviceIdentifiers1.split(',');
+
+  // const primaryIndentifier2 = primaryIndentifiers2.split(',');
+  // const secondaryIndentifier2 = secondaryIdentifiers2.split(',');
+  // const deviceIndentifier2 = deviceIdentifiers2.split(',');
+  const getTypeIdentifier = (typeIdentifier) => {
+    if (typeIdentifier === 'secondary') return typeIdentifier;
+    if (typeIdentifier === 'device') return typeIdentifier;
+    return null;
+  };
+
   return {
     and: [
       {
         identifiers: {
           secundario: {
-            secondaryIdentifier: identifier,
+            type: secondaryIndentifier ? secondaryIndentifier[1] : '',
+            value: secondaryIndentifier ? identifier : '',
           },
           dispositivo: {
-            deviceIdentifier: identifier,
+            type: deviceIdentifiers ? deviceIndentifier[1] : '',
+            value: deviceIdentifiers ? identifier : '',
           },
         },
         filters: {
-          portal: getDropDownOptionSelected(portal),
+          portal: getDropDownOptionSelected(portalGroup),
           platform: getDropDownOptionSelected(platform),
         },
         range: {
           days: formatDate(time),
         },
-        and: [
-          {
-            identifiers: {
-              secundario: {
-                secondaryIdentifier: identifier,
-              },
-              dispositivo: {
-                deviceIdentifier: identifier,
-              },
+      },
+      {
+        identifiers: {
+          secundario: {
+            secundario: {
+              type: secondaryIndentifier1 ? secondaryIndentifier1[1] : '',
+              value: secondaryIndentifier1 ? identifier1 : '',
             },
-            filters: {
-              portal: getDropDownOptionSelected(portal),
-              platform: getDropDownOptionSelected(platform),
-            },
-            range: {
-              days: formatDate(time),
+            dispositivo: {
+              type: deviceIdentifiers ? deviceIndentifier[1] : '',
+              value: deviceIdentifiers ? identifier : '',
             },
           },
-        ],
+          filters: {
+            portal: getDropDownOptionSelected(portalGroup1),
+            platform: getDropDownOptionSelected(platform1),
+          },
+          range: {
+            days: formatDate(time1),
+          },
+        },
       },
     ],
   };
