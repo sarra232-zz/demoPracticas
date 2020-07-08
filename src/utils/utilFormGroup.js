@@ -147,6 +147,7 @@ const utilFormGroup = (values) => {
     primaryIndentifiers,
     secondaryIdentifiers,
     deviceIdentifiers,
+    bluekaiIdentifiers,
     identifier,
     platform,
     portalGroup,
@@ -157,6 +158,7 @@ const utilFormGroup = (values) => {
     primaryIndentifiers1,
     secondaryIdentifiers1,
     deviceIdentifiers1,
+    bluekaiIdentifiers1,
     identifier1,
     platform1,
     portalGroup1,
@@ -177,21 +179,20 @@ const utilFormGroup = (values) => {
   const secondaryIndentifier =
     secondaryIdentifiers && secondaryIdentifiers.split(',');
   const deviceIndentifier = deviceIdentifiers && deviceIdentifiers.split(',');
+  const bluekaiIndentifier =
+    bluekaiIdentifiers && bluekaiIdentifiers.split(',');
 
   // const primaryIndentifier1 = primaryIndentifiers1.split(',');
   const secondaryIndentifier1 =
     secondaryIdentifiers1 && secondaryIdentifiers1.split(',');
   const deviceIndentifier1 =
     deviceIdentifiers1 && deviceIdentifiers1.split(',');
+  const bluekaiIndentifier1 =
+    bluekaiIdentifiers1 && bluekaiIdentifiers1.split(',');
 
   // const primaryIndentifier2 = primaryIndentifiers2.split(',');
   // const secondaryIndentifier2 = secondaryIdentifiers2.split(',');
   // const deviceIndentifier2 = deviceIdentifiers2.split(',');
-  const getTypeIdentifier = (typeIdentifier) => {
-    if (typeIdentifier === 'secondary') return typeIdentifier;
-    if (typeIdentifier === 'device') return typeIdentifier;
-    return null;
-  };
 
   return {
     and: [
@@ -204,6 +205,10 @@ const utilFormGroup = (values) => {
           dispositivo: {
             type: deviceIdentifiers ? deviceIndentifier[1] : '',
             value: deviceIdentifiers ? identifier : '',
+          },
+          bluekai: {
+            type: bluekaiIdentifiers ? bluekaiIndentifier[1] : '',
+            value: bluekaiIdentifiers ? identifier : '',
           },
         },
         filters: {
@@ -224,6 +229,10 @@ const utilFormGroup = (values) => {
             dispositivo: {
               type: deviceIdentifiers1 ? deviceIndentifier[1] : '',
               value: deviceIdentifiers1 ? identifier1 : '',
+            },
+            bluekai: {
+              type: bluekaiIdentifiers1 ? bluekaiIndentifier1[1] : '',
+              value: bluekaiIdentifiers1 ? identifier1 : '',
             },
           },
         },
