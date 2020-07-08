@@ -6,13 +6,13 @@ import {
   GET_SEARCH_GROUP_REQUEST,
 } from '../types/searchGroup';
 
-const fingerSearcModel = Immutable({
+const groupSearcModel = Immutable({
   searchGroup: {},
   error: false,
   fetching: false,
 });
 
-export default function searchGroup(state = fingerSearcModel, action = {}) {
+export default function searchGroup(state = groupSearcModel, action = {}) {
   switch (action.type) {
     case GET_SEARCH_GROUP_SUCCESS:
       return state.merge({

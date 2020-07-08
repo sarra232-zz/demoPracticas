@@ -17,7 +17,7 @@ import {
   getDropDownValue,
   getChilds,
 } from '../../utils/utilFormGroup';
-import TableG from '../../components/commons/table/tableG';
+import Table from '../../components/commons/table/tableG';
 import './searchGroup.scss';
 
 class SearchGroup extends React.Component {
@@ -123,6 +123,7 @@ class SearchGroup extends React.Component {
       categoryGroup2,
 
       fetching,
+      searchGroup,
     } = this.props;
     const showPlatforms = () => {
       return getDropDownValue(configurationInfo.filters);
@@ -761,9 +762,13 @@ class SearchGroup extends React.Component {
           </form>
         </article>
         <article>
-          {/* <TableG
-          // data={Object.values(Object.values(searchGroup.customers))}
-          /> */}
+          {searchGroup &&
+            searchGroup.customers &&
+            Object.values(searchGroup.customers)[0] && (
+              <Table
+                data={Object.values(Object.values(searchGroup.customers))}
+              />
+            )}
         </article>
       </div>
     );
@@ -774,7 +779,6 @@ const EnhanceGrouptForm = reduxForm({
   form: 'utilFormGroup',
   onSubmit: (values, dispatch) => {
     const request = utilFormGroup(values);
-    console.log('Request searchGroup', request);
     return dispatch(getSearchGroupRequest(request));
   },
 });
@@ -849,6 +853,7 @@ const mapStateToProps = (state, ownProps) => {
 
     configurationInfo: state.configInfo.data,
     fetching: state.searchGroup.fetching,
+    searchGroup: state.searchGroup.searchGroup,
     error: state.searchGroup.error,
   };
 };

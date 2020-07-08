@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {dataTable, dataTableFinal} from '../../../utils/utilFormGroup';
 import './table.scss';
 
-class TableG extends Component {
+class Table extends Component {
   render() {
     const {headers, data} = this.props;
     const dataColumns = data.map((d) => dataTable(d));
@@ -10,7 +10,7 @@ class TableG extends Component {
     return (
       <div className="table__table-wrapper">
         <strong className="table__title">
-          <h1>Sesiones:</h1>
+          <h1>Name table: </h1>
         </strong>
         <table className="table">
           <thead>
@@ -33,4 +33,4 @@ class TableG extends Component {
   }
 }
 
-export default TableG;
+export default Table;
