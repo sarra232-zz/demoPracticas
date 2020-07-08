@@ -1,6 +1,9 @@
 .box {
     &__wrapper-box {
         display: flex;
+        justify-content: space-around;
+        margin-left: 20px;
+        margin-right: 20px;
     }
     &__box {
         overflow-y: scroll;
@@ -17,4 +20,20 @@
     &__title {
         margin: 30px;
     }
+    &__cursor {
+        cursor: pointer;
+    }
+}
+
+.card-body {
+    width: 800px;
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+    font-weight: bold;
 }

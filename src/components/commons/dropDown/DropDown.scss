@@ -1,9 +1,6 @@
 .drop-down {
     display: grid;
     align-items: center;
-    &__label {
-        padding-bottom: 5px;
-    }
     &__error {
         color: red;
         font-size: 14px;

@@ -27,20 +27,20 @@ import {getFingerSearchRequest} from '../../actions/fingerSearch';
 import './searchSingle.scss';
 
 class SearchSingle extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {advanceSearch: false};
   }
 
-  componentDidMount() {
-    getIdentifiers(this.props.configurationInfo.identifiers.primary);
+  componentDidMount () {
+    getIdentifiers (this.props.configurationInfo.identifiers.primary);
   }
 
   advanceClick = () => {
-    this.setState({advanceSearch: !this.state.advanceSearch});
+    this.setState ({advanceSearch: !this.state.advanceSearch});
   };
 
-  render() {
+  render () {
     const {
       configurationInfo,
       fingerSearch,
@@ -52,12 +52,12 @@ class SearchSingle extends Component {
       error,
     } = this.props;
     const showPlatforms = () => {
-      return getDropDownValue(configurationInfo.filters);
+      return getDropDownValue (configurationInfo.filters);
     };
     const showPortals = () => {
       if (platformField && platformField.length) {
-        return getDropDownValue(
-          getChilds(showPlatforms(), platformField[0].value)
+        return getDropDownValue (
+          getChilds (showPlatforms (), platformField[0].value)
         );
       }
       return null;
@@ -65,7 +65,7 @@ class SearchSingle extends Component {
     const showCategories = () => {
       if (portal && portal.length) {
         if (platformField && platformField.length && portal && portal.length) {
-          return getDropDownValue(getChilds(showPortals(), portal[0].value));
+          return getDropDownValue (getChilds (showPortals (), portal[0].value));
         }
       }
     };
@@ -80,15 +80,15 @@ class SearchSingle extends Component {
           category &&
           category.length
         ) {
-          return getDropDownValue(
-            getChilds(showCategories(), category[0].value)
+          return getDropDownValue (
+            getChilds (showCategories (), category[0].value)
           );
         }
       }
     };
     return (
       <div className="search-single">
-        {fetching && <Spinner></Spinner>}
+        {fetching && <Spinner />}
         <article>
           <form
             className="search-single__form"
@@ -106,7 +106,7 @@ class SearchSingle extends Component {
                       component={Select}
                     >
                       <option value="">Selecione tiempo</option>
-                      {calendar.map((cal) => (
+                      {calendar.map (cal => (
                         <option key={cal.value} value={cal.value}>
                           {cal.value}
                         </option>
@@ -122,11 +122,11 @@ class SearchSingle extends Component {
                       component={Select}
                     >
                       <option value="">Seleccione una opción</option>
-                      {Object.values(
-                        getIdentifiers(configurationInfo.identifiers.primary)
-                      ).map((i) => (
+                      {Object.values (
+                        getIdentifiers (configurationInfo.identifiers.primary)
+                      ).map (i => (
                         <option key={i.type} value={[i.scope, i.type, i.date]}>
-                          {i.type.toLocaleLowerCase()}
+                          {i.type.toLocaleLowerCase ()}
                         </option>
                       ))}
                     </Field>
@@ -142,7 +142,7 @@ class SearchSingle extends Component {
                     />
                   </div>
                 </div>
-                {this.state.advanceSearch && (
+                {this.state.advanceSearch &&
                   <div className="search-single__wrapper-colums-standard">
                     <div className="search-single__column">
                       <Field
@@ -154,11 +154,10 @@ class SearchSingle extends Component {
                         multi
                         props
                         field
-                        options={showPlatforms().map((p) => ({
-                          label:
-                            p.key === 'GOOGLEANALYTICS'
-                              ? 'GOOGLE ANALYTICS'
-                              : p.key,
+                        options={showPlatforms ().map (p => ({
+                          label: p.key === 'GOOGLEANALYTICS'
+                            ? 'GOOGLE ANALYTICS'
+                            : p.key,
                           value: {
                             key: p.key,
                             value: {
@@ -172,155 +171,147 @@ class SearchSingle extends Component {
                     </div>
                     {platformField &&
                       platformField.length === 1 &&
-                      Object.values(platformField[0].value)[1].hasChild && (
-                        <div className="search-single__column">
-                          <Field
-                            id="portal"
-                            name="portal"
-                            label={'Portal'}
-                            placeholder={'Seleccione una opción'}
-                            isMulti={true}
-                            multi
-                            props
-                            options={showPortals().map((p) => ({
-                              label:
-                                p.key === 'BANCOLOMBIA APP PERSONAS'
-                                  ? 'APP PERSONAS'
-                                  : p.key,
+                      Object.values (platformField[0].value)[1].hasChild &&
+                      <div className="search-single__column">
+                        <Field
+                          id="portal"
+                          name="portal"
+                          label={'Portal'}
+                          placeholder={'Seleccione una opción'}
+                          isMulti={true}
+                          multi
+                          props
+                          options={showPortals ().map (p => ({
+                            label: p.key === 'BANCOLOMBIA APP PERSONAS'
+                              ? 'APP PERSONAS'
+                              : p.key,
+                            value: {
+                              key: p.key,
                               value: {
-                                key: p.key,
-                                value: {
-                                  lastDate: p.values.lastDate,
-                                  hasChild: p.values.hasChild,
-                                },
+                                lastDate: p.values.lastDate,
+                                hasChild: p.values.hasChild,
                               },
-                            }))}
-                            component={DropDown}
-                          />
-                        </div>
-                      )}
+                            },
+                          }))}
+                          component={DropDown}
+                        />
+                      </div>}
                     {platformField &&
                       platformField.length === 1 &&
-                      Object.values(platformField[0].value)[1].hasChild &&
+                      Object.values (platformField[0].value)[1].hasChild &&
                       portal &&
                       portal.length === 1 &&
-                      Object.values(portal[0].value)[1].hasChild && (
-                        <div className="search-single__column">
-                          <Field
-                            id="category"
-                            name="category"
-                            label={'Categoria'}
-                            placeholder={'Seleccione una opción'}
-                            isMulti={true}
-                            multi
-                            props
-                            options={showCategories().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                      Object.values (portal[0].value)[1].hasChild &&
+                      <div className="search-single__column">
+                        <Field
+                          id="category"
+                          name="category"
+                          label={'Categoria'}
+                          placeholder={'Seleccione una opción'}
+                          isMulti={true}
+                          multi
+                          props
+                          options={showCategories ().map (p => ({
+                            label: p.key.toLocaleLowerCase (),
+                            value: {
+                              key: p.key,
                               value: {
-                                key: p.key,
-                                value: {
-                                  lastDate: p.values.lastDate,
-                                  hasChild: p.values.hasChild,
-                                },
+                                lastDate: p.values.lastDate,
+                                hasChild: p.values.hasChild,
                               },
-                            }))}
-                            component={DropDown}
-                          />
-                        </div>
-                      )}
+                            },
+                          }))}
+                          component={DropDown}
+                        />
+                      </div>}
                     {platformField &&
                       platformField.length === 1 &&
-                      Object.values(platformField[0].value)[1].hasChild &&
+                      Object.values (platformField[0].value)[1].hasChild &&
                       portal &&
                       portal.length === 1 &&
-                      Object.values(portal[0].value)[1].hasChild &&
+                      Object.values (portal[0].value)[1].hasChild &&
                       category &&
                       category.length === 1 &&
-                      Object.values(category[0].value)[1].hasChild && (
-                        <div className="search-single__column">
-                          <Field
-                            id="typeCategory"
-                            name="typeCategory"
-                            label={'Seleccione tipo de categoria'}
-                            placeholder={'Seleccione una opción'}
-                            isMulti={true}
-                            multi
-                            props
-                            options={showTypeCategories().map((p) => ({
-                              label: p.key.toLocaleLowerCase(),
+                      Object.values (category[0].value)[1].hasChild &&
+                      <div className="search-single__column">
+                        <Field
+                          id="typeCategory"
+                          name="typeCategory"
+                          label={'Seleccione tipo de categoria'}
+                          placeholder={'Seleccione una opción'}
+                          isMulti={true}
+                          multi
+                          props
+                          options={showTypeCategories ().map (p => ({
+                            label: p.key.toLocaleLowerCase (),
+                            value: {
+                              key: p.key,
                               value: {
-                                key: p.key,
-                                value: {
-                                  lastDate: p.values.lastDate,
-                                  hasChild: p.values.hasChild,
-                                },
+                                lastDate: p.values.lastDate,
+                                hasChild: p.values.hasChild,
                               },
-                            }))}
-                            component={DropDown}
-                          />
-                        </div>
-                      )}
-                  </div>
-                )}
+                            },
+                          }))}
+                          component={DropDown}
+                        />
+                      </div>}
+                  </div>}
               </div>
               <div className="search-single__wrapper-button">
                 <Button children={'Buscar'} />
                 <Button
-                  children={`Busqueda avanzada ${
-                    this.state.advanceSearch ? '-' : '+'
-                  }`}
+                  children={`Busqueda avanzada ${this.state.advanceSearch ? '-' : '+'}`}
                   onclick={this.advanceClick}
                 />
               </div>
             </div>
           </form>
-          {fingerSearch && fingerSearch.customer && (
-            <Box data={fingerSearch.customer} />
-          )}
+          {fingerSearch &&
+            fingerSearch.customer &&
+            <Box data={fingerSearch.customer} />}
         </article>
         {error ||
-          (fingerSearch.customer && error && (
+          (fingerSearch.customer &&
+            error &&
             <Error
               error={
                 fingerSearch.customer && error
                   ? 'La busqueda por estos parametros no arroja resultados'
                   : 'Usuario no encontrado'
               }
-            ></Error>
-          ))}
+            />)}
 
         <article>
           {fingerSearch &&
             fingerSearch.finger &&
-            Object.values(fingerSearch.finger)[0] && (
-              <Table
-                headers={Object.keys(Object.values(fingerSearch.finger)[0])}
-                data={Object.values(Object.values(fingerSearch.finger))}
-              />
-            )}
+            Object.values (fingerSearch.finger)[0] &&
+            <Table
+              headers={Object.keys (Object.values (fingerSearch.finger)[0])}
+              data={Object.values (Object.values (fingerSearch.finger))}
+            />}
         </article>
       </div>
     );
   }
 }
 
-const EnhanceSingletForm = reduxForm({
+const EnhanceSingletForm = reduxForm ({
   form: 'searchSingleForm',
   validate,
   onSubmit: (values, dispatch) => {
-    const request = utilFormSingle(values);
-    const querys = getValuesToQuery(request);
+    const request = utilFormSingle (values);
+    const querys = getValuesToQuery (request);
 
-    return dispatch(getFingerSearchRequest(request));
+    return dispatch (getFingerSearchRequest (request));
   },
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const selector = formValueSelector('searchSingleForm');
-  const platformField = selector(state, 'platform');
-  const portal = selector(state, 'portal');
-  const category = selector(state, 'category');
-  const typeCategory = selector(state, 'typeCategory');
+  const selector = formValueSelector ('searchSingleForm');
+  const platformField = selector (state, 'platform');
+  const portal = selector (state, 'portal');
+  const category = selector (state, 'category');
+  const typeCategory = selector (state, 'typeCategory');
   return {
     platformField,
     portal,
@@ -336,6 +327,6 @@ const mapDispatchToProps = {
   getFingerSearchRequest,
 };
 
-const connectEnhace = connect(mapStateToProps, mapDispatchToProps);
+const connectEnhace = connect (mapStateToProps, mapDispatchToProps);
 
-export default compose(connectEnhace, EnhanceSingletForm)(SearchSingle);
+export default compose (connectEnhace, EnhanceSingletForm) (SearchSingle);

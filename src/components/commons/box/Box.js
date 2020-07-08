@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 import React from 'react';
+import questionIcon from '../../../assets/images/questionIcon.svg'
 import './Box.scss';
 
 class Box extends React.Component {
@@ -10,7 +11,9 @@ class Box extends React.Component {
       <div>
         <h1 className="box__title">Información del usuario</h1>
         <div className="box__wrapper-box">
-          <div className="box__box">
+          <div className="card bg-light mb-3">
+          <div className="card-header"><p>Bluekai</p><a className="box__cursor" data-toggle="tooltip" data-placement="top" title="Huella digital"><img src={questionIcon} alt="" width="25" height="25"/></a></div>
+          <div className="card-body">
             <h3>Audiencias Bluekai</h3>
             {data.bluekaiData &&
               data.bluekaiData.length &&
@@ -28,9 +31,11 @@ class Box extends React.Component {
             ) : (
               "There aren't Metadata"
             )}
+            </div>
           </div>
-          <div className="box__box">
-            <h1>Identificadores</h1>
+          <div className="card bg-light mb-3">
+          <div className="card-header"><p>Identificadores</p><a className="box__cursor" data-toggle="tooltip" data-placement="top" title="Huella digital"><img src={questionIcon} alt="" width="25" height="25"/></a></div>
+          <div className="card-body">
             <div>
               <h3>Primarios</h3>
               {Object.values(data.primaryIdentifier).map((value) => (
@@ -51,6 +56,7 @@ class Box extends React.Component {
                 ))}
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>

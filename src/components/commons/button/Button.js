@@ -5,7 +5,7 @@ import './Button.scss';
 const Button = ({children, href, onclick}) => {
   return (
     <div>
-      <button className="button__butons" onClick={onclick}>
+      <button className="button__butons btn btn-dark" onClick={onclick}>
         <a className="button__href-style" href={href}>
           {children}
         </a>

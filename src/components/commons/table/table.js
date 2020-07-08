@@ -3,17 +3,17 @@ import {dataTable, dataTableFinal} from '../../../utils/utilForm';
 import './table.scss';
 
 class Table extends Component {
-  render() {
+  render () {
     const {headers, data} = this.props;
-    const dataColumns = data.map((d) => dataTable(d));
+    const dataColumns = data.map (d => dataTable (d));
     var i = 1;
     return (
-      <div className="table__table-wrapper">
+      <div className="table__table-wrapper table table-striped table-bordered">
         <strong className="table__title">
-          <h1>Sesiones:</h1>
+          <h1>Sesiones</h1>
         </strong>
         <table className="table">
-          <thead>
+          <thead className="thead-dark">
             <tr>
               <th>Sesión</th>
               <th>Portal</th>
@@ -23,7 +23,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {dataColumns.map((d, index) => (
+            {dataColumns.map ((d, index) => (
               <tr key={d}>
                 <td className="table__session-id">{i++}</td>
                 <td className="table__portal">{d[1]}</td>
@@ -32,12 +32,12 @@ class Table extends Component {
                 <td className="table__session-date">
                   {
                     <div>
-                      <p>{`Id: ${Object.values(d[4])[0].id}`}</p>
-                      <p>{`Event Date: ${Object.values(d[4])[0].eventdate}`}</p>
-                      <p>{`Description: ${
-                        Object.values(d[4])[0].description
-                      }`}</p>
-                      <p>{`Type: ${Object.values(d[4])[0].type}`}</p>
+                      <p>{`Id: ${Object.values (d[4])[0].id}`}</p>
+                      <p
+                      >{`Event Date: ${Object.values (d[4])[0].eventdate}`}</p>
+                      <p
+                      >{`Description: ${Object.values (d[4])[0].description}`}</p>
+                      <p>{`Type: ${Object.values (d[4])[0].type}`}</p>
                     </div>
                   }
                 </td>

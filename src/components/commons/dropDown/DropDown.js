@@ -19,7 +19,7 @@ export default function DropDown({
   };
   return (
     <div className="drop-down">
-      <label className="drop-down__label">{label}</label>
+      <label >{label}</label>
 
       <Select
         {...props}
