@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
-import {reduxForm, Field, formValueSelector} from 'redux-form';
+import {reduxForm, Field, formValueSelector, reset} from 'redux-form';
 import DropDown from '../../components/commons/dropDown/DropDown';
 import Button from '../../components/commons/button/Button';
 import Select from '../../components/commons/select/Select';
@@ -14,11 +14,12 @@ import validate from '../../components/commons/formValidations/formValidations';
 import {
   getIdentifiers,
   calendar,
+  getValuesToQuery,
   utilFormGroup,
   getDropDownValue,
   getChilds,
 } from '../../utils/utilFormGroup';
-import TableG from '../../components/commons/table/tableG';
+import TableReposG from '../../components/commons/table/tableG';
 import './searchGroup.scss';
 
 class SearchGroup extends React.Component {
@@ -29,8 +30,14 @@ class SearchGroup extends React.Component {
       showSeccionId: false,
       showSeccionPlatform: false,
       addGroup: 1,
+      hiddenAlert: false,
     };
   }
+  closeAlert = () => {
+    if (this.state.hiddenAlert) {
+      this.setState({hiddenAlert: !this.state.hiddenAlert});
+    }
+  };
   advanceClick = () => {
     this.setState({advanceSearch: !this.state.advanceSearch});
   };
@@ -163,6 +170,19 @@ class SearchGroup extends React.Component {
     return (
       <div className="search-group">
         {fetching && <Spinner />}
+        {!this.state.hiddenAlert && errors && (
+          <Error
+            error={
+              searchGroup &&
+              searchGroup.length &&
+              searchGroup.customers &&
+              errors
+                ? 'La busqueda por estos parametros no arroja resultados'
+                : 'Segmento no encontrado'
+            }
+            onClick={this.closeAlert()}
+          />
+        )}
         <article>
           <form
             className="search-group__form"
@@ -803,21 +823,12 @@ class SearchGroup extends React.Component {
             </div>
           </form>
         </article>
-        {errors ||
-          (searchGroup.customers && errors && (
-            <Error
-              error={
-                searchGroup.customers && errors
-                  ? 'La busqueda por estos parametros no arroja resultados'
-                  : 'Segmento no encontrado'
-              }
-            />
-          ))}
+
         <article>
           {searchGroup &&
             searchGroup.customers &&
             Object.values(searchGroup.customers)[0] && (
-              <TableG
+              <TableReposG
                 counts={searchGroup.count}
                 data={Object.values(Object.values(searchGroup.customers))}
               />
@@ -832,6 +843,7 @@ const EnhanceGrouptForm = reduxForm({
   form: 'utilFormGroup',
   onSubmit: (values, dispatch) => {
     const request = utilFormGroup(values);
+    const queryvalues = getValuesToQuery(request);
     return dispatch(getSearchGroupRequest(request));
   },
 });

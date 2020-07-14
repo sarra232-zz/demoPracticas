@@ -119,24 +119,46 @@ const dataTableFinal = (array) => {
 };
 
 const getValuesToQuery = (request) => {
-  console.log('request', request);
-  const day = Object.values(request.range)[0];
-  const identifier = request.identifier.value;
-  const typeIdentifier = request.identifier.type;
-  const filterPlatform = Object.values(request.filters.platform);
-  const filterPortal = Object.values(request.filters.portal);
-  const filterCategory = Object.values(request.filters.eventCategory);
-  const filterTypeCategory = Object.values(request.filters.eventType);
+  console.log('Request searchGroup 122', request);
+  const and = Object.values(request.and)[0];
+  const and1 = Object.values(request.and)[1];
+  const day = Object.values(and.range);
+  const identifierDevice = Object.values(and.identifiers.dispositivo)[1];
+  const typeIdentifierDevice = Object.values(and.identifiers.dispositivo)[0];
+  const identifierBluekai = Object.values(and.identifiers.bluekai)[1];
+  const typeIdentifierBluekai = Object.values(and.identifiers.bluekai)[0];
+  const filterPlatform = Object.values(and.filters.platform).map((x) => x);
+  const filterPortal = Object.values(and.filters.portal).map((x) => x);
+
+  const day1 = Object.values(and1.range);
+  const identifierDevice1 = Object.values(and1.identifiers.dispositivo)[1];
+  const typeIdentifierDevice1 = Object.values(and1.identifiers.dispositivo)[0];
+  const identifierBluekai1 = Object.values(and1.identifiers.bluekai)[1];
+  const typeIdentifierBluekai1 = Object.values(and1.identifiers.bluekai)[0];
+  const filterPlatform1 = Object.values(and1.filters.platform).map((x) => x);
+  const filterPortal1 = Object.values(and1.filters.portal).map((x) => x);
 
   const responsive = [
-    day,
-    identifier,
-    typeIdentifier,
-    filterPlatform,
-    filterPortal,
-    filterCategory,
-    filterTypeCategory,
+    [
+      day,
+      identifierDevice,
+      typeIdentifierDevice,
+      identifierBluekai,
+      typeIdentifierBluekai,
+      filterPlatform,
+      filterPortal,
+    ],
+    [
+      day1,
+      identifierDevice1,
+      typeIdentifierDevice1,
+      identifierBluekai1,
+      typeIdentifierBluekai1,
+      filterPlatform1,
+      filterPortal1,
+    ],
   ];
+
   console.log('Responsive', responsive);
 };
 
@@ -222,18 +244,16 @@ const utilFormGroup = (values) => {
       {
         identifiers: {
           secundario: {
-            secundario: {
-              type: secondaryIndentifier1 ? secondaryIndentifier1[1] : '',
-              value: secondaryIndentifier1 ? identifier1 : '',
-            },
-            dispositivo: {
-              type: deviceIdentifiers1 ? deviceIndentifier[1] : '',
-              value: deviceIdentifiers1 ? identifier1 : '',
-            },
-            bluekai: {
-              type: bluekaiIdentifiers1 ? bluekaiIndentifier1[1] : '',
-              value: bluekaiIdentifiers1 ? identifier1 : '',
-            },
+            type: secondaryIndentifier1 ? secondaryIndentifier1[1] : '',
+            value: secondaryIndentifier1 ? identifier1 : '',
+          },
+          dispositivo: {
+            type: deviceIdentifiers1 ? deviceIndentifier[1] : '',
+            value: deviceIdentifiers1 ? identifier1 : '',
+          },
+          bluekai: {
+            type: bluekaiIdentifiers1 ? bluekaiIndentifier1[1] : '',
+            value: bluekaiIdentifiers1 ? identifier1 : '',
           },
         },
         filters: {

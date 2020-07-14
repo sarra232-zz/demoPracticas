@@ -40,6 +40,8 @@ const gettypeIdentifiersSelectOptions = (identifier) => {
   if (identifier === 'llavecliente') return 'Bancolombia id';
   if (identifier === 'cii') return 'Omnisage id';
   if (identifier === 'cedulahash') return 'Cedula';
+  if (identifier === 'GOOGLEANALYTICS') return 'GOOGLE ANALYTICS';
+  if (identifier === 'BANCOLOMBIA APP PERSONAS') return 'APP PERSONAS';
   return identifier;
 };
 const calendar = [
@@ -119,12 +121,32 @@ const getLastDate = (time) => {
 };
 const dataTable = (data) => {
   const respData = Object.values(data).map((x) => x);
-  // const DataFinal = respData.filter((x, index) => index !== 4);
   return respData;
 };
 
 const dataTableFinal = (array) => {
   return array.map((x) => x)[0];
+};
+
+//       { events: { `Id: ${Object.values(d[4])[0].id}` }+
+//                       {`Event Date: ${Object.values(d[4])[0].eventdate}`}
+//                       {`Description: ${
+//                               Object.values(d[4])[0].description
+//                             }`}
+// { `Type: ${Object.values(d[4])[0].type}` },
+//                           ]
+
+const getEvents = (eventArray) => {
+  const id = `Id: ${Object.values(eventArray)[0].id}`;
+  const eventDate = `Fecha de evento: ${Object.values(
+    eventArray
+  )[0].eventdate.substring(0, 10)}`;
+  const description = `Descripción: ${
+    Object.values(eventArray)[0].description
+  }`;
+  const type = `Tipo: ${Object.values(eventArray)[0].type}`;
+  const eventFinal = id + '\n' + eventDate + '\n' + description + '\n' + type;
+  return eventFinal;
 };
 
 const utilFormSingle = (values) => {
@@ -193,4 +215,5 @@ export {
   getLastDate,
   validateDateTypeId,
   validateDropDownsDate,
+  getEvents,
 };

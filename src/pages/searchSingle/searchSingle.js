@@ -19,7 +19,7 @@ import {
   getDropDownValue,
   getChilds,
 } from '../../utils/utilForm';
-import Table from '../../components/commons/table/table';
+import BootstrapTable from '../../components/commons/table/table';
 import Box from '../../components/commons/box/Box';
 import Popup from '../../components/commons/popup/popup';
 import Spinner from '../../components/commons/spinner/spinner';
@@ -93,6 +93,18 @@ class SearchSingle extends Component {
     return (
       <div className="search-single">
         {fetching && <Spinner />}
+        {errors && (
+          <Error
+            error={
+              fingerSearch &&
+              fingerSearch.length &&
+              fingerSearch.customer &&
+              errors
+                ? 'La busqueda por estos parametros no arroja resultados'
+                : 'Usuario no encontrado'
+            }
+          ></Error>
+        )}
         <article>
           <form
             className="search-single__form"
@@ -161,10 +173,7 @@ class SearchSingle extends Component {
                         props
                         field
                         options={showPlatforms().map((p) => ({
-                          label:
-                            p.key === 'GOOGLEANALYTICS'
-                              ? 'GOOGLE ANALYTICS'
-                              : p.key,
+                          label: gettypeIdentifiersSelectOptions(p.key),
                           value: {
                             key: p.key,
                             value: {
@@ -189,10 +198,7 @@ class SearchSingle extends Component {
                             multi
                             props
                             options={showPortals().map((p) => ({
-                              label:
-                                p.key === 'BANCOLOMBIA APP PERSONAS'
-                                  ? 'APP PERSONAS'
-                                  : p.key,
+                              label: gettypeIdentifiersSelectOptions(p.key),
                               value: {
                                 key: p.key,
                                 value: {
@@ -284,22 +290,11 @@ class SearchSingle extends Component {
             <Box data={fingerSearch.customer} />
           )}
         </article>
-        {errors ||
-          (fingerSearch.customer && errors && (
-            <Error
-              error={
-                fingerSearch.customer && errors
-                  ? 'La busqueda por estos parametros no arroja resultados'
-                  : 'Usuario no encontrado'
-              }
-            />
-          ))}
-
         <article>
           {fingerSearch &&
             fingerSearch.finger &&
             Object.values(fingerSearch.finger)[0] && (
-              <Table
+              <BootstrapTable
                 headers={Object.keys(Object.values(fingerSearch.finger)[0])}
                 data={Object.values(Object.values(fingerSearch.finger))}
               />

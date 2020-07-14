@@ -1,31 +1,31 @@
 import React from 'react';
+import Toast from 'react-bootstrap/Toast';
 import './error.scss';
 
-const Error = (error) => {
+const Error = ({error, onClick}) => {
   return (
     <div
+      className=" error d-flex justify-content-center align-items-center"
       aria-live="polite"
       aria-atomic="true"
-      class="d-flex justify-content-center align-items-center"
-      style="min-height: 200px;"
+      style={{position: 'relative'}}
     >
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">Mensaje de error</strong>
-            <small>Alerta!</small>
-            <button
-              type="button"
-              class="ml-2 mb-1 close"
-              data-dismiss="toast"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </img>
-          <div class="toast-body">{error}</div>
-        </div>
-      </div>
+      <Toast
+        style={{
+          position: 'absolute',
+          top: '200px',
+          right: 'auto',
+        }}
+      >
+        <Toast.Header>
+          <img src="holder.js/25x25?text=%30" className="rounded mr-2" alt="" />
+          <strong className="mr-auto d-flex justify-content-center align-items-center">
+            Error
+          </strong>
+          <small onClick={onClick}>Cerrar</small>
+        </Toast.Header>
+        <Toast.Body>{error.error}</Toast.Body>
+      </Toast>
     </div>
   );
 };
