@@ -1,7 +1,10 @@
 /*jshint esversion: 6 */
+import {
+  validation,
+} from '../components/commons/formValidations/formValidationsGroup';
 
-const getIdentifiers = (identifiers) => {
-  const id = Object.values(identifiers).map((x) => ({
+const getIdentifiers = identifiers => {
+  const id = Object.values (identifiers).map (x => ({
     scope: x.scope,
     type: x.type,
     date: x.lastDate,
@@ -9,13 +12,13 @@ const getIdentifiers = (identifiers) => {
   return id;
 };
 
-const getDropDownValue = (data) => {
+const getDropDownValue = data => {
   let result = [];
   if (data) {
-    result.length = Object.keys(data).length;
-    for (let i = 0; i < Object.keys(data).length; i++) {
-      const key = Object.keys(data)[i];
-      const values = data[Object.values(Object.keys(data))[i]];
+    result.length = Object.keys (data).length;
+    for (let i = 0; i < Object.keys (data).length; i++) {
+      const key = Object.keys (data)[i];
+      const values = data[Object.values (Object.keys (data))[i]];
       result[i] = {key, values};
     }
     return result;
@@ -25,8 +28,8 @@ const getDropDownValue = (data) => {
 
 const getChilds = (data, value) => {
   if (data && value) {
-    const valueKey = Object.values(value)[0];
-    const validateHasChild = data.filter((x) => x.key === valueKey);
+    const valueKey = Object.values (value)[0];
+    const validateHasChild = data.filter (x => x.key === valueKey);
     if (validateHasChild && validateHasChild[0].values.hasChild)
       return validateHasChild[0].values.child;
     return null;
@@ -52,7 +55,7 @@ const calendar = [
   },
 ];
 
-const formatDate = (value) => {
+const formatDate = value => {
   if (value === '1 día') return 1;
   if (value === '7 días') return 7;
   if (value === '15 días') return 15;
@@ -60,14 +63,14 @@ const formatDate = (value) => {
   return 1;
 };
 
-const getDropDownOptionSelected = (infoSelected) => {
-  if (infoSelected) return infoSelected.map((i) => Object.values(i)[1].key);
+const getDropDownOptionSelected = infoSelected => {
+  if (infoSelected) return infoSelected.map (i => Object.values (i)[1].key);
   return [];
 };
 
 const validateDateTypeId = (lastDate, values) => {
   const {typeIndentifiers} = values;
-  const typeIdentifier = typeIndentifiers.split(',');
+  const typeIdentifier = typeIndentifiers.split (',');
   if (typeIdentifier[2] >= lastDate) {
     return true;
   }
@@ -75,68 +78,66 @@ const validateDateTypeId = (lastDate, values) => {
 };
 
 const validateDropDownsDate = (lastDate, values) => {
-  const {platform, portal, category, typeCategory} = values;
+  const {platform, portalGroup, portalGroup1, platform1} = values;
   if (platform && typeof platform === 'object') {
     return (
-      platform.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+      platform.map (i => Object.values (i)[1].value.lastDate)[0] <= lastDate
     );
   }
-  if (portal && typeof portal === 'object') {
-    return portal.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate;
-  }
-  if (category && typeof category === 'object') {
+  if (portalGroup && typeof portalGroup === 'object') {
     return (
-      category.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+      portalGroup.map (i => Object.values (i)[1].value.lastDate)[0] <= lastDate
     );
   }
-  if (typeCategory && typeof typeCategory === 'object') {
+  if (platform1 && typeof platform1 === 'object') {
     return (
-      typeCategory.map((i) => Object.values(i)[1].value.lastDate)[0] <= lastDate
+      platform1.map (i => Object.values (i)[1].value.lastDate)[0] <= lastDate
     );
   }
+  if (portalGroup1 && typeof portalGroup1 === 'object') {
+    return (
+      portalGroup1.map (i => Object.values (i)[1].value.lastDate)[0] <= lastDate
+    );
+  }
+
   return false;
 };
 
-const getLastDate = (time) => {
-  var today = new Date();
-  today.setDate(today.getDate() - formatDate(time));
+const getLastDate = time => {
+  var today = new Date ();
+  today.setDate (today.getDate () - formatDate (time));
   var lastDate =
-    today.getFullYear() +
+    today.getFullYear () +
     '-' +
-    ('0' + (today.getMonth() + 1)).slice(-2) +
+    ('0' + (today.getMonth () + 1)).slice (-2) +
     '-' +
-    ('0' + today.getDate()).slice(-2);
+    ('0' + today.getDate ()).slice (-2);
   return lastDate;
 };
-const dataTable = (data) => {
-  const respData = Object.values(data).map((x) => x);
-  // const DataFinal = respData.filter((x, index) => index !== 4);
-  return respData;
+
+const dataTableFinal = array => {
+  return array.map (x => x)[0];
 };
 
-const dataTableFinal = (array) => {
-  return array.map((x) => x)[0];
-};
+const getValuesToQuery = request => {
+  console.log ('Request searchGroup 122', request);
+  const and = Object.values (request.and)[0];
+  const and1 = Object.values (request.and)[1];
+  const day = Object.values (and.range);
+  const identifierDevice = Object.values (and.identifiers.dispositivo)[1];
+  const typeIdentifierDevice = Object.values (and.identifiers.dispositivo)[0];
+  const identifierBluekai = Object.values (and.identifiers.bluekai)[1];
+  const typeIdentifierBluekai = Object.values (and.identifiers.bluekai)[0];
+  const filterPlatform = Object.values (and.filters.platform).map (x => x);
+  const filterPortal = Object.values (and.filters.portal).map (x => x);
 
-const getValuesToQuery = (request) => {
-  console.log('Request searchGroup 122', request);
-  const and = Object.values(request.and)[0];
-  const and1 = Object.values(request.and)[1];
-  const day = Object.values(and.range);
-  const identifierDevice = Object.values(and.identifiers.dispositivo)[1];
-  const typeIdentifierDevice = Object.values(and.identifiers.dispositivo)[0];
-  const identifierBluekai = Object.values(and.identifiers.bluekai)[1];
-  const typeIdentifierBluekai = Object.values(and.identifiers.bluekai)[0];
-  const filterPlatform = Object.values(and.filters.platform).map((x) => x);
-  const filterPortal = Object.values(and.filters.portal).map((x) => x);
-
-  const day1 = Object.values(and1.range);
-  const identifierDevice1 = Object.values(and1.identifiers.dispositivo)[1];
-  const typeIdentifierDevice1 = Object.values(and1.identifiers.dispositivo)[0];
-  const identifierBluekai1 = Object.values(and1.identifiers.bluekai)[1];
-  const typeIdentifierBluekai1 = Object.values(and1.identifiers.bluekai)[0];
-  const filterPlatform1 = Object.values(and1.filters.platform).map((x) => x);
-  const filterPortal1 = Object.values(and1.filters.portal).map((x) => x);
+  const day1 = Object.values (and1.range);
+  const identifierDevice1 = Object.values (and1.identifiers.dispositivo)[1];
+  const typeIdentifierDevice1 = Object.values (and1.identifiers.dispositivo)[0];
+  const identifierBluekai1 = Object.values (and1.identifiers.bluekai)[1];
+  const typeIdentifierBluekai1 = Object.values (and1.identifiers.bluekai)[0];
+  const filterPlatform1 = Object.values (and1.filters.platform).map (x => x);
+  const filterPortal1 = Object.values (and1.filters.portal).map (x => x);
 
   const responsive = [
     [
@@ -159,10 +160,10 @@ const getValuesToQuery = (request) => {
     ],
   ];
 
-  console.log('Responsive', responsive);
+  console.log ('Responsive', responsive);
 };
 
-const utilFormGroup = (values) => {
+const utilFormGroup = values => {
   const {
     typeConsult,
     typeIdentifier,
@@ -199,18 +200,18 @@ const utilFormGroup = (values) => {
   // const primaryIndentifier = primaryIndentifiers.split(',');
 
   const secondaryIndentifier =
-    secondaryIdentifiers && secondaryIdentifiers.split(',');
-  const deviceIndentifier = deviceIdentifiers && deviceIdentifiers.split(',');
+    secondaryIdentifiers && secondaryIdentifiers.split (',');
+  const deviceIndentifier = deviceIdentifiers && deviceIdentifiers.split (',');
   const bluekaiIndentifier =
-    bluekaiIdentifiers && bluekaiIdentifiers.split(',');
+    bluekaiIdentifiers && bluekaiIdentifiers.split (',');
 
   // const primaryIndentifier1 = primaryIndentifiers1.split(',');
   const secondaryIndentifier1 =
-    secondaryIdentifiers1 && secondaryIdentifiers1.split(',');
+    secondaryIdentifiers1 && secondaryIdentifiers1.split (',');
   const deviceIndentifier1 =
-    deviceIdentifiers1 && deviceIdentifiers1.split(',');
+    deviceIdentifiers1 && deviceIdentifiers1.split (',');
   const bluekaiIndentifier1 =
-    bluekaiIdentifiers1 && bluekaiIdentifiers1.split(',');
+    bluekaiIdentifiers1 && bluekaiIdentifiers1.split (',');
 
   // const primaryIndentifier2 = primaryIndentifiers2.split(',');
   // const secondaryIndentifier2 = secondaryIdentifiers2.split(',');
@@ -234,11 +235,11 @@ const utilFormGroup = (values) => {
           },
         },
         filters: {
-          portal: getDropDownOptionSelected(portalGroup),
-          platform: getDropDownOptionSelected(platform),
+          portal: getDropDownOptionSelected (portalGroup),
+          platform: getDropDownOptionSelected (platform),
         },
         range: {
-          days: formatDate(time),
+          days: formatDate (time),
         },
       },
       {
@@ -257,11 +258,11 @@ const utilFormGroup = (values) => {
           },
         },
         filters: {
-          portal: getDropDownOptionSelected(portalGroup1),
-          platform: getDropDownOptionSelected(platform1),
+          portal: getDropDownOptionSelected (portalGroup1),
+          platform: getDropDownOptionSelected (platform1),
         },
         range: {
-          days: formatDate(time1),
+          days: formatDate (time1),
         },
       },
     ],
@@ -273,7 +274,6 @@ export const apiKey = 'nYzZgG77QT98NPRcBu5VV9wQoQzC7Q9433qdxBBc';
 export {
   getIdentifiers,
   calendar,
-  dataTable,
   dataTableFinal,
   utilFormGroup,
   getValuesToQuery,
