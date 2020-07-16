@@ -6,26 +6,23 @@ import {dataTable, getEvents} from '../../../utils/utilForm';
 import './table.scss';
 
 class TableRepos extends Component {
-  render () {
+  render() {
     const options = {
       sizePerPage: 5,
       hideSizePerPage: true,
       hidePageListOnlyOnePage: true,
     };
     const {data, counts} = this.props;
-    const dataColumns = data.map (d => dataTable (d));
+    const dataColumns = data.map((d) => dataTable(d));
     var i = 1;
 
-    const dataForColumns = dataColumns.map (d => ({
+    const dataForColumns = dataColumns.map((d) => ({
       number: i++,
       portal: d[1],
       platform: d[2],
-      sessiondate: d[3].substring (0, 10),
-      events: getEvents (d[4]),
+      sessiondate: d[3].substring(0, 10),
+      events: getEvents(d[4]),
     }));
-
-    console.log ('table data', dataForColumns);
-
     return (
       <div className="container-flex table table-striped table-bordered">
         <BootstrapTable

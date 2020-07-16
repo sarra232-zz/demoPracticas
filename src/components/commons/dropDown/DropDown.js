@@ -19,14 +19,13 @@ export default function DropDown({
   };
   return (
     <div className="drop-down">
-      <label >{label}</label>
+      <label>{label}</label>
 
       <Select
         {...props}
         isMulti={isMulti}
         id={id}
         classNamePrefix="select"
-        // defaultValue={{label: 'all', value: 'all'}}
         options={options}
         onChange={onChange}
         onBlur={handleBlur}

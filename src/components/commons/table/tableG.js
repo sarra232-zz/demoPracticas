@@ -6,7 +6,7 @@ import {dataTableFinal} from '../../../utils/utilFormGroup';
 import './table.scss';
 
 class TableG extends Component {
-  render () {
+  render() {
     const options = {
       sizePerPage: 10,
       hideSizePerPage: true,
@@ -14,7 +14,6 @@ class TableG extends Component {
     };
     const {data, counts} = this.props;
     const dataColumns = data;
-    console.log ('table data', data);
 
     return (
       <div className="container-flex table table-striped table-bordered">
